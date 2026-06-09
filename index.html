@@ -28,18 +28,13 @@
 
     *{margin:0;padding:0;box-sizing:border-box;}
     html{scroll-behavior:smooth;}
-    body{
-      font-family:'Barlow',sans-serif;
-      background:var(--white);
-      color:var(--dark);
-      overflow-x:hidden;
-    }
+    body{font-family:'Barlow',sans-serif;background:var(--white);color:var(--dark);overflow-x:hidden;}
 
     /* ══════════ NAVBAR ══════════ */
     nav{
       position:fixed;top:0;left:0;right:0;z-index:1000;
       background:var(--black);
-      padding:0 5%;
+      padding:0 4%;
       display:flex;align-items:center;justify-content:space-between;
       height:70px;
       border-bottom:3px solid var(--blue);
@@ -48,81 +43,85 @@
     .nav-logo-icon{
       width:42px;height:42px;
       background:linear-gradient(135deg,var(--blue),var(--blue-light));
-      border-radius:12px;
-      display:flex;align-items:center;justify-content:center;
-      font-size:22px;
-      box-shadow:0 4px 15px rgba(26,86,232,0.5);
-      transition: transform 0.3s, box-shadow 0.3s;
+      border-radius:12px;display:flex;align-items:center;justify-content:center;
+      font-size:22px;box-shadow:0 4px 15px rgba(26,86,232,0.5);
+      transition:transform 0.3s,box-shadow 0.3s;flex-shrink:0;
     }
-    .nav-logo:hover .nav-logo-icon{
-      transform:rotate(-10deg) scale(1.1);
-      box-shadow:0 8px 25px rgba(26,86,232,0.7);
-    }
-    .nav-logo-text{
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:1.3rem;font-weight:800;
-      color:var(--white);letter-spacing:1px;line-height:1.1;
-    }
+    .nav-logo:hover .nav-logo-icon{transform:rotate(-10deg) scale(1.1);box-shadow:0 8px 25px rgba(26,86,232,0.7);}
+    .nav-logo-text{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:800;color:var(--white);letter-spacing:1px;line-height:1.1;}
     .nav-logo-text span{color:var(--blue-xlight);display:block;font-size:0.72rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;}
-    .nav-links{display:flex;gap:2px;list-style:none;}
+    .nav-links{display:flex;gap:2px;list-style:none;align-items:center;}
 
-    /* ── NAV LINK HOVER MAGIC ── */
     .nav-links a{
       color:rgba(255,255,255,0.7);text-decoration:none;
-      font-size:0.88rem;font-weight:600;
-      padding:8px 16px;border-radius:8px;
-      transition:color 0.25s;
-      position:relative;
-      overflow:hidden;
-      letter-spacing:0.3px;
-      background:transparent;
-      display:inline-block;
+      font-size:0.85rem;font-weight:600;
+      padding:8px 13px;border-radius:8px;
+      transition:color 0.25s;position:relative;overflow:hidden;
+      letter-spacing:0.3px;background:transparent;display:inline-block;
     }
     .nav-links a::before{
-      content:'';
-      position:absolute;inset:0;
-      background:linear-gradient(90deg, var(--blue-dark), var(--blue), var(--blue-xlight), var(--blue));
-      background-size:300% 100%;
-      border-radius:8px;
-      opacity:0;
-      transition:opacity 0.3s;
-      z-index:-1;
-      animation:none;
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(90deg,var(--blue-dark),var(--blue),var(--blue-xlight),var(--blue));
+      background-size:300% 100%;border-radius:8px;opacity:0;transition:opacity 0.3s;z-index:-1;
     }
-    .nav-links a:hover::before,
-    .nav-links a.active::before{
-      opacity:1;
-      animation:navGrad 2s linear infinite;
-    }
-    .nav-links a:hover,
-    .nav-links a.active{
-      color:white;
-    }
-    @keyframes navGrad{
-      0%{background-position:0% 50%;}
-      50%{background-position:100% 50%;}
-      100%{background-position:0% 50%;}
-    }
-
-    /* magnetic hover effect */
-    .nav-links a .link-txt{
-      display:inline-block;
-      transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
-    }
+    .nav-links a:hover::before,.nav-links a.active::before{opacity:1;animation:navGrad 2s linear infinite;}
+    .nav-links a:hover,.nav-links a.active{color:white;}
+    @keyframes navGrad{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+    .nav-links a .link-txt{display:inline-block;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);}
     .nav-links a:hover .link-txt{transform:scale(1.05);}
 
-    /* WA button special */
+    /* ── DROPDOWN ── */
+    .nav-dropdown{position:relative;}
+    .nav-dropdown > a .dd-arrow{
+      display:inline-block;margin-left:4px;font-size:0.65rem;
+      transition:transform 0.3s;vertical-align:middle;
+    }
+    .nav-dropdown:hover > a .dd-arrow{transform:rotate(180deg);}
+    .dropdown-menu{
+      position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);
+      background:rgba(10,15,30,0.98);backdrop-filter:blur(16px);
+      border:1px solid rgba(26,86,232,0.3);border-radius:16px;
+      padding:10px;min-width:240px;
+      opacity:0;visibility:hidden;pointer-events:none;
+      transition:all 0.25s cubic-bezier(0.25,0.46,0.45,0.94);
+      transform:translateX(-50%) translateY(8px);
+      box-shadow:0 20px 60px rgba(0,0,0,0.5);
+      z-index:200;
+    }
+    .nav-dropdown:hover .dropdown-menu{
+      opacity:1;visibility:visible;pointer-events:all;
+      transform:translateX(-50%) translateY(0);
+    }
+    .dropdown-menu::before{
+      content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);
+      width:12px;height:12px;background:rgba(10,15,30,0.98);
+      border-top:1px solid rgba(26,86,232,0.3);border-left:1px solid rgba(26,86,232,0.3);
+      transform:translateX(-50%) rotate(45deg);
+    }
+    .dropdown-item{
+      display:flex;align-items:center;gap:12px;
+      padding:10px 14px;border-radius:10px;
+      color:rgba(255,255,255,0.7);text-decoration:none;
+      font-size:0.83rem;font-weight:600;
+      transition:all 0.2s;cursor:pointer;
+      background:transparent;border:none;width:100%;text-align:left;
+    }
+    .dropdown-item:hover{background:rgba(26,86,232,0.2);color:white;}
+    .dropdown-item .di-icon{
+      width:32px;height:32px;flex-shrink:0;
+      background:linear-gradient(135deg,var(--blue),var(--blue-light));
+      border-radius:8px;display:flex;align-items:center;justify-content:center;
+      font-size:14px;
+    }
+    .dropdown-item .di-text{line-height:1.3;}
+    .dropdown-item .di-text small{display:block;font-size:0.72rem;color:rgba(255,255,255,0.35);font-weight:400;margin-top:1px;}
+    .dropdown-divider{height:1px;background:rgba(255,255,255,0.06);margin:6px 0;}
+
     .nav-wa{
-      background:var(--wa)!important;
-      color:white!important;
-      padding:9px 20px!important;
-      border-radius:8px!important;
-      font-weight:700!important;
-      position:relative;overflow:hidden;
+      background:var(--wa)!important;color:white!important;
+      padding:9px 18px!important;border-radius:8px!important;font-weight:700!important;
     }
-    .nav-wa::before{
-      background:linear-gradient(90deg,#1ebe5d,#25D366,#0fab52,#25D366) !important;
-    }
+    .nav-wa::before{background:linear-gradient(90deg,#1ebe5d,#25D366,#0fab52,#25D366)!important;}
     .nav-wa:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,211,102,0.5)!important;}
 
     .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;}
@@ -132,425 +131,110 @@
     .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
     /* ══════════ PAGE SYSTEM ══════════ */
-    .page-wrapper{
-      position:relative;
-      width:100%;
-      overflow:hidden;
-    }
-    .page{
-      display:none;
-      animation:pageIn 0.55s cubic-bezier(0.25,0.46,0.45,0.94) both;
-    }
+    .page{display:none;animation:pageIn 0.55s cubic-bezier(0.25,0.46,0.45,0.94) both;}
     .page.active{display:block;}
-    @keyframes pageIn{
-      from{opacity:0;transform:translateX(40px);}
-      to{opacity:1;transform:translateX(0);}
-    }
-    @keyframes pageOut{
-      from{opacity:1;transform:translateX(0);}
-      to{opacity:0;transform:translateX(-40px);}
-    }
-    .page.exit{
-      animation:pageOut 0.3s cubic-bezier(0.25,0.46,0.45,0.94) both;
-    }
+    @keyframes pageIn{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
+    @keyframes pageOut{from{opacity:1;transform:translateX(0);}to{opacity:0;transform:translateX(-40px);}}
+    .page.exit{animation:pageOut 0.3s cubic-bezier(0.25,0.46,0.45,0.94) both;}
 
     /* ══════════ HERO ══════════ */
-    #page-beranda{
-      min-height:100vh;
-      background:linear-gradient(135deg,var(--black) 0%,#0d1a3e 50%,#0a1628 100%);
-      position:relative;overflow:hidden;
-    }
-    .hero-diagonal{
-      position:absolute;top:0;right:0;
-      width:55%;height:100%;
-      background:linear-gradient(135deg,var(--blue-dark),var(--blue));
-      clip-path:polygon(20% 0%,100% 0%,100% 100%,0% 100%);
-      opacity:0.15;
-    }
-    .hero-diagonal2{
-      position:absolute;top:0;right:0;
-      width:45%;height:100%;
-      background:linear-gradient(135deg,var(--blue),var(--blue-light));
-      clip-path:polygon(30% 0%,100% 0%,100% 100%,10% 100%);
-      opacity:0.08;
-    }
-    .hero-dots{
-      position:absolute;inset:0;
-      background-image:radial-gradient(rgba(26,86,232,0.25) 1.5px,transparent 1.5px);
-      background-size:32px 32px;
-    }
-    .hero-glow{
-      position:absolute;top:-200px;right:-100px;
-      width:700px;height:700px;
-      background:radial-gradient(circle,rgba(26,86,232,0.25) 0%,transparent 65%);
-      border-radius:50%;pointer-events:none;
-    }
-    .hero-content{
-      position:relative;
-      padding:120px 5% 80px;
-      max-width:1200px;margin:0 auto;width:100%;
-      display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
-    }
+    .hero-diagonal{position:absolute;top:0;right:0;width:55%;height:100%;background:linear-gradient(135deg,var(--blue-dark),var(--blue));clip-path:polygon(20% 0%,100% 0%,100% 100%,0% 100%);opacity:0.15;}
+    .hero-diagonal2{position:absolute;top:0;right:0;width:45%;height:100%;background:linear-gradient(135deg,var(--blue),var(--blue-light));clip-path:polygon(30% 0%,100% 0%,100% 100%,10% 100%);opacity:0.08;}
+    .hero-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(26,86,232,0.25) 1.5px,transparent 1.5px);background-size:32px 32px;}
+    .hero-glow{position:absolute;top:-200px;right:-100px;width:700px;height:700px;background:radial-gradient(circle,rgba(26,86,232,0.25) 0%,transparent 65%);border-radius:50%;pointer-events:none;}
+    .hero-content{position:relative;padding:120px 5% 80px;max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
 
-    /* ══════════ IMAGE SLIDER ══════════ */
-    .hero-slider{
-      position:relative;
-      border-radius:24px;
-      overflow:hidden;
-      box-shadow:0 30px 80px rgba(0,0,0,0.5);
-      aspect-ratio:4/3;
-      background:var(--black2);
-    }
-    .slider-track{
-      display:flex;
-      width:300%;
-      height:100%;
-      transition:transform 0.8s cubic-bezier(0.77,0,0.175,1);
-    }
-    .slide{
-      width:33.333%;
-      height:100%;
-      position:relative;
-      flex-shrink:0;
-      display:flex;align-items:center;justify-content:center;
-      flex-direction:column;
-      gap:16px;
-      overflow:hidden;
-    }
-    /* Slide 1 – Service HP */
-    .slide:nth-child(1){
-      background:linear-gradient(135deg,#0a0f1e 0%,#1a1f3a 40%,#0d2060 100%);
-    }
-    .slide:nth-child(1) .slide-bg{
-      position:absolute;inset:0;
-      background:
-        radial-gradient(circle at 30% 50%, rgba(26,86,232,0.35) 0%,transparent 60%),
-        radial-gradient(circle at 75% 20%, rgba(96,165,250,0.2) 0%,transparent 50%);
-    }
-    /* Slide 2 – Laptop */
-    .slide:nth-child(2){
-      background:linear-gradient(135deg,#051020 0%,#0a2040 40%,#0f3060 100%);
-    }
-    .slide:nth-child(2) .slide-bg{
-      position:absolute;inset:0;
-      background:
-        radial-gradient(circle at 70% 50%, rgba(16,185,129,0.25) 0%,transparent 60%),
-        radial-gradient(circle at 20% 30%, rgba(26,86,232,0.3) 0%,transparent 50%);
-    }
-    /* Slide 3 – Promo */
-    .slide:nth-child(3){
-      background:linear-gradient(135deg,#1a0010 0%,#2d0020 40%,#1a0040 100%);
-    }
-    .slide:nth-child(3) .slide-bg{
-      position:absolute;inset:0;
-      background:
-        radial-gradient(circle at 50% 40%, rgba(239,68,68,0.3) 0%,transparent 60%),
-        radial-gradient(circle at 20% 70%, rgba(26,86,232,0.25) 0%,transparent 50%);
-    }
-
-    /* Slide animated particles */
-    .slide-particles{
-      position:absolute;inset:0;overflow:hidden;pointer-events:none;
-    }
-    .particle{
-      position:absolute;
-      width:4px;height:4px;
-      background:rgba(255,255,255,0.3);
-      border-radius:50%;
-      animation:floatUp linear infinite;
-    }
-    @keyframes floatUp{
-      0%{transform:translateY(100%) scale(0);opacity:0;}
-      10%{opacity:1;}
-      90%{opacity:0.5;}
-      100%{transform:translateY(-200px) scale(1);opacity:0;}
-    }
-
+    /* ══════════ SLIDER ══════════ */
+    .hero-slider{position:relative;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.5);aspect-ratio:4/3;background:var(--black2);}
+    .slider-track{display:flex;width:300%;height:100%;transition:transform 0.8s cubic-bezier(0.77,0,0.175,1);}
+    .slide{width:33.333%;height:100%;position:relative;flex-shrink:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;overflow:hidden;}
+    .slide:nth-child(1){background:linear-gradient(135deg,#0a0f1e 0%,#1a1f3a 40%,#0d2060 100%);}
+    .slide:nth-child(1) .slide-bg{position:absolute;inset:0;background:radial-gradient(circle at 30% 50%,rgba(26,86,232,0.35) 0%,transparent 60%),radial-gradient(circle at 75% 20%,rgba(96,165,250,0.2) 0%,transparent 50%);}
+    .slide:nth-child(2){background:linear-gradient(135deg,#051020 0%,#0a2040 40%,#0f3060 100%);}
+    .slide:nth-child(2) .slide-bg{position:absolute;inset:0;background:radial-gradient(circle at 70% 50%,rgba(16,185,129,0.25) 0%,transparent 60%),radial-gradient(circle at 20% 30%,rgba(26,86,232,0.3) 0%,transparent 50%);}
+    .slide:nth-child(3){background:linear-gradient(135deg,#1a0010 0%,#2d0020 40%,#1a0040 100%);}
+    .slide:nth-child(3) .slide-bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(239,68,68,0.3) 0%,transparent 60%),radial-gradient(circle at 20% 70%,rgba(26,86,232,0.25) 0%,transparent 50%);}
+    .slide-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+    .particle{position:absolute;width:4px;height:4px;background:rgba(255,255,255,0.3);border-radius:50%;animation:floatUp linear infinite;}
+    @keyframes floatUp{0%{transform:translateY(100%) scale(0);opacity:0;}10%{opacity:1;}90%{opacity:0.5;}100%{transform:translateY(-200px) scale(1);opacity:0;}}
     .slide-content{position:relative;z-index:2;text-align:center;padding:0 30px;}
-    .slide-icon{font-size:72px;display:block;margin-bottom:16px;
-      animation:iconFloat 3s ease-in-out infinite;}
-    @keyframes iconFloat{
-      0%,100%{transform:translateY(0);}
-      50%{transform:translateY(-10px);}
-    }
-    .slide-title{
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:1.8rem;font-weight:900;
-      color:white;text-transform:uppercase;
-      line-height:1.1;margin-bottom:8px;
-      text-shadow:0 2px 20px rgba(0,0,0,0.5);
-    }
-    .slide-sub{
-      font-size:0.88rem;color:rgba(255,255,255,0.6);
-      font-weight:500;
-    }
-    .slide-badge{
-      display:inline-block;
-      background:linear-gradient(135deg,var(--blue),var(--blue-light));
-      color:white;
-      font-size:0.75rem;font-weight:800;
-      padding:5px 14px;border-radius:50px;
-      letter-spacing:1px;text-transform:uppercase;
-      margin-top:12px;
-    }
-    .slide:nth-child(3) .slide-badge{
-      background:linear-gradient(135deg,var(--diskon),#ff6b6b);
-    }
+    .slide-icon{font-size:72px;display:block;margin-bottom:16px;animation:iconFloat 3s ease-in-out infinite;}
+    @keyframes iconFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+    .slide-title{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:white;text-transform:uppercase;line-height:1.1;margin-bottom:8px;text-shadow:0 2px 20px rgba(0,0,0,0.5);}
+    .slide-sub{font-size:0.88rem;color:rgba(255,255,255,0.6);font-weight:500;}
+    .slide-badge{display:inline-block;background:linear-gradient(135deg,var(--blue),var(--blue-light));color:white;font-size:0.75rem;font-weight:800;padding:5px 14px;border-radius:50px;letter-spacing:1px;text-transform:uppercase;margin-top:12px;}
+    .slide:nth-child(3) .slide-badge{background:linear-gradient(135deg,var(--diskon),#ff6b6b);}
+    .slider-dots{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:5;}
+    .slider-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);border:none;cursor:pointer;padding:0;transition:all 0.3s;}
+    .slider-dot.active{background:white;width:24px;border-radius:4px;}
+    .slider-prev,.slider-next{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);border-radius:50%;color:white;font-size:16px;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center;transition:all 0.25s;}
+    .slider-prev{left:12px;}.slider-next{right:12px;}
+    .slider-prev:hover,.slider-next:hover{background:var(--blue);border-color:var(--blue);transform:translateY(-50%) scale(1.1);}
+    .slider-progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,0.1);z-index:5;}
+    .slider-progress-bar{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue-xlight));width:0%;transition:width 0.1s linear;}
 
-    /* Slider controls */
-    .slider-dots{
-      position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
-      display:flex;gap:8px;z-index:5;
-    }
-    .slider-dot{
-      width:8px;height:8px;
-      border-radius:50%;
-      background:rgba(255,255,255,0.3);
-      border:none;cursor:pointer;padding:0;
-      transition:all 0.3s;
-    }
-    .slider-dot.active{
-      background:white;
-      width:24px;border-radius:4px;
-    }
-    .slider-prev,.slider-next{
-      position:absolute;top:50%;transform:translateY(-50%);
-      width:40px;height:40px;
-      background:rgba(255,255,255,0.1);
-      backdrop-filter:blur(8px);
-      border:1px solid rgba(255,255,255,0.2);
-      border-radius:50%;
-      color:white;font-size:16px;
-      cursor:pointer;z-index:5;
-      display:flex;align-items:center;justify-content:center;
-      transition:all 0.25s;
-    }
-    .slider-prev{left:12px;}
-    .slider-next{right:12px;}
-    .slider-prev:hover,.slider-next:hover{
-      background:var(--blue);border-color:var(--blue);
-      transform:translateY(-50%) scale(1.1);
-    }
-    /* Progress bar */
-    .slider-progress{
-      position:absolute;bottom:0;left:0;right:0;
-      height:3px;background:rgba(255,255,255,0.1);z-index:5;
-    }
-    .slider-progress-bar{
-      height:100%;
-      background:linear-gradient(90deg,var(--blue),var(--blue-xlight));
-      width:0%;
-      transition:width 0.1s linear;
-    }
-
-    /* Hero left column */
-    .hero-left{}
-    .hero-badge{
-      display:inline-flex;align-items:center;gap:8px;
-      background:rgba(26,86,232,0.2);
-      border:1px solid rgba(26,86,232,0.5);
-      color:#93c5fd;font-size:0.8rem;font-weight:700;
-      padding:6px 18px;border-radius:50px;
-      margin-bottom:24px;letter-spacing:1px;text-transform:uppercase;
-      animation:fadeDown 0.8s ease both;
-    }
+    /* Hero elements */
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(26,86,232,0.2);border:1px solid rgba(26,86,232,0.5);color:#93c5fd;font-size:0.8rem;font-weight:700;padding:6px 18px;border-radius:50px;margin-bottom:24px;letter-spacing:1px;text-transform:uppercase;animation:fadeDown 0.8s ease both;}
     .hero-badge-dot{width:7px;height:7px;background:var(--blue-light);border-radius:50%;animation:pulseDot 1.5s infinite;}
     @keyframes pulseDot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(1.4);}}
-    .hero-title{
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:clamp(2.8rem,5vw,4.5rem);
-      font-weight:900;line-height:1.0;
-      color:white;margin-bottom:8px;
-      text-transform:uppercase;letter-spacing:1px;
-      animation:fadeUp 0.8s ease 0.1s both;
-    }
+    .hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.8rem,5vw,4.5rem);font-weight:900;line-height:1.0;color:white;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;animation:fadeUp 0.8s ease 0.1s both;}
     .hero-title-blue{color:var(--blue-xlight);display:block;}
-    .hero-sub{
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:clamp(1rem,2.5vw,1.4rem);
-      font-weight:600;color:rgba(255,255,255,0.5);
-      text-transform:uppercase;letter-spacing:3px;
-      margin-bottom:30px;
-      animation:fadeUp 0.8s ease 0.2s both;
-    }
-    .hero-desc{
-      color:rgba(255,255,255,0.6);font-size:1rem;line-height:1.7;
-      margin-bottom:36px;max-width:480px;
-      animation:fadeUp 0.8s ease 0.3s both;
-    }
-    .hero-badges-row{
-      display:flex;gap:20px;margin-bottom:36px;flex-wrap:wrap;
-      animation:fadeUp 0.8s ease 0.35s both;
-    }
-    .badge-item{
-      display:flex;flex-direction:column;align-items:center;gap:6px;
-      background:rgba(255,255,255,0.05);
-      border:1px solid rgba(255,255,255,0.1);
-      border-radius:14px;padding:14px 22px;
-      min-width:80px;
-      transition:all 0.3s;
-    }
-    .badge-item:hover{
-      background:rgba(26,86,232,0.2);
-      border-color:rgba(26,86,232,0.5);
-      transform:translateY(-4px);
-    }
+    .hero-sub{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1rem,2.5vw,1.4rem);font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:3px;margin-bottom:30px;animation:fadeUp 0.8s ease 0.2s both;}
+    .hero-desc{color:rgba(255,255,255,0.6);font-size:1rem;line-height:1.7;margin-bottom:36px;max-width:480px;animation:fadeUp 0.8s ease 0.3s both;}
+    .hero-badges-row{display:flex;gap:20px;margin-bottom:36px;flex-wrap:wrap;animation:fadeUp 0.8s ease 0.35s both;}
+    .badge-item{display:flex;flex-direction:column;align-items:center;gap:6px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:14px 22px;min-width:80px;transition:all 0.3s;}
+    .badge-item:hover{background:rgba(26,86,232,0.2);border-color:rgba(26,86,232,0.5);transform:translateY(-4px);}
     .badge-item .bi{font-size:1.5rem;}
     .badge-item span{font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:0.5px;text-transform:uppercase;}
-    .hero-btns{
-      display:flex;gap:14px;flex-wrap:wrap;
-      animation:fadeUp 0.8s ease 0.4s both;
-    }
-    .btn-primary{
-      background:linear-gradient(135deg,var(--blue),var(--blue-light));
-      color:white;padding:14px 32px;border-radius:12px;
-      font-size:0.95rem;font-weight:700;text-decoration:none;
-      transition:all 0.3s;box-shadow:0 8px 25px rgba(26,86,232,0.45);
-      display:inline-flex;align-items:center;gap:8px;
-      position:relative;overflow:hidden;
-    }
-    .btn-primary::after{
-      content:'';position:absolute;inset:0;
-      background:linear-gradient(135deg,var(--blue-light),var(--blue-xlight));
-      opacity:0;transition:opacity 0.3s;
-    }
+    .hero-btns{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp 0.8s ease 0.4s both;}
+    .btn-primary{background:linear-gradient(135deg,var(--blue),var(--blue-light));color:white;padding:14px 32px;border-radius:12px;font-size:0.95rem;font-weight:700;text-decoration:none;transition:all 0.3s;box-shadow:0 8px 25px rgba(26,86,232,0.45);display:inline-flex;align-items:center;gap:8px;position:relative;overflow:hidden;}
+    .btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--blue-light),var(--blue-xlight));opacity:0;transition:opacity 0.3s;}
     .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(26,86,232,0.6);}
     .btn-primary:hover::after{opacity:1;}
     .btn-primary span{position:relative;z-index:1;}
-    .btn-outline{
-      background:transparent;color:rgba(255,255,255,0.85);
-      padding:14px 32px;border-radius:12px;
-      border:1.5px solid rgba(255,255,255,0.25);
-      font-size:0.95rem;font-weight:600;text-decoration:none;
-      transition:all 0.3s;display:inline-flex;align-items:center;gap:8px;
-    }
+    .btn-outline{background:transparent;color:rgba(255,255,255,0.85);padding:14px 32px;border-radius:12px;border:1.5px solid rgba(255,255,255,0.25);font-size:0.95rem;font-weight:600;text-decoration:none;transition:all 0.3s;display:inline-flex;align-items:center;gap:8px;}
     .btn-outline:hover{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.5);transform:translateY(-2px);}
-
-    /* Hero stats */
-    .hero-stats{
-      display:flex;gap:28px;margin-top:40px;
-      animation:fadeUp 0.8s ease 0.5s both;
-    }
+    .hero-stats{display:flex;gap:28px;margin-top:40px;animation:fadeUp 0.8s ease 0.5s both;}
     .stat-item{text-align:center;}
-    .stat-num{
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:2rem;font-weight:900;
-      color:var(--blue-xlight);line-height:1;
-    }
+    .stat-num{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:var(--blue-xlight);line-height:1;}
     .stat-label{font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:4px;font-weight:600;letter-spacing:0.3px;}
     .stat-divider{width:1px;background:rgba(255,255,255,0.1);align-self:stretch;margin:4px 0;}
 
     /* ══════════ SECTIONS COMMON ══════════ */
     .inner-page{padding:100px 5% 80px;}
     .section-header{text-align:center;margin-bottom:56px;}
-    .section-tag{
-      display:inline-block;
-      background:var(--blue-pale);border:1px solid rgba(26,86,232,0.2);
-      color:var(--blue);font-size:0.75rem;font-weight:800;
-      letter-spacing:2px;text-transform:uppercase;
-      padding:5px 16px;border-radius:50px;margin-bottom:14px;
-    }
-    .section-title{
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:clamp(2rem,4vw,3rem);font-weight:900;
-      color:var(--black2);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;
-    }
+    .section-tag{display:inline-block;background:var(--blue-pale);border:1px solid rgba(26,86,232,0.2);color:var(--blue);font-size:0.75rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:50px;margin-bottom:14px;}
+    .section-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:var(--black2);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;}
     .section-desc{font-size:1rem;color:var(--mid);max-width:520px;margin:0 auto;line-height:1.7;}
 
-    /* ══════════ LAYANAN ══════════ */
-    .layanan-grid{
-      display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-      gap:24px;max-width:1200px;margin:0 auto;
-    }
-    .layanan-card{
-      background:var(--white);border-radius:20px;overflow:hidden;
-      border:1.5px solid #e5e7eb;transition:all 0.35s;
-      display:flex;flex-direction:column;
-      position:relative;
-    }
-    .layanan-card::before{
-      content:'';
-      position:absolute;inset:0;
-      background:linear-gradient(135deg,rgba(26,86,232,0.03),rgba(96,165,250,0.03));
-      opacity:0;transition:opacity 0.35s;
-      pointer-events:none;
-      border-radius:20px;
-    }
+    /* ══════════ LAYANAN CARDS ══════════ */
+    .layanan-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;max-width:1200px;margin:0 auto;}
+    .layanan-card{background:var(--white);border-radius:20px;overflow:hidden;border:1.5px solid #e5e7eb;transition:all 0.35s;display:flex;flex-direction:column;position:relative;}
+    .layanan-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,86,232,0.03),rgba(96,165,250,0.03));opacity:0;transition:opacity 0.35s;pointer-events:none;border-radius:20px;}
     .layanan-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(26,86,232,0.13);border-color:rgba(26,86,232,0.35);}
     .layanan-card:hover::before{opacity:1;}
-    .layanan-thumb{
-      height:120px;
-      background:linear-gradient(135deg,var(--black2),var(--blue-dark));
-      display:flex;align-items:center;justify-content:center;
-      font-size:52px;position:relative;overflow:hidden;
-      transition:all 0.35s;
-    }
-    .layanan-thumb .thumb-icon{
-      transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
-      display:block;line-height:1;
-    }
+    .layanan-thumb{height:120px;background:linear-gradient(135deg,var(--black2),var(--blue-dark));display:flex;align-items:center;justify-content:center;font-size:52px;position:relative;overflow:hidden;transition:all 0.35s;}
+    .layanan-thumb .thumb-icon{transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);display:block;line-height:1;}
     .layanan-card:hover .layanan-thumb .thumb-icon{transform:scale(1.2) rotate(-5deg);}
-    .layanan-thumb::after{
-      content:'';position:absolute;inset:0;
-      background:linear-gradient(135deg,rgba(26,86,232,0.3),transparent);
-    }
-    .layanan-tags{display:flex;gap:6px;padding:14px 18px 0;}
-    .tag{
-      background:var(--blue-pale);color:var(--blue);
-      font-size:0.7rem;font-weight:800;padding:3px 10px;
-      border-radius:50px;letter-spacing:0.5px;text-transform:uppercase;
-    }
+    .layanan-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,86,232,0.3),transparent);}
+    .layanan-tags{display:flex;gap:6px;padding:14px 18px 0;flex-wrap:wrap;}
+    .tag{background:var(--blue-pale);color:var(--blue);font-size:0.7rem;font-weight:800;padding:3px 10px;border-radius:50px;letter-spacing:0.5px;text-transform:uppercase;}
     .layanan-body{padding:14px 18px 22px;flex:1;display:flex;flex-direction:column;}
     .layanan-body h3{font-size:1rem;font-weight:800;color:var(--black2);margin-bottom:7px;}
     .layanan-body p{font-size:0.85rem;color:var(--mid);line-height:1.6;flex:1;}
-    .layanan-price{
-      margin-top:16px;padding-top:14px;border-top:1px solid #f3f4f6;
-      display:flex;align-items:center;justify-content:space-between;
-    }
+    .layanan-price{margin-top:16px;padding-top:14px;border-top:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;}
     .price-label{font-size:0.72rem;color:var(--light);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
     .price-value{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:800;color:var(--blue);}
-    .btn-wa{
-      display:inline-flex;align-items:center;gap:6px;
-      background:var(--wa);color:white;
-      padding:9px 18px;border-radius:10px;
-      font-size:0.8rem;font-weight:800;text-decoration:none;
-      transition:all 0.25s;white-space:nowrap;
-      position:relative;overflow:hidden;
-    }
-    .btn-wa::after{
-      content:'';position:absolute;inset:0;
-      background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);
-      opacity:0;transition:opacity 0.25s;
-    }
+    .btn-wa{display:inline-flex;align-items:center;gap:6px;background:var(--wa);color:white;padding:9px 18px;border-radius:10px;font-size:0.8rem;font-weight:800;text-decoration:none;transition:all 0.25s;white-space:nowrap;}
     .btn-wa:hover{background:#1ebe5d;transform:scale(1.04);}
-    .btn-wa:hover::after{opacity:1;}
 
     /* ══════════ SEMUA LAYANAN LIST ══════════ */
-    .laylist-grid{
-      display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-      gap:18px;max-width:1100px;margin:0 auto;
-    }
-    .laylist-item{
-      display:flex;align-items:flex-start;gap:16px;
-      background:var(--bg);border:1.5px solid #e5e7eb;
-      border-radius:16px;padding:22px 20px;
-      transition:all 0.3s;
-      position:relative;overflow:hidden;
-    }
-    .laylist-item::before{
-      content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
-      background:linear-gradient(90deg,var(--blue),var(--blue-xlight));
-      transform:scaleX(0);transition:transform 0.3s;transform-origin:left;
-    }
+    .laylist-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;max-width:1100px;margin:0 auto;}
+    .laylist-item{display:flex;align-items:flex-start;gap:16px;background:var(--bg);border:1.5px solid #e5e7eb;border-radius:16px;padding:22px 20px;transition:all 0.3s;position:relative;overflow:hidden;}
+    .laylist-item::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--blue-xlight));transform:scaleX(0);transition:transform 0.3s;transform-origin:left;}
     .laylist-item:hover{border-color:var(--blue);box-shadow:0 8px 25px rgba(26,86,232,0.1);transform:translateY(-3px);}
     .laylist-item:hover::before{transform:scaleX(1);}
-    .laylist-icon{
-      width:50px;height:50px;flex-shrink:0;
-      background:linear-gradient(135deg,var(--blue),var(--blue-light));
-      border-radius:14px;display:flex;align-items:center;justify-content:center;
-      font-size:22px;box-shadow:0 4px 14px rgba(26,86,232,0.3);
-      transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
-    }
+    .laylist-icon{width:50px;height:50px;flex-shrink:0;background:linear-gradient(135deg,var(--blue),var(--blue-light));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 14px rgba(26,86,232,0.3);transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);}
     .laylist-item:hover .laylist-icon{transform:scale(1.15) rotate(-8deg);}
     .laylist-text strong{display:block;font-size:0.92rem;font-weight:800;color:var(--black2);margin-bottom:4px;}
     .laylist-text span{font-size:0.82rem;color:var(--mid);line-height:1.5;}
@@ -558,212 +242,89 @@
     .laylist-item.garansi .laylist-text strong{color:var(--blue-dark);}
 
     /* ══════════ PROMO ══════════ */
-    .promo-banner{
-      background:linear-gradient(135deg,var(--black),var(--blue-dark),var(--blue));
-      padding:70px 5%;position:relative;overflow:hidden;
-    }
-    .promo-banner::before{
-      content:'';position:absolute;right:-100px;top:-100px;
-      width:400px;height:400px;
-      background:radial-gradient(circle,rgba(255,255,255,0.07) 0%,transparent 60%);
-      border-radius:50%;
-    }
-    .promo-inner{
-      max-width:900px;margin:0 auto;
-      display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;
-    }
-    .promo-eyebrow{
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:1rem;font-weight:700;letter-spacing:3px;
-      text-transform:uppercase;color:rgba(255,255,255,0.5);
-      margin-bottom:6px;
-    }
-    .promo-title{
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:clamp(2rem,4vw,3.2rem);font-weight:900;
-      color:white;text-transform:uppercase;line-height:1;margin-bottom:8px;
-    }
-    .promo-highlight{
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:clamp(3rem,6vw,5rem);font-weight:900;
-      background:linear-gradient(90deg,#fbbf24,#f59e0b);
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-      background-clip:text;line-height:1;display:block;margin-bottom:10px;
-    }
+    .promo-banner{background:linear-gradient(135deg,var(--black),var(--blue-dark),var(--blue));padding:70px 5%;position:relative;overflow:hidden;}
+    .promo-banner::before{content:'';position:absolute;right:-100px;top:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(255,255,255,0.07) 0%,transparent 60%);border-radius:50%;}
+    .promo-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;}
+    .promo-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:6px;}
+    .promo-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:white;text-transform:uppercase;line-height:1;margin-bottom:8px;}
+    .promo-highlight{font-family:'Barlow Condensed',sans-serif;font-size:clamp(3rem,6vw,5rem);font-weight:900;background:linear-gradient(90deg,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;display:block;margin-bottom:10px;}
     .promo-note{color:rgba(255,255,255,0.6);font-size:0.95rem;font-style:italic;}
-    .promo-badge-big{
-      width:130px;height:130px;
-      background:linear-gradient(135deg,var(--diskon),#ff6b6b);
-      border-radius:50%;display:flex;flex-direction:column;
-      align-items:center;justify-content:center;
-      box-shadow:0 10px 40px rgba(239,68,68,0.5);
-      border:4px solid rgba(255,255,255,0.2);
-      animation:badgePulse 2s ease-in-out infinite;
-    }
-    @keyframes badgePulse{
-      0%,100%{transform:scale(1);}
-      50%{transform:scale(1.05);}
-    }
+    .promo-badge-big{width:130px;height:130px;background:linear-gradient(135deg,var(--diskon),#ff6b6b);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(239,68,68,0.5);border:4px solid rgba(255,255,255,0.2);animation:badgePulse 2s ease-in-out infinite;}
+    @keyframes badgePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
     .promo-badge-big .big-pct{font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:900;color:white;line-height:1;}
     .promo-badge-big .big-off{font-size:0.75rem;font-weight:800;color:rgba(255,255,255,0.85);letter-spacing:2px;text-transform:uppercase;}
-    .promo-cta{
-      display:inline-flex;align-items:center;gap:8px;
-      background:white;color:var(--blue-dark);
-      padding:14px 32px;border-radius:12px;
-      font-size:0.95rem;font-weight:800;text-decoration:none;
-      transition:all 0.3s;margin-top:28px;
-      box-shadow:0 8px 25px rgba(0,0,0,0.3);
-    }
+    .promo-cta{display:inline-flex;align-items:center;gap:8px;background:white;color:var(--blue-dark);padding:14px 32px;border-radius:12px;font-size:0.95rem;font-weight:800;text-decoration:none;transition:all 0.3s;margin-top:28px;box-shadow:0 8px 25px rgba(0,0,0,0.3);}
     .promo-cta:hover{transform:translateY(-3px);box-shadow:0 14px 35px rgba(0,0,0,0.4);}
 
     /* ══════════ GALERI ══════════ */
-    .gallery-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      grid-template-rows:auto;
-      gap:14px;max-width:1100px;margin:0 auto;
-    }
-    .gallery-item{
-      border-radius:16px;overflow:hidden;
-      position:relative;aspect-ratio:1;
-      background:linear-gradient(135deg,var(--black2),var(--dark));
-      cursor:pointer;
-      transition:transform 0.3s, box-shadow 0.3s;
-    }
+    .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:1100px;margin:0 auto;}
+    .gallery-item{border-radius:16px;overflow:hidden;position:relative;aspect-ratio:1;background:linear-gradient(135deg,var(--black2),var(--dark));cursor:pointer;transition:transform 0.3s,box-shadow 0.3s;}
     .gallery-item:nth-child(1){grid-column:span 2;grid-row:span 2;aspect-ratio:unset;}
     .gallery-item:hover{transform:scale(1.03);box-shadow:0 16px 40px rgba(0,0,0,0.3);}
-    .gal-placeholder{
-      width:100%;height:100%;min-height:120px;
-      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
-    }
+    .gal-placeholder{width:100%;height:100%;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
     .gal-placeholder .ge{font-size:36px;transition:transform 0.3s;}
     .gallery-item:hover .gal-placeholder .ge{transform:scale(1.2);}
     .gal-placeholder .gl{font-size:0.75rem;color:rgba(255,255,255,0.4);font-weight:600;letter-spacing:0.5px;text-transform:uppercase;}
-    .gal-overlay{
-      position:absolute;inset:0;
-      background:linear-gradient(135deg,rgba(26,86,232,0.75),rgba(0,0,0,0.5));
-      opacity:0;display:flex;align-items:center;justify-content:center;
-      font-size:28px;color:white;transition:opacity 0.3s;
-    }
+    .gal-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,86,232,0.75),rgba(0,0,0,0.5));opacity:0;display:flex;align-items:center;justify-content:center;font-size:28px;color:white;transition:opacity 0.3s;}
     .gallery-item:hover .gal-overlay{opacity:1;}
 
     /* ══════════ LOKASI ══════════ */
-    .lokasi-wrap{
-      max-width:1000px;margin:0 auto;
-      display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;
-    }
-    .lokasi-info h3{
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:1.6rem;font-weight:900;text-transform:uppercase;
-      color:var(--black2);margin-bottom:24px;letter-spacing:0.5px;
-    }
+    .lokasi-wrap{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+    .lokasi-info h3{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;text-transform:uppercase;color:var(--black2);margin-bottom:24px;letter-spacing:0.5px;}
     .lokasi-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px;}
-    .lokasi-icon{
-      width:44px;height:44px;flex-shrink:0;
-      background:linear-gradient(135deg,var(--blue),var(--blue-light));
-      border-radius:12px;display:flex;align-items:center;justify-content:center;
-      font-size:20px;box-shadow:0 4px 14px rgba(26,86,232,0.3);
-      transition:transform 0.3s;
-    }
+    .lokasi-icon{width:44px;height:44px;flex-shrink:0;background:linear-gradient(135deg,var(--blue),var(--blue-light));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 14px rgba(26,86,232,0.3);transition:transform 0.3s;}
     .lokasi-item:hover .lokasi-icon{transform:scale(1.1) rotate(-5deg);}
     .lokasi-text strong{display:block;font-size:0.88rem;color:var(--dark);font-weight:800;margin-bottom:3px;}
     .lokasi-text span{font-size:0.88rem;color:var(--mid);}
-    .map-container{
-      border-radius:20px;overflow:hidden;border:1.5px solid #e5e7eb;
-      box-shadow:0 10px 30px rgba(0,0,0,0.07);height:300px;
-      background:linear-gradient(135deg,#e5e7eb,#f3f4f6);
-      display:flex;align-items:center;justify-content:center;
-      flex-direction:column;gap:12px;color:var(--mid);
-    }
+    .map-container{border-radius:20px;overflow:hidden;border:1.5px solid #e5e7eb;box-shadow:0 10px 30px rgba(0,0,0,0.07);height:300px;background:linear-gradient(135deg,#e5e7eb,#f3f4f6);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:var(--mid);}
     .map-container .map-emoji{font-size:52px;animation:mapBounce 2s ease-in-out infinite;}
-    @keyframes mapBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);};}
+    @keyframes mapBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
     .map-container p{font-size:0.9rem;font-weight:600;color:var(--dark);}
     .map-container a{color:var(--blue);font-size:0.85rem;font-weight:700;text-decoration:none;}
     .map-container a:hover{text-decoration:underline;}
 
     /* ══════════ SOSMED CTA ══════════ */
-    .sosmed-cta{
-      padding:80px 5%;
-      background:linear-gradient(135deg,var(--black),#0d1a3e);
-      text-align:center;border-top:3px solid var(--blue);
-    }
-    .sosmed-cta h2{
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;
-      color:white;text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px;
-    }
+    .sosmed-cta{padding:80px 5%;background:linear-gradient(135deg,var(--black),#0d1a3e);text-align:center;border-top:3px solid var(--blue);}
+    .sosmed-cta h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;color:white;text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px;}
     .sosmed-cta p{color:rgba(255,255,255,0.45);margin-bottom:36px;font-size:0.95rem;}
     .sosmed-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-    .sosmed-btn{
-      display:inline-flex;align-items:center;gap:9px;
-      padding:13px 26px;border-radius:12px;
-      font-size:0.9rem;font-weight:800;text-decoration:none;
-      transition:all 0.25s;letter-spacing:0.3px;
-    }
+    .sosmed-btn{display:inline-flex;align-items:center;gap:9px;padding:13px 26px;border-radius:12px;font-size:0.9rem;font-weight:800;text-decoration:none;transition:all 0.25s;letter-spacing:0.3px;}
     .btn-ig{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:white;}
     .btn-whatsapp{background:var(--wa);color:white;}
     .sosmed-btn:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(0,0,0,0.35);}
 
     /* ══════════ FOOTER ══════════ */
-    footer{
-      background:#060b16;padding:60px 5% 28px;
-      border-top:1px solid rgba(255,255,255,0.05);
-    }
-    .footer-grid{
-      display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
-      gap:40px;max-width:1200px;margin:0 auto;
-      padding-bottom:50px;
-      border-bottom:1px solid rgba(255,255,255,0.05);
-    }
+    footer{background:#060b16;padding:60px 5% 28px;border-top:1px solid rgba(255,255,255,0.05);}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1200px;margin:0 auto;padding-bottom:50px;border-bottom:1px solid rgba(255,255,255,0.05);}
     .footer-brand p{color:rgba(255,255,255,0.35);font-size:0.85rem;line-height:1.7;margin:16px 0 24px;}
     .footer-socials{display:flex;gap:10px;}
-    .footer-social-btn{
-      width:38px;height:38px;
-      background:rgba(255,255,255,0.05);border-radius:10px;
-      display:flex;align-items:center;justify-content:center;
-      color:rgba(255,255,255,0.4);text-decoration:none;font-size:16px;
-      transition:all 0.2s;
-    }
+    .footer-social-btn{width:38px;height:38px;background:rgba(255,255,255,0.05);border-radius:10px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.4);text-decoration:none;font-size:16px;transition:all 0.2s;}
     .footer-social-btn:hover{background:var(--blue);color:white;transform:translateY(-3px);}
     .footer-col h4{color:white;font-size:0.88rem;font-weight:800;margin-bottom:16px;text-transform:uppercase;letter-spacing:0.5px;}
     .footer-col ul{list-style:none;}
     .footer-col ul li{margin-bottom:10px;}
-    .footer-col ul a{
-      color:rgba(255,255,255,0.35);text-decoration:none;font-size:0.84rem;
-      transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;
-    }
+    .footer-col ul a{color:rgba(255,255,255,0.35);text-decoration:none;font-size:0.84rem;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;}
     .footer-col ul a::before{content:'→';opacity:0;transform:translateX(-8px);transition:all 0.2s;font-size:0.7rem;}
     .footer-col ul a:hover{color:var(--blue-xlight);padding-left:4px;}
     .footer-col ul a:hover::before{opacity:1;transform:translateX(0);}
-    .footer-bottom{
-      max-width:1200px;margin:22px auto 0;
-      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
-    }
+    .footer-bottom{max-width:1200px;margin:22px auto 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
     .footer-bottom p{color:rgba(255,255,255,0.2);font-size:0.8rem;}
     .footer-bottom span{color:var(--blue-xlight);}
 
     /* ══════════ MOBILE MENU ══════════ */
-    .mobile-menu{
-      display:none;position:fixed;
-      top:70px;left:0;right:0;
-      background:rgba(6,11,22,0.98);backdrop-filter:blur(12px);
-      padding:20px 5%;z-index:999;
-      border-bottom:1px solid rgba(255,255,255,0.05);
-      transform:translateY(-10px);opacity:0;
-      transition:all 0.3s;
-      pointer-events:none;
-    }
-    .mobile-menu.open{
-      display:block;opacity:1;transform:translateY(0);pointer-events:all;
-    }
+    .mobile-menu{display:none;position:fixed;top:70px;left:0;right:0;background:rgba(6,11,22,0.98);backdrop-filter:blur(12px);padding:20px 5%;z-index:999;border-bottom:1px solid rgba(255,255,255,0.05);transform:translateY(-10px);opacity:0;transition:all 0.3s;pointer-events:none;max-height:calc(100vh - 70px);overflow-y:auto;}
+    .mobile-menu.open{display:block;opacity:1;transform:translateY(0);pointer-events:all;}
     .mobile-menu ul{list-style:none;}
     .mobile-menu ul li{border-bottom:1px solid rgba(255,255,255,0.05);}
-    .mobile-menu ul a{
-      display:block;color:rgba(255,255,255,0.7);text-decoration:none;
-      padding:14px 0;font-size:0.95rem;font-weight:600;
-      transition:all 0.2s;
-    }
+    .mobile-menu ul a{display:block;color:rgba(255,255,255,0.7);text-decoration:none;padding:14px 0;font-size:0.95rem;font-weight:600;transition:all 0.2s;}
     .mobile-menu ul a:hover{color:var(--blue-xlight);padding-left:8px;}
+    .mobile-dd-toggle{display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
+    .mobile-dd-toggle .dd-arrow-m{transition:transform 0.3s;font-size:0.7rem;}
+    .mobile-dd-toggle.open-dd .dd-arrow-m{transform:rotate(180deg);}
+    .mobile-sub{display:none;padding:6px 0 6px 16px;}
+    .mobile-sub.open{display:block;}
+    .mobile-sub li{border-bottom:1px solid rgba(255,255,255,0.03);}
+    .mobile-sub a{font-size:0.85rem;color:rgba(255,255,255,0.5);padding:10px 0;}
 
     /* ══════════ ANIMATIONS ══════════ */
     @keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
@@ -771,71 +332,269 @@
     .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease;}
     .reveal.visible{opacity:1;transform:translateY(0);}
 
+    /* ══════════ KEUNGGULAN ══════════ */
+    .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:1100px;margin:0 auto;}
+    .feat-card{background:var(--white);border:1.5px solid #e5e7eb;border-radius:20px;padding:34px 28px;transition:all 0.3s;position:relative;overflow:hidden;cursor:pointer;}
+    .feat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--blue-light));transform:scaleX(0);transition:transform 0.3s;transform-origin:left;}
+    .feat-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(26,86,232,0.12);border-color:rgba(26,86,232,0.25);}
+    .feat-card:hover::after{transform:scaleX(1);}
+    .feat-icon{width:56px;height:56px;background:linear-gradient(135deg,var(--blue),var(--blue-light));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;box-shadow:0 8px 20px rgba(26,86,232,0.3);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);}
+    .feat-card:hover .feat-icon{transform:rotate(-10deg) scale(1.1);}
+    .feat-count{position:absolute;top:20px;right:20px;font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:900;color:rgba(26,86,232,0.06);}
+    .feat-card h3{font-size:1.1rem;font-weight:800;margin-bottom:10px;color:var(--black2);}
+    .feat-card p{font-size:0.88rem;color:var(--mid);line-height:1.6;}
+    .feat-link{display:inline-flex;align-items:center;gap:6px;color:var(--blue);font-size:0.84rem;font-weight:700;margin-top:16px;transition:gap 0.2s;}
+    .feat-card:hover .feat-link{gap:10px;}
+
+    /* ══════════ TENTANG KAMI PAGE ══════════ */
+    .about-hero{
+      background:linear-gradient(135deg,var(--black) 0%,#0d1a3e 60%,var(--black2) 100%);
+      padding:110px 5% 70px;position:relative;overflow:hidden;
+    }
+    .about-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(26,86,232,0.18) 1.5px,transparent 1.5px);background-size:32px 32px;}
+    .about-hero-inner{max-width:900px;margin:0 auto;text-align:center;position:relative;}
+    .about-hero-inner .section-tag{margin-bottom:16px;}
+    .about-hero-inner h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;color:white;text-transform:uppercase;line-height:1.05;margin-bottom:16px;letter-spacing:0.5px;}
+    .about-hero-inner h1 span{color:var(--blue-xlight);}
+    .about-hero-inner p{font-size:1.05rem;color:rgba(255,255,255,0.55);line-height:1.75;max-width:640px;margin:0 auto;}
+
+    .about-story{padding:80px 5%;background:var(--white);}
+    .about-story-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+    .about-story-visual{
+      background:linear-gradient(135deg,var(--black2),#0d1a3e);
+      border-radius:24px;padding:50px 40px;text-align:center;
+      position:relative;overflow:hidden;
+      box-shadow:0 20px 60px rgba(26,86,232,0.2);
+    }
+    .about-story-visual::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(26,86,232,0.15) 1px,transparent 1px);background-size:24px 24px;}
+    .about-story-visual .av-icon{font-size:80px;display:block;position:relative;z-index:1;margin-bottom:20px;animation:iconFloat 3s ease-in-out infinite;}
+    .about-story-visual .av-title{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:white;text-transform:uppercase;letter-spacing:1px;position:relative;z-index:1;}
+    .about-story-visual .av-sub{font-size:0.82rem;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-top:6px;position:relative;z-index:1;}
+    .about-story-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;position:relative;z-index:1;}
+    .av-stat{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px;text-align:center;}
+    .av-stat .num{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:var(--blue-xlight);line-height:1;}
+    .av-stat .lbl{font-size:0.7rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;margin-top:3px;}
+    .about-story-text .section-tag{text-align:left;display:inline-block;}
+    .about-story-text h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:900;text-transform:uppercase;color:var(--black2);line-height:1.1;margin-bottom:16px;margin-top:10px;}
+    .about-story-text h2 span{color:var(--blue);}
+    .about-story-text p{font-size:0.95rem;color:var(--mid);line-height:1.8;margin-bottom:16px;}
+
+    .visi-misi{padding:80px 5%;background:var(--bg);}
+    .visi-misi-inner{max-width:1000px;margin:0 auto;}
+    .vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:48px;}
+    .vm-card{border-radius:20px;padding:36px 32px;position:relative;overflow:hidden;}
+    .vm-card.visi{background:linear-gradient(135deg,var(--black),#0d1a3e);color:white;}
+    .vm-card.misi{background:var(--white);border:1.5px solid #e5e7eb;color:var(--dark);}
+    .vm-card .vm-label{font-size:0.72rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+    .vm-card.visi .vm-label{color:var(--blue-xlight);}
+    .vm-card.misi .vm-label{color:var(--blue);}
+    .vm-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;text-transform:uppercase;line-height:1.1;margin-bottom:16px;}
+    .vm-card.visi h3{color:white;}
+    .vm-card.misi h3{color:var(--black2);}
+    .vm-card p{font-size:0.9rem;line-height:1.75;}
+    .vm-card.visi p{color:rgba(255,255,255,0.6);}
+    .vm-card.misi p{color:var(--mid);}
+    .vm-card.visi::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(26,86,232,0.2) 1px,transparent 1px);background-size:20px 20px;}
+    .misi-list{list-style:none;margin-top:12px;}
+    .misi-list li{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:0.88rem;color:var(--mid);line-height:1.55;}
+    .misi-list li::before{content:'✓';color:var(--blue);font-weight:800;font-size:0.85rem;flex-shrink:0;margin-top:1px;}
+
+    .tim-section{padding:80px 5%;background:var(--white);}
+    .tim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px;max-width:900px;margin:0 auto;}
+    .tim-card{text-align:center;background:var(--bg);border:1.5px solid #e5e7eb;border-radius:20px;padding:32px 24px;transition:all 0.3s;position:relative;overflow:hidden;}
+    .tim-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--blue-light));transform:scaleX(0);transition:transform 0.3s;transform-origin:left;}
+    .tim-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(26,86,232,0.1);border-color:rgba(26,86,232,0.2);}
+    .tim-card:hover::before{transform:scaleX(1);}
+    .tim-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-light));display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 16px;box-shadow:0 8px 25px rgba(26,86,232,0.3);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);}
+    .tim-card:hover .tim-avatar{transform:scale(1.1) rotate(-5deg);}
+    .tim-card h3{font-size:1rem;font-weight:800;color:var(--black2);margin-bottom:4px;}
+    .tim-card .tim-role{font-size:0.78rem;color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+    .tim-card p{font-size:0.82rem;color:var(--mid);line-height:1.55;}
+
+    /* ══════════ PORTOFOLIO PAGE ══════════ */
+    .porto-hero{background:linear-gradient(135deg,var(--black),#0d1a3e,var(--black2));padding:110px 5% 70px;position:relative;overflow:hidden;}
+    .porto-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(26,86,232,0.18) 1.5px,transparent 1.5px);background-size:32px 32px;}
+    .porto-hero-inner{max-width:900px;margin:0 auto;text-align:center;position:relative;}
+    .porto-hero-inner h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;color:white;text-transform:uppercase;line-height:1.05;margin-bottom:16px;}
+    .porto-hero-inner h1 span{color:var(--blue-xlight);}
+    .porto-hero-inner p{font-size:1.05rem;color:rgba(255,255,255,0.55);line-height:1.75;max-width:640px;margin:0 auto;}
+
+    .stats-banner{padding:60px 5%;background:linear-gradient(135deg,var(--blue-dark),var(--blue));position:relative;overflow:hidden;}
+    .stats-banner::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.1) 1px,transparent 1px);background-size:28px 28px;}
+    .stats-row{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+    .stats-row::before{content:'';position:absolute;inset:0;pointer-events:none;}
+    .stats-col{text-align:center;padding:0 20px;border-right:1px solid rgba(255,255,255,0.15);}
+    .stats-col:last-child{border-right:none;}
+    .stats-col .s-num{font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:900;color:white;line-height:1;display:block;}
+    .stats-col .s-lbl{font-size:0.78rem;color:rgba(255,255,255,0.6);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:6px;display:block;}
+
+    .porto-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;max-width:1100px;margin:0 auto;}
+    .porto-card{background:var(--white);border-radius:20px;overflow:hidden;border:1.5px solid #e5e7eb;transition:all 0.35s;position:relative;}
+    .porto-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(26,86,232,0.12);border-color:rgba(26,86,232,0.3);}
+    .porto-thumb{height:160px;background:linear-gradient(135deg,var(--black2),#0d2060);display:flex;align-items:center;justify-content:center;font-size:60px;position:relative;overflow:hidden;}
+    .porto-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,86,232,0.3),transparent);}
+    .porto-thumb .pt-icon{transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);position:relative;z-index:1;}
+    .porto-card:hover .porto-thumb .pt-icon{transform:scale(1.15) rotate(-5deg);}
+    .porto-badge{position:absolute;top:14px;right:14px;background:linear-gradient(135deg,var(--blue),var(--blue-light));color:white;font-size:0.68rem;font-weight:800;padding:4px 10px;border-radius:50px;letter-spacing:0.5px;text-transform:uppercase;z-index:2;}
+    .porto-badge.done{background:linear-gradient(135deg,#10b981,#34d399);}
+    .porto-body{padding:22px 22px 20px;}
+    .porto-body h3{font-size:1rem;font-weight:800;color:var(--black2);margin-bottom:7px;}
+    .porto-body p{font-size:0.85rem;color:var(--mid);line-height:1.6;margin-bottom:16px;}
+    .porto-meta{display:flex;gap:8px;flex-wrap:wrap;}
+    .porto-tag{background:var(--blue-pale);color:var(--blue);font-size:0.68rem;font-weight:800;padding:3px 10px;border-radius:50px;letter-spacing:0.5px;text-transform:uppercase;}
+    .porto-result{margin-top:14px;padding-top:14px;border-top:1px solid #f3f4f6;display:flex;align-items:center;gap:8px;}
+    .porto-result .pr-icon{font-size:1.2rem;}
+    .porto-result span{font-size:0.82rem;color:var(--mid);}
+    .porto-result strong{color:var(--dark);font-weight:700;}
+
+    .testimoni-section{padding:80px 5%;background:var(--bg);}
+    .testi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;max-width:1000px;margin:0 auto;}
+    .testi-card{background:var(--white);border-radius:18px;padding:28px 26px;border:1.5px solid #e5e7eb;transition:all 0.3s;position:relative;}
+    .testi-card::before{content:'"';position:absolute;top:16px;right:20px;font-family:'Barlow Condensed',sans-serif;font-size:5rem;font-weight:900;color:rgba(26,86,232,0.06);line-height:1;}
+    .testi-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(26,86,232,0.09);border-color:rgba(26,86,232,0.2);}
+    .testi-stars{color:#f59e0b;font-size:0.9rem;margin-bottom:12px;letter-spacing:2px;}
+    .testi-text{font-size:0.88rem;color:var(--mid);line-height:1.7;font-style:italic;margin-bottom:18px;}
+    .testi-author{display:flex;align-items:center;gap:12px;}
+    .testi-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-light));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+    .testi-name{font-size:0.88rem;font-weight:800;color:var(--black2);}
+    .testi-loc{font-size:0.75rem;color:var(--light);}
+
+    /* ══════════ BLOG PAGE ══════════ */
+    .blog-hero{background:linear-gradient(135deg,var(--black),#0d1a3e,var(--black2));padding:110px 5% 70px;position:relative;overflow:hidden;}
+    .blog-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(26,86,232,0.18) 1.5px,transparent 1.5px);background-size:32px 32px;}
+    .blog-hero-inner{max-width:900px;margin:0 auto;text-align:center;position:relative;}
+    .blog-hero-inner h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;color:white;text-transform:uppercase;line-height:1.05;margin-bottom:16px;}
+    .blog-hero-inner h1 span{color:var(--blue-xlight);}
+    .blog-hero-inner p{font-size:1.05rem;color:rgba(255,255,255,0.55);line-height:1.75;max-width:640px;margin:0 auto;}
+
+    .blog-filter{padding:32px 5% 0;background:var(--white);}
+    .blog-filter-inner{max-width:1100px;margin:0 auto;display:flex;gap:10px;flex-wrap:wrap;}
+    .filter-btn{background:var(--bg);border:1.5px solid #e5e7eb;color:var(--mid);font-size:0.8rem;font-weight:700;padding:8px 18px;border-radius:50px;cursor:pointer;transition:all 0.25s;letter-spacing:0.3px;text-transform:uppercase;}
+    .filter-btn.active,.filter-btn:hover{background:var(--blue);border-color:var(--blue);color:white;}
+
+    .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;max-width:1100px;margin:0 auto;padding:40px 5% 80px;}
+    .blog-card{background:var(--white);border-radius:20px;overflow:hidden;border:1.5px solid #e5e7eb;transition:all 0.35s;cursor:pointer;}
+    .blog-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(26,86,232,0.12);border-color:rgba(26,86,232,0.3);}
+    .blog-thumb{height:160px;display:flex;align-items:center;justify-content:center;font-size:56px;position:relative;overflow:hidden;}
+    .blog-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,0.2));}
+    .blog-thumb.tech{background:linear-gradient(135deg,#0a0f1e,#1a2060);}
+    .blog-thumb.tips{background:linear-gradient(135deg,#0a2010,#0f4020);}
+    .blog-thumb.promo{background:linear-gradient(135deg,#2d0010,#4d0020);}
+    .blog-thumb.info{background:linear-gradient(135deg,#0a1a2e,#0d2a4e);}
+    .blog-thumb .bt-icon{position:relative;z-index:1;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);}
+    .blog-card:hover .bt-icon{transform:scale(1.1);}
+    .blog-cat{position:absolute;top:12px;left:12px;background:var(--blue);color:white;font-size:0.65rem;font-weight:800;padding:3px 10px;border-radius:50px;letter-spacing:1px;text-transform:uppercase;z-index:2;}
+    .blog-cat.tips-cat{background:#10b981;}
+    .blog-cat.promo-cat{background:var(--diskon);}
+    .blog-cat.info-cat{background:#8b5cf6;}
+    .blog-body{padding:22px 22px 24px;}
+    .blog-meta{display:flex;gap:16px;margin-bottom:12px;}
+    .blog-meta span{font-size:0.75rem;color:var(--light);font-weight:600;display:flex;align-items:center;gap:5px;}
+    .blog-body h3{font-size:1rem;font-weight:800;color:var(--black2);line-height:1.4;margin-bottom:10px;}
+    .blog-body p{font-size:0.84rem;color:var(--mid);line-height:1.65;}
+    .blog-footer{padding:0 22px 22px;display:flex;align-items:center;justify-content:space-between;}
+    .blog-read{font-size:0.82rem;font-weight:700;color:var(--blue);display:flex;align-items:center;gap:5px;text-decoration:none;transition:gap 0.2s;}
+    .blog-card:hover .blog-read{gap:9px;}
+
+    /* ══════════ HUBUNGI PAGE ══════════ */
+    .contact-hero{background:linear-gradient(135deg,var(--black),#0d1a3e,var(--black2));padding:110px 5% 70px;position:relative;overflow:hidden;}
+    .contact-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(26,86,232,0.18) 1.5px,transparent 1.5px);background-size:32px 32px;}
+    .contact-hero-inner{max-width:900px;margin:0 auto;text-align:center;position:relative;}
+    .contact-hero-inner h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;color:white;text-transform:uppercase;line-height:1.05;margin-bottom:16px;}
+    .contact-hero-inner h1 span{color:var(--blue-xlight);}
+    .contact-hero-inner p{font-size:1.05rem;color:rgba(255,255,255,0.55);line-height:1.75;max-width:640px;margin:0 auto;}
+
+    .contact-main{padding:70px 5%;background:var(--white);}
+    .contact-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.5fr;gap:50px;align-items:start;}
+    .contact-info-col h2{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;text-transform:uppercase;color:var(--black2);margin-bottom:8px;letter-spacing:0.5px;}
+    .contact-info-col h2 span{color:var(--blue);}
+    .contact-info-col > p{font-size:0.9rem;color:var(--mid);line-height:1.7;margin-bottom:32px;}
+    .contact-card{display:flex;align-items:flex-start;gap:14px;padding:18px;background:var(--bg);border:1.5px solid #e5e7eb;border-radius:16px;margin-bottom:14px;transition:all 0.3s;text-decoration:none;}
+    .contact-card:hover{border-color:var(--blue);transform:translateX(4px);box-shadow:0 6px 20px rgba(26,86,232,0.08);}
+    .cc-icon{width:46px;height:46px;flex-shrink:0;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 14px rgba(26,86,232,0.25);}
+    .cc-icon.wa-i{background:linear-gradient(135deg,#25D366,#1ebe5d);}
+    .cc-icon.ig-i{background:linear-gradient(135deg,#f09433,#dc2743);}
+    .cc-icon.loc-i{background:linear-gradient(135deg,var(--blue),var(--blue-light));}
+    .cc-icon.time-i{background:linear-gradient(135deg,#8b5cf6,#a78bfa);}
+    .cc-text strong{display:block;font-size:0.85rem;font-weight:800;color:var(--black2);margin-bottom:2px;}
+    .cc-text span{font-size:0.83rem;color:var(--mid);}
+    .cc-arrow{margin-left:auto;align-self:center;color:var(--light);font-size:0.8rem;transition:transform 0.2s;}
+    .contact-card:hover .cc-arrow{transform:translateX(4px);color:var(--blue);}
+
+    /* Contact Form */
+    .contact-form-col{background:var(--bg);border-radius:24px;padding:36px 32px;border:1.5px solid #e5e7eb;}
+    .contact-form-col h2{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;text-transform:uppercase;color:var(--black2);margin-bottom:6px;letter-spacing:0.5px;}
+    .contact-form-col > p{font-size:0.85rem;color:var(--mid);margin-bottom:28px;line-height:1.6;}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+    .form-group{margin-bottom:16px;}
+    .form-group label{display:block;font-size:0.8rem;font-weight:800;color:var(--dark);margin-bottom:7px;text-transform:uppercase;letter-spacing:0.5px;}
+    .form-group input,.form-group textarea,.form-group select{
+      width:100%;padding:12px 16px;border:1.5px solid #e5e7eb;border-radius:12px;
+      font-family:'Barlow',sans-serif;font-size:0.9rem;color:var(--dark);
+      background:var(--white);transition:all 0.25s;outline:none;
+    }
+    .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,86,232,0.1);}
+    .form-group textarea{resize:vertical;min-height:120px;}
+    .form-group select{cursor:pointer;}
+    .form-submit{
+      width:100%;padding:14px;border-radius:12px;
+      background:linear-gradient(135deg,var(--blue),var(--blue-light));
+      color:white;font-family:'Barlow',sans-serif;font-size:0.95rem;font-weight:800;
+      border:none;cursor:pointer;transition:all 0.3s;
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      box-shadow:0 8px 25px rgba(26,86,232,0.4);
+    }
+    .form-submit:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(26,86,232,0.55);}
+    .form-note{text-align:center;margin-top:14px;font-size:0.78rem;color:var(--light);line-height:1.55;}
+
+    .wa-cta-band{
+      background:linear-gradient(135deg,#064e1e,#0d7c32,#25D366);
+      padding:50px 5%;text-align:center;position:relative;overflow:hidden;
+    }
+    .wa-cta-band::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.08) 1px,transparent 1px);background-size:24px 24px;}
+    .wa-cta-band h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;color:white;text-transform:uppercase;margin-bottom:8px;position:relative;}
+    .wa-cta-band p{color:rgba(255,255,255,0.65);margin-bottom:28px;font-size:0.95rem;position:relative;}
+    .wa-big-btn{display:inline-flex;align-items:center;gap:12px;background:white;color:#064e1e;padding:16px 40px;border-radius:14px;font-size:1.05rem;font-weight:800;text-decoration:none;transition:all 0.3s;box-shadow:0 10px 30px rgba(0,0,0,0.2);position:relative;}
+    .wa-big-btn:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,0.3);}
+    .wa-big-btn .wa-num{font-size:0.8rem;font-weight:600;opacity:0.6;display:block;margin-top:1px;}
+
     /* ══════════ RESPONSIVE ══════════ */
-    @media(max-width:960px){
+    @media(max-width:1060px){
       .hero-content{grid-template-columns:1fr;}
       .hero-slider{max-width:480px;margin:0 auto;}
       .footer-grid{grid-template-columns:1fr 1fr;}
       .lokasi-wrap{grid-template-columns:1fr;}
       .gallery-grid{grid-template-columns:repeat(2,1fr);}
       .gallery-item:nth-child(1){grid-column:span 2;grid-row:span 1;}
+      .about-story-inner{grid-template-columns:1fr;}
+      .vm-grid{grid-template-columns:1fr;}
+      .contact-grid{grid-template-columns:1fr;}
+      .stats-row{grid-template-columns:1fr 1fr;gap:20px;}
+      .stats-col{border-right:none;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:20px;}
+      .stats-col:nth-child(odd){border-right:1px solid rgba(255,255,255,0.1);}
+      .stats-col:nth-child(3),.stats-col:nth-child(4){border-bottom:none;}
     }
-    @media(max-width:680px){
+    @media(max-width:760px){
       .nav-links{display:none;}
       .hamburger{display:flex;}
       .footer-grid{grid-template-columns:1fr;}
       .gallery-grid{grid-template-columns:repeat(2,1fr);}
       .gallery-item:nth-child(1){grid-column:span 1;}
       .hero-content{padding-top:90px;}
+      .form-row{grid-template-columns:1fr;}
+      .contact-form-col{padding:26px 22px;}
+      .stats-row{grid-template-columns:1fr 1fr;}
+      .tim-grid{grid-template-columns:1fr 1fr;}
     }
-
-    /* ══════════ KEUNGGULAN ══════════ */
-    .feat-grid{
-      display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:24px;max-width:1100px;margin:0 auto;
-    }
-    .feat-card{
-      background:var(--white);border:1.5px solid #e5e7eb;
-      border-radius:20px;padding:34px 28px;
-      transition:all 0.3s;position:relative;overflow:hidden;
-      cursor:pointer;
-    }
-    .feat-card::after{
-      content:'';position:absolute;bottom:0;left:0;right:0;height:4px;
-      background:linear-gradient(90deg,var(--blue),var(--blue-light));
-      transform:scaleX(0);transition:transform 0.3s;transform-origin:left;
-    }
-    .feat-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(26,86,232,0.12);border-color:rgba(26,86,232,0.25);}
-    .feat-card:hover::after{transform:scaleX(1);}
-    .feat-icon{
-      width:56px;height:56px;
-      background:linear-gradient(135deg,var(--blue),var(--blue-light));
-      border-radius:16px;display:flex;align-items:center;justify-content:center;
-      font-size:26px;margin-bottom:20px;
-      box-shadow:0 8px 20px rgba(26,86,232,0.3);
-      transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
-    }
-    .feat-card:hover .feat-icon{transform:rotate(-10deg) scale(1.1);}
-    .feat-count{
-      position:absolute;top:20px;right:20px;
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:3rem;font-weight:900;color:rgba(26,86,232,0.06);
-    }
-    .feat-card h3{font-size:1.1rem;font-weight:800;margin-bottom:10px;color:var(--black2);}
-    .feat-card p{font-size:0.88rem;color:var(--mid);line-height:1.6;}
-    .feat-link{display:inline-flex;align-items:center;gap:6px;color:var(--blue);font-size:0.84rem;font-weight:700;margin-top:16px;transition:gap 0.2s;}
-    .feat-card:hover .feat-link{gap:10px;}
-
-    /* cursor ripple effect for nav */
-    @keyframes rippleNav{
-      0%{transform:scale(0);opacity:0.5;}
-      100%{transform:scale(2.5);opacity:0;}
+    @media(max-width:480px){
+      .tim-grid{grid-template-columns:1fr;}
+      .testi-grid{grid-template-columns:1fr;}
     }
   </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
+<!-- ══════════ NAVBAR ══════════ -->
 <nav id="navbar">
   <a href="#" onclick="showPage('beranda');return false;" class="nav-logo">
     <div class="nav-logo-icon">🔧</div>
@@ -843,10 +602,51 @@
   </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#" onclick="showPage('beranda');return false;" class="active" data-page="beranda"><span class="link-txt">Beranda</span></a></li>
-    <li><a href="#" onclick="showPage('layanan');return false;" data-page="layanan"><span class="link-txt">Layanan</span></a></li>
-    <li><a href="#" onclick="showPage('semua-layanan');return false;" data-page="semua-layanan"><span class="link-txt">Semua Layanan</span></a></li>
-    <li><a href="#" onclick="showPage('galeri');return false;" data-page="galeri"><span class="link-txt">Galeri</span></a></li>
-    <li><a href="#" onclick="showPage('lokasi');return false;" data-page="lokasi"><span class="link-txt">Lokasi</span></a></li>
+    <li><a href="#" onclick="showPage('tentang');return false;" data-page="tentang"><span class="link-txt">Tentang Kami</span></a></li>
+
+    <!-- DROPDOWN LAYANAN -->
+    <li class="nav-dropdown">
+      <a href="#" onclick="showPage('layanan');return false;" data-page="layanan">
+        <span class="link-txt">Layanan</span>
+        <span class="dd-arrow">▼</span>
+      </a>
+      <div class="dropdown-menu">
+        <button class="dropdown-item" onclick="showPage('layanan');return false;">
+          <span class="di-icon">📱</span>
+          <span class="di-text">Service HP<small>Android & iPhone</small></span>
+        </button>
+        <button class="dropdown-item" onclick="showPage('layanan');return false;">
+          <span class="di-icon">💻</span>
+          <span class="di-text">Perbaikan Laptop & PC<small>Semua Merk & Tipe</small></span>
+        </button>
+        <button class="dropdown-item" onclick="showPage('layanan');return false;">
+          <span class="di-icon">🔲</span>
+          <span class="di-text">Ganti LCD & Baterai<small>Spare Part Berkualitas</small></span>
+        </button>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item" onclick="showPage('layanan');return false;">
+          <span class="di-icon">🪟</span>
+          <span class="di-text">Install Windows & Software<small>Windows 10 / 11</small></span>
+        </button>
+        <button class="dropdown-item" onclick="showPage('layanan');return false;">
+          <span class="di-icon">⚡</span>
+          <span class="di-text">Upgrade RAM & SSD<small>Tingkatkan Performa</small></span>
+        </button>
+        <button class="dropdown-item" onclick="showPage('layanan');return false;">
+          <span class="di-icon">🔓</span>
+          <span class="di-text">Flashing & Unlock HP<small>Aman & Terpercaya</small></span>
+        </button>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item" onclick="showPage('semua-layanan');return false;" style="background:rgba(26,86,232,0.08);">
+          <span class="di-icon" style="background:rgba(26,86,232,0.3);">📋</span>
+          <span class="di-text" style="color:var(--blue-xlight);">Semua Layanan →<small style="color:rgba(96,165,250,0.6);">Lihat daftar lengkap</small></span>
+        </button>
+      </div>
+    </li>
+
+    <li><a href="#" onclick="showPage('portofolio');return false;" data-page="portofolio"><span class="link-txt">Portofolio</span></a></li>
+    <li><a href="#" onclick="showPage('blog');return false;" data-page="blog"><span class="link-txt">Blog</span></a></li>
+    <li><a href="#" onclick="showPage('hubungi');return false;" data-page="hubungi"><span class="link-txt">Hubungi Kami</span></a></li>
     <li><a href="https://wa.me/6281905882031" class="nav-wa" target="_blank"><span class="link-txt">💬 WhatsApp</span></a></li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
@@ -858,11 +658,26 @@
 <div class="mobile-menu" id="mobileMenu">
   <ul>
     <li><a href="#" onclick="showPage('beranda');closeMenu();return false;">Beranda</a></li>
-    <li><a href="#" onclick="showPage('layanan');closeMenu();return false;">Layanan</a></li>
-    <li><a href="#" onclick="showPage('semua-layanan');closeMenu();return false;">Semua Layanan</a></li>
-    <li><a href="#" onclick="showPage('galeri');closeMenu();return false;">Galeri</a></li>
-    <li><a href="#" onclick="showPage('lokasi');closeMenu();return false;">Lokasi</a></li>
-    <li><a href="https://wa.me/6281905882031" target="_blank">💬 WhatsApp</a></li>
+    <li><a href="#" onclick="showPage('tentang');closeMenu();return false;">Tentang Kami</a></li>
+    <li>
+      <div class="mobile-dd-toggle" onclick="toggleMobileDd(this)">
+        <a href="#" onclick="showPage('layanan');closeMenu();return false;" style="flex:1;">Layanan</a>
+        <span class="dd-arrow-m">▼</span>
+      </div>
+      <ul class="mobile-sub" id="mobileSub">
+        <li><a href="#" onclick="showPage('layanan');closeMenu();return false;">📱 Service HP</a></li>
+        <li><a href="#" onclick="showPage('layanan');closeMenu();return false;">💻 Service Laptop & PC</a></li>
+        <li><a href="#" onclick="showPage('layanan');closeMenu();return false;">🔲 Ganti LCD & Baterai</a></li>
+        <li><a href="#" onclick="showPage('layanan');closeMenu();return false;">🪟 Install Windows</a></li>
+        <li><a href="#" onclick="showPage('layanan');closeMenu();return false;">⚡ Upgrade RAM & SSD</a></li>
+        <li><a href="#" onclick="showPage('layanan');closeMenu();return false;">🔓 Flashing & Unlock</a></li>
+        <li><a href="#" onclick="showPage('semua-layanan');closeMenu();return false;">📋 Semua Layanan →</a></li>
+      </ul>
+    </li>
+    <li><a href="#" onclick="showPage('portofolio');closeMenu();return false;">Portofolio</a></li>
+    <li><a href="#" onclick="showPage('blog');closeMenu();return false;">Blog & Edukasi</a></li>
+    <li><a href="#" onclick="showPage('hubungi');closeMenu();return false;">Hubungi Kami</a></li>
+    <li><a href="https://wa.me/6281905882031" target="_blank">💬 WhatsApp — 081905882031</a></li>
   </ul>
 </div>
 
@@ -871,22 +686,12 @@
 ════════════════════════════════ -->
 <div class="page active" id="page-beranda">
   <div style="min-height:100vh;background:linear-gradient(135deg,var(--black) 0%,#0d1a3e 50%,#0a1628 100%);position:relative;overflow:hidden;display:flex;align-items:center;">
-    <div class="hero-diagonal"></div>
-    <div class="hero-diagonal2"></div>
-    <div class="hero-dots"></div>
-    <div class="hero-glow"></div>
+    <div class="hero-diagonal"></div><div class="hero-diagonal2"></div>
+    <div class="hero-dots"></div><div class="hero-glow"></div>
     <div class="hero-content">
-
-      <!-- LEFT -->
       <div class="hero-left">
-        <div class="hero-badge">
-          <div class="hero-badge-dot"></div>
-          Solusi Gadget Terpercaya
-        </div>
-        <div class="hero-title">
-          SOLUSI CEPAT &amp;
-          <span class="hero-title-blue">TERPERCAYA</span>
-        </div>
+        <div class="hero-badge"><div class="hero-badge-dot"></div>Solusi Gadget Terpercaya</div>
+        <div class="hero-title">SOLUSI CEPAT &amp;<span class="hero-title-blue">TERPERCAYA</span></div>
         <div class="hero-sub">Untuk Semua Masalah Gadget Anda</div>
         <p class="hero-desc">Service HP, Laptop, Komputer, Install Windows, Ganti LCD, Upgrade RAM, dan banyak lagi. Dikerjakan oleh teknisi ahli, cepat, aman, dan bergaransi.</p>
         <div class="hero-badges-row">
@@ -896,7 +701,7 @@
         </div>
         <div class="hero-btns">
           <a href="#" onclick="showPage('layanan');return false;" class="btn-primary"><span>🔧 Lihat Layanan</span></a>
-          <a href="#" onclick="showPage('lokasi');return false;" class="btn-outline">📍 Lokasi Kami</a>
+          <a href="#" onclick="showPage('hubungi');return false;" class="btn-outline">📍 Hubungi Kami</a>
         </div>
         <div class="hero-stats">
           <div class="stat-item"><div class="stat-num">8+</div><div class="stat-label">Layanan</div></div>
@@ -906,51 +711,13 @@
           <div class="stat-item"><div class="stat-num">⭐5</div><div class="stat-label">Rating</div></div>
         </div>
       </div>
-
-      <!-- RIGHT: IMAGE SLIDER -->
-      <div class="hero-right" style="display:flex;flex-direction:column;gap:20px;align-items:center;">
+      <div style="display:flex;flex-direction:column;gap:20px;align-items:center;">
         <div class="hero-slider" id="heroSlider">
           <div class="slider-track" id="sliderTrack">
-
-            <!-- SLIDE 1: Service HP -->
-            <div class="slide">
-              <div class="slide-bg"></div>
-              <div class="slide-particles" id="particles1"></div>
-              <div class="slide-content">
-                <span class="slide-icon">📱</span>
-                <div class="slide-title">Service HP<br>Profesional</div>
-                <div class="slide-sub">Android & iPhone — Semua Masalah Kami Tangani</div>
-                <div class="slide-badge">⚡ Cepat & Bergaransi</div>
-              </div>
-            </div>
-
-            <!-- SLIDE 2: Laptop & Komputer -->
-            <div class="slide">
-              <div class="slide-bg"></div>
-              <div class="slide-particles" id="particles2"></div>
-              <div class="slide-content">
-                <span class="slide-icon">💻</span>
-                <div class="slide-title">Laptop &<br>Komputer</div>
-                <div class="slide-sub">Perbaikan Hardware & Software — Semua Merk</div>
-                <div class="slide-badge">🔧 Diagnosa Gratis</div>
-              </div>
-            </div>
-
-            <!-- SLIDE 3: Promo -->
-            <div class="slide">
-              <div class="slide-bg"></div>
-              <div class="slide-particles" id="particles3"></div>
-              <div class="slide-content">
-                <span class="slide-icon">🔥</span>
-                <div class="slide-title" style="font-size:2.2rem;">DISKON 10%<br>Bulan Ini!</div>
-                <div class="slide-sub">Layar Pecah? Baterai Drop? Gratis Konsultasi!</div>
-                <div class="slide-badge" style="background:linear-gradient(135deg,#ef4444,#ff6b6b);">🎁 Klaim Sekarang</div>
-              </div>
-            </div>
-
+            <div class="slide"><div class="slide-bg"></div><div class="slide-particles" id="particles1"></div><div class="slide-content"><span class="slide-icon">📱</span><div class="slide-title">Service HP<br>Profesional</div><div class="slide-sub">Android & iPhone — Semua Masalah Kami Tangani</div><div class="slide-badge">⚡ Cepat & Bergaransi</div></div></div>
+            <div class="slide"><div class="slide-bg"></div><div class="slide-particles" id="particles2"></div><div class="slide-content"><span class="slide-icon">💻</span><div class="slide-title">Laptop &<br>Komputer</div><div class="slide-sub">Perbaikan Hardware & Software — Semua Merk</div><div class="slide-badge">🔧 Diagnosa Gratis</div></div></div>
+            <div class="slide"><div class="slide-bg"></div><div class="slide-particles" id="particles3"></div><div class="slide-content"><span class="slide-icon">🔥</span><div class="slide-title" style="font-size:2.2rem;">DISKON 10%<br>Bulan Ini!</div><div class="slide-sub">Layar Pecah? Baterai Drop? Gratis Konsultasi!</div><div class="slide-badge" style="background:linear-gradient(135deg,#ef4444,#ff6b6b);">🎁 Klaim Sekarang</div></div></div>
           </div>
-
-          <!-- Controls -->
           <button class="slider-prev" onclick="prevSlide()" aria-label="Previous">&#8249;</button>
           <button class="slider-next" onclick="nextSlide()" aria-label="Next">&#8250;</button>
           <div class="slider-dots">
@@ -961,11 +728,9 @@
           <div class="slider-progress"><div class="slider-progress-bar" id="progressBar"></div></div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- KEUNGGULAN section on beranda -->
   <section style="padding:90px 5%;background:var(--white);">
     <div class="section-header reveal">
       <div class="section-tag">Keunggulan Kami</div>
@@ -973,31 +738,12 @@
       <p class="section-desc">Kami hadir dengan layanan profesional, cepat, dan bergaransi untuk semua kebutuhan perbaikan gadget Anda</p>
     </div>
     <div class="feat-grid">
-      <div class="feat-card reveal" onclick="showPage('layanan')">
-        <div class="feat-count">8+</div>
-        <div class="feat-icon">🔧</div>
-        <h3>Layanan Lengkap</h3>
-        <p>Dari service HP, laptop, komputer, hingga install software dan upgrade hardware — semua tersedia</p>
-        <div class="feat-link">Lihat Layanan →</div>
-      </div>
-      <div class="feat-card reveal" onclick="showPage('lokasi')">
-        <div class="feat-count">📍</div>
-        <div class="feat-icon">🏫</div>
-        <h3>Lokasi Strategis</h3>
-        <p>Berlokasi di SMKN Gudo, mudah dijangkau dan siap melayani setiap hari</p>
-        <div class="feat-link">Lihat Lokasi →</div>
-      </div>
-      <div class="feat-card reveal" onclick="showPage('semua-layanan')">
-        <div class="feat-count">✓</div>
-        <div class="feat-icon">🏆</div>
-        <h3>Bergaransi</h3>
-        <p>Setiap layanan dan pengerjaan dilengkapi garansi resmi — tenang, kami bertanggung jawab</p>
-        <div class="feat-link">Selengkapnya →</div>
-      </div>
+      <div class="feat-card reveal" onclick="showPage('layanan')"><div class="feat-count">8+</div><div class="feat-icon">🔧</div><h3>Layanan Lengkap</h3><p>Dari service HP, laptop, komputer, hingga install software dan upgrade hardware — semua tersedia</p><div class="feat-link">Lihat Layanan →</div></div>
+      <div class="feat-card reveal" onclick="showPage('tentang')"><div class="feat-count">👥</div><div class="feat-icon">🏆</div><h3>Tim Berpengalaman</h3><p>Teknisi terlatih dan bersertifikat siap memberikan solusi terbaik untuk setiap kerusakan gadget Anda</p><div class="feat-link">Tentang Kami →</div></div>
+      <div class="feat-card reveal" onclick="showPage('hubungi')"><div class="feat-count">✓</div><div class="feat-icon">🛡️</div><h3>Bergaransi</h3><p>Setiap layanan dan pengerjaan dilengkapi garansi resmi — tenang, kami bertanggung jawab penuh</p><div class="feat-link">Hubungi Kami →</div></div>
     </div>
   </section>
 
-  <!-- CTA sosmed mini -->
   <div class="sosmed-cta">
     <h2>Ikuti Kami di Media Sosial</h2>
     <p>Dapatkan tips gadget, promo terbaru, dan update layanan QuickFix Solutions</p>
@@ -1010,51 +756,128 @@
   <footer>
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="#" onclick="showPage('beranda');return false;" class="nav-logo" style="text-decoration:none;">
-          <div class="nav-logo-icon">🔧</div>
-          <div class="nav-logo-text">QUICKFIX <span>Solutions</span></div>
-        </a>
+        <a href="#" onclick="showPage('beranda');return false;" class="nav-logo"><div class="nav-logo-icon">🔧</div><div class="nav-logo-text">QUICKFIX <span>Solutions</span></div></a>
         <p>Solusi cepat &amp; terpercaya untuk semua masalah gadget Anda. Service HP, Laptop, Komputer dikerjakan teknisi ahli dengan garansi.</p>
-        <div class="footer-socials">
-          <a href="https://wa.me/6281905882031" class="footer-social-btn" target="_blank">📱</a>
-          <a href="https://www.instagram.com/_quickfixsolutions" class="footer-social-btn" target="_blank">📸</a>
+        <div class="footer-socials"><a href="https://wa.me/6281905882031" class="footer-social-btn" target="_blank">📱</a><a href="https://www.instagram.com/_quickfixsolutions" class="footer-social-btn" target="_blank">📸</a></div>
+      </div>
+      <div class="footer-col"><h4>Navigasi</h4><ul><li><a href="#" onclick="showPage('beranda');return false;">Beranda</a></li><li><a href="#" onclick="showPage('tentang');return false;">Tentang Kami</a></li><li><a href="#" onclick="showPage('layanan');return false;">Layanan</a></li><li><a href="#" onclick="showPage('portofolio');return false;">Portofolio</a></li><li><a href="#" onclick="showPage('blog');return false;">Blog & Edukasi</a></li><li><a href="#" onclick="showPage('hubungi');return false;">Hubungi Kami</a></li></ul></div>
+      <div class="footer-col"><h4>Layanan</h4><ul><li><a href="#" onclick="showPage('layanan');return false;">Service HP</a></li><li><a href="#" onclick="showPage('layanan');return false;">Service Laptop</a></li><li><a href="#" onclick="showPage('layanan');return false;">Ganti LCD &amp; Baterai</a></li><li><a href="#" onclick="showPage('layanan');return false;">Install Windows</a></li><li><a href="#" onclick="showPage('layanan');return false;">Upgrade RAM/SSD</a></li><li><a href="#" onclick="showPage('layanan');return false;">Flashing &amp; Unlock</a></li></ul></div>
+      <div class="footer-col"><h4>Kontak</h4><ul><li><a href="https://wa.me/6281905882031" target="_blank">WA: 081905882031</a></li><li><a href="https://www.instagram.com/_quickfixsolutions" target="_blank">IG: @_quickfixsolutions</a></li><li><a href="#" onclick="showPage('hubungi');return false;">Lokasi: SMKN Gudo</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 <span>QuickFix Solutions</span>. All rights reserved.</p><p>Kerusakan kecil? <span>Jangan tunggu jadi besar!</span></p></div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════
+     PAGE: TENTANG KAMI
+════════════════════════════════ -->
+<div class="page" id="page-tentang">
+  <!-- Hero -->
+  <div class="about-hero">
+    <div class="about-hero-inner reveal">
+      <div class="section-tag">Tentang Kami</div>
+      <h1>Di Balik <span>QuickFix</span><br>Solutions</h1>
+      <p>Kami adalah tim muda yang lahir dari semangat teknologi. Berdiri di lingkungan SMKN Gudo, kami hadir untuk membuktikan bahwa solusi gadget bisa cepat, terjangkau, dan tetap berkualitas.</p>
+    </div>
+  </div>
+
+  <!-- Cerita -->
+  <div class="about-story">
+    <div class="about-story-inner">
+      <div class="about-story-visual reveal">
+        <div class="av-icon">🔧</div>
+        <div class="av-title">QuickFix Solutions</div>
+        <div class="av-sub">Est. 2024 · SMKN Gudo</div>
+        <div class="about-story-stats">
+          <div class="av-stat"><div class="num">8+</div><div class="lbl">Layanan</div></div>
+          <div class="av-stat"><div class="num">100%</div><div class="lbl">Garansi</div></div>
+          <div class="av-stat"><div class="num">⭐5</div><div class="lbl">Rating</div></div>
+          <div class="av-stat"><div class="num">24H</div><div class="lbl">Respons</div></div>
         </div>
       </div>
-      <div class="footer-col">
-        <h4>Navigasi</h4>
-        <ul>
-          <li><a href="#" onclick="showPage('beranda');return false;">Beranda</a></li>
-          <li><a href="#" onclick="showPage('layanan');return false;">Layanan</a></li>
-          <li><a href="#" onclick="showPage('semua-layanan');return false;">Semua Layanan</a></li>
-          <li><a href="#" onclick="showPage('galeri');return false;">Galeri</a></li>
-          <li><a href="#" onclick="showPage('lokasi');return false;">Lokasi</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Layanan</h4>
-        <ul>
-          <li><a href="#" onclick="showPage('layanan');return false;">Service HP</a></li>
-          <li><a href="#" onclick="showPage('layanan');return false;">Service Laptop</a></li>
-          <li><a href="#" onclick="showPage('layanan');return false;">Ganti LCD &amp; Baterai</a></li>
-          <li><a href="#" onclick="showPage('layanan');return false;">Install Windows</a></li>
-          <li><a href="#" onclick="showPage('layanan');return false;">Upgrade RAM/SSD</a></li>
-          <li><a href="#" onclick="showPage('layanan');return false;">Flashing &amp; Unlock</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Kontak</h4>
-        <ul>
-          <li><a href="https://wa.me/6281905882031" target="_blank">WA: 081905882031</a></li>
-          <li><a href="https://www.instagram.com/_quickfixsolutions" target="_blank">IG: @_quickfixsolutions</a></li>
-          <li><a href="#" onclick="showPage('lokasi');return false;">Lokasi: SMKN Gudo</a></li>
-        </ul>
+      <div class="about-story-text reveal">
+        <div class="section-tag">Cerita Kami</div>
+        <h2>Lahir dari Semangat <span>Teknologi</span></h2>
+        <p>QuickFix Solutions berawal dari kepedulian kami terhadap banyaknya pengguna gadget yang kesulitan menemukan layanan perbaikan yang cepat, terpercaya, dan terjangkau di wilayah Gudo dan sekitarnya.</p>
+        <p>Berawal dari lingkungan SMKN Gudo, kami tumbuh menjadi tim teknisi muda yang berdedikasi tinggi. Setiap perangkat yang masuk ke tangan kami diperlakukan seperti milik sendiri — dengan hati-hati, teliti, dan penuh tanggung jawab.</p>
+        <p>Kepercayaan pelanggan adalah prioritas utama kami. Itulah mengapa setiap layanan kami lengkapi dengan garansi resmi, sehingga Anda bisa tenang dan puas.</p>
+        <a href="#" onclick="showPage('hubungi');return false;" class="btn-primary" style="margin-top:8px;"><span>💬 Konsultasi Gratis</span></a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>© 2026 <span>QuickFix Solutions</span>. All rights reserved.</p>
-      <p>Kerusakan kecil? <span>Jangan tunggu jadi besar!</span></p>
+  </div>
+
+  <!-- Visi Misi -->
+  <div class="visi-misi">
+    <div class="visi-misi-inner">
+      <div class="section-header reveal">
+        <div class="section-tag">Visi & Misi</div>
+        <h2 class="section-title">Arah & Tujuan Kami</h2>
+        <p class="section-desc">Kami berkomitmen untuk menjadi mitra teknologi terpercaya bagi masyarakat</p>
+      </div>
+      <div class="vm-grid">
+        <div class="vm-card visi reveal">
+          <div class="vm-label">🎯 Visi</div>
+          <h3>Menjadi Pilihan Utama Layanan Gadget di Jombang</h3>
+          <p>Menjadi pusat layanan teknologi terpercaya yang mengutamakan kecepatan, kualitas, dan kepuasan pelanggan, serta menjadi inspirasi bagi generasi muda untuk berkarya di bidang teknologi.</p>
+        </div>
+        <div class="vm-card misi reveal">
+          <div class="vm-label">🚀 Misi</div>
+          <h3>Langkah Nyata Kami</h3>
+          <ul class="misi-list">
+            <li>Memberikan layanan perbaikan gadget yang cepat, tepat, dan bergaransi untuk setiap pelanggan</li>
+            <li>Menggunakan spare part berkualitas tinggi demi hasil kerja yang tahan lama</li>
+            <li>Membangun tim teknisi yang terus belajar dan mengikuti perkembangan teknologi terkini</li>
+            <li>Menyediakan konsultasi gratis dan harga yang transparan tanpa biaya tersembunyi</li>
+            <li>Menciptakan pengalaman servis yang nyaman, profesional, dan memuaskan</li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </footer>
+  </div>
+
+  <!-- Tim -->
+  <div class="tim-section">
+    <div class="section-header reveal">
+      <div class="section-tag">Tim Kami</div>
+      <h2 class="section-title">Teknisi Ahli Kami</h2>
+      <p class="section-desc">Berpengalaman, terlatih, dan siap menangani semua masalah gadget Anda</p>
+    </div>
+    <div class="tim-grid">
+      <div class="tim-card reveal">
+        <div class="tim-avatar">👨‍💻</div>
+        <h3>Lead Teknisi</h3>
+        <div class="tim-role">HP & Smartphone</div>
+        <p>Spesialis perbaikan HP Android & iPhone. Menangani kerusakan hardware maupun software dengan cepat dan akurat.</p>
+      </div>
+      <div class="tim-card reveal">
+        <div class="tim-avatar">🛠️</div>
+        <h3>Teknisi Laptop</h3>
+        <div class="tim-role">Laptop & Komputer</div>
+        <p>Ahli diagnosa dan perbaikan laptop serta komputer untuk semua merk, dari hardware hingga instalasi software.</p>
+      </div>
+      <div class="tim-card reveal">
+        <div class="tim-avatar">💡</div>
+        <h3>Software Specialist</h3>
+        <div class="tim-role">Install & Optimasi</div>
+        <p>Pakar instalasi Windows, pembersihan virus, optimasi sistem, dan pengaturan software untuk performa optimal.</p>
+      </div>
+      <div class="tim-card reveal">
+        <div class="tim-avatar">📞</div>
+        <h3>Customer Support</h3>
+        <div class="tim-role">Layanan Pelanggan</div>
+        <p>Siap membantu konsultasi, estimasi biaya, dan memastikan setiap pelanggan mendapatkan pelayanan terbaik.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sosmed-cta">
+    <h2>Mau Kenal Lebih Dekat?</h2>
+    <p>Kunjungi kami langsung di SMKN Gudo atau hubungi via WhatsApp & Instagram</p>
+    <div class="sosmed-btns">
+      <a href="https://wa.me/6281905882031" target="_blank" class="sosmed-btn btn-whatsapp">📱 WhatsApp Kami</a>
+      <a href="https://www.instagram.com/_quickfixsolutions" target="_blank" class="sosmed-btn btn-ig">📸 Follow Instagram</a>
+    </div>
+  </div>
 </div>
 
 <!-- ════════════════════════════════
@@ -1068,99 +891,15 @@
       <p class="section-desc">Solusi cepat, aman, dan profesional untuk semua masalah perangkat Anda</p>
     </div>
     <div class="layanan-grid">
-
-      <div class="layanan-card reveal">
-        <div class="layanan-thumb"><span class="thumb-icon">📱</span></div>
-        <div class="layanan-tags"><span class="tag">Android</span><span class="tag">iPhone</span></div>
-        <div class="layanan-body">
-          <h3>Service HP</h3>
-          <p>Perbaikan HP Android dan iPhone — layar pecah, mati total, bootloop, error software, dan lainnya ditangani teknisi berpengalaman.</p>
-          <div class="layanan-price">
-            <div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div>
-            <a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Service%20HP" target="_blank" class="btn-wa">📱 Pesan</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="layanan-card reveal">
-        <div class="layanan-thumb"><span class="thumb-icon">💻</span></div>
-        <div class="layanan-tags"><span class="tag">Laptop</span><span class="tag">Komputer</span></div>
-        <div class="layanan-body">
-          <h3>Perbaikan Laptop &amp; Komputer</h3>
-          <p>Service laptop dan komputer untuk masalah hardware maupun software. Diagnosa cepat dan penanganan tepat oleh teknisi ahli.</p>
-          <div class="layanan-price">
-            <div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div>
-            <a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Service%20Laptop" target="_blank" class="btn-wa">📱 Pesan</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="layanan-card reveal">
-        <div class="layanan-thumb"><span class="thumb-icon">🔲</span></div>
-        <div class="layanan-tags"><span class="tag">LCD</span><span class="tag">Baterai</span><span class="tag">Keyboard</span></div>
-        <div class="layanan-body">
-          <h3>Ganti LCD, Baterai &amp; Keyboard</h3>
-          <p>Penggantian komponen HP dan laptop original berkualitas. LCD buram, baterai boros, keyboard error — kami siap membantu.</p>
-          <div class="layanan-price">
-            <div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div>
-            <a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Ganti%20Komponen" target="_blank" class="btn-wa">📱 Pesan</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="layanan-card reveal">
-        <div class="layanan-thumb"><span class="thumb-icon">🪟</span></div>
-        <div class="layanan-tags"><span class="tag">Windows</span><span class="tag">Software</span></div>
-        <div class="layanan-body">
-          <h3>Install Ulang Windows &amp; Software</h3>
-          <p>Install ulang Windows 10/11, driver, dan berbagai software kebutuhan Anda. Cepat, bersih, dan siap pakai langsung.</p>
-          <div class="layanan-price">
-            <div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div>
-            <a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Install%20Windows" target="_blank" class="btn-wa">📱 Pesan</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="layanan-card reveal">
-        <div class="layanan-thumb"><span class="thumb-icon">⚡</span></div>
-        <div class="layanan-tags"><span class="tag">RAM</span><span class="tag">SSD</span></div>
-        <div class="layanan-body">
-          <h3>Upgrade RAM &amp; SSD</h3>
-          <p>Tingkatkan performa laptop atau komputer Anda dengan upgrade RAM dan SSD. Lebih cepat, lebih responsif, lebih produktif.</p>
-          <div class="layanan-price">
-            <div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div>
-            <a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Upgrade%20RAM%20SSD" target="_blank" class="btn-wa">📱 Pesan</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="layanan-card reveal">
-        <div class="layanan-thumb"><span class="thumb-icon">🔓</span></div>
-        <div class="layanan-tags"><span class="tag">Flashing</span><span class="tag">Unlock</span></div>
-        <div class="layanan-body">
-          <h3>Flashing &amp; Unlock HP</h3>
-          <p>HP terkunci, lupa PIN, atau perlu di-flashing ulang? Kami menanganinya dengan aman tanpa merusak data yang bisa diselamatkan.</p>
-          <div class="layanan-price">
-            <div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div>
-            <a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Flashing%20HP" target="_blank" class="btn-wa">📱 Pesan</a>
-          </div>
-        </div>
-      </div>
-
+      <div class="layanan-card reveal"><div class="layanan-thumb"><span class="thumb-icon">📱</span></div><div class="layanan-tags"><span class="tag">Android</span><span class="tag">iPhone</span></div><div class="layanan-body"><h3>Service HP</h3><p>Perbaikan HP Android dan iPhone — layar pecah, mati total, bootloop, error software, dan lainnya ditangani teknisi berpengalaman.</p><div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Service%20HP" target="_blank" class="btn-wa">📱 Pesan</a></div></div></div>
+      <div class="layanan-card reveal"><div class="layanan-thumb"><span class="thumb-icon">💻</span></div><div class="layanan-tags"><span class="tag">Laptop</span><span class="tag">Komputer</span></div><div class="layanan-body"><h3>Perbaikan Laptop &amp; Komputer</h3><p>Service laptop dan komputer untuk masalah hardware maupun software. Diagnosa cepat dan penanganan tepat oleh teknisi ahli.</p><div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Service%20Laptop" target="_blank" class="btn-wa">📱 Pesan</a></div></div></div>
+      <div class="layanan-card reveal"><div class="layanan-thumb"><span class="thumb-icon">🔲</span></div><div class="layanan-tags"><span class="tag">LCD</span><span class="tag">Baterai</span><span class="tag">Keyboard</span></div><div class="layanan-body"><h3>Ganti LCD, Baterai &amp; Keyboard</h3><p>Penggantian komponen HP dan laptop original berkualitas. LCD buram, baterai boros, keyboard error — kami siap membantu.</p><div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Ganti%20Komponen" target="_blank" class="btn-wa">📱 Pesan</a></div></div></div>
+      <div class="layanan-card reveal"><div class="layanan-thumb"><span class="thumb-icon">🪟</span></div><div class="layanan-tags"><span class="tag">Windows</span><span class="tag">Software</span></div><div class="layanan-body"><h3>Install Ulang Windows &amp; Software</h3><p>Install ulang Windows 10/11, driver, dan berbagai software kebutuhan Anda. Cepat, bersih, dan siap pakai langsung.</p><div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Install%20Windows" target="_blank" class="btn-wa">📱 Pesan</a></div></div></div>
+      <div class="layanan-card reveal"><div class="layanan-thumb"><span class="thumb-icon">⚡</span></div><div class="layanan-tags"><span class="tag">RAM</span><span class="tag">SSD</span></div><div class="layanan-body"><h3>Upgrade RAM &amp; SSD</h3><p>Tingkatkan performa laptop atau komputer Anda dengan upgrade RAM dan SSD. Lebih cepat, lebih responsif, lebih produktif.</p><div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Upgrade%20RAM%20SSD" target="_blank" class="btn-wa">📱 Pesan</a></div></div></div>
+      <div class="layanan-card reveal"><div class="layanan-thumb"><span class="thumb-icon">🔓</span></div><div class="layanan-tags"><span class="tag">Flashing</span><span class="tag">Unlock</span></div><div class="layanan-body"><h3>Flashing &amp; Unlock HP</h3><p>HP terkunci, lupa PIN, atau perlu di-flashing ulang? Kami menanganinya dengan aman tanpa merusak data yang bisa diselamatkan.</p><div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Flashing%20HP" target="_blank" class="btn-wa">📱 Pesan</a></div></div></div>
     </div>
-
-    <!-- Promo Banner -->
     <div class="promo-banner" style="margin-top:60px;border-radius:24px;">
-      <div class="promo-inner">
-        <div>
-          <div class="promo-eyebrow">Promo Spesial Bulan Ini</div>
-          <div class="promo-title">Layar Pecah? Baterai Drop?</div>
-          <span class="promo-highlight">DISKON 10%</span>
-          <div class="promo-note">Cepat, aman, dan bergaransi — Segera klaim sebelum kehabisan!</div>
-          <a href="https://wa.me/6281905882031?text=Halo%20QuickFix%20Solutions,%20saya%20ingin%20klaim%20diskon%2010%25" target="_blank" class="promo-cta">📱 Klaim via WhatsApp</a>
-        </div>
-        <div><div class="promo-badge-big"><div class="big-pct">10%</div><div class="big-off">OFF</div></div></div>
-      </div>
+      <div class="promo-inner"><div><div class="promo-eyebrow">Promo Spesial Bulan Ini</div><div class="promo-title">Layar Pecah? Baterai Drop?</div><span class="promo-highlight">DISKON 10%</span><div class="promo-note">Cepat, aman, dan bergaransi — Segera klaim sebelum kehabisan!</div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix%20Solutions,%20saya%20ingin%20klaim%20diskon%2010%25" target="_blank" class="promo-cta">📱 Klaim via WhatsApp</a></div><div><div class="promo-badge-big"><div class="big-pct">10%</div><div class="big-off">OFF</div></div></div></div>
     </div>
   </div>
 </div>
@@ -1170,11 +909,7 @@
 ════════════════════════════════ -->
 <div class="page" id="page-semua-layanan">
   <div class="inner-page" style="background:var(--white);">
-    <div class="section-header reveal">
-      <div class="section-tag">Semua Layanan</div>
-      <h2 class="section-title">Layanan Kami</h2>
-      <p class="section-desc">Daftar lengkap solusi yang kami sediakan untuk kebutuhan gadget Anda</p>
-    </div>
+    <div class="section-header reveal"><div class="section-tag">Semua Layanan</div><h2 class="section-title">Daftar Lengkap Layanan</h2><p class="section-desc">Solusi lengkap yang kami sediakan untuk semua kebutuhan gadget Anda</p></div>
     <div class="laylist-grid">
       <div class="laylist-item reveal"><div class="laylist-icon">📱</div><div class="laylist-text"><strong>Service HP (Android &amp; iPhone)</strong><span>Perbaikan segala kerusakan HP Android dan iPhone oleh teknisi berpengalaman</span></div></div>
       <div class="laylist-item reveal"><div class="laylist-icon">🔲</div><div class="laylist-text"><strong>Ganti LCD, Baterai, Keyboard</strong><span>Penggantian komponen HP dan laptop dengan spare part berkualitas</span></div></div>
@@ -1185,9 +920,7 @@
       <div class="laylist-item reveal"><div class="laylist-icon">🔓</div><div class="laylist-text"><strong>Flashing &amp; Unlock HP</strong><span>Flash ulang firmware HP dan unlock perangkat yang terkunci dengan aman</span></div></div>
       <div class="laylist-item garansi reveal"><div class="laylist-icon">🏆</div><div class="laylist-text"><strong>Bergaransi untuk Setiap Layanan</strong><span>Semua pengerjaan dilengkapi garansi resmi — kepuasan Anda adalah prioritas kami</span></div></div>
     </div>
-    <div style="text-align:center;margin-top:48px;">
-      <a href="https://wa.me/6281905882031" target="_blank" class="btn-primary"><span>💬 Konsultasi Gratis via WhatsApp</span></a>
-    </div>
+    <div style="text-align:center;margin-top:48px;"><a href="https://wa.me/6281905882031" target="_blank" class="btn-primary"><span>💬 Konsultasi Gratis via WhatsApp</span></a></div>
   </div>
 </div>
 
@@ -1196,11 +929,7 @@
 ════════════════════════════════ -->
 <div class="page" id="page-galeri">
   <div class="inner-page" style="background:var(--bg);">
-    <div class="section-header reveal">
-      <div class="section-tag">Galeri</div>
-      <h2 class="section-title">Galeri Pengerjaan</h2>
-      <p class="section-desc">Dokumentasi hasil kerja nyata dari teknisi QuickFix Solutions</p>
-    </div>
+    <div class="section-header reveal"><div class="section-tag">Galeri</div><h2 class="section-title">Galeri Pengerjaan</h2><p class="section-desc">Dokumentasi hasil kerja nyata dari teknisi QuickFix Solutions</p></div>
     <div class="gallery-grid reveal">
       <div class="gallery-item"><div class="gal-placeholder"><div class="ge">🔧</div><div class="gl">Service HP</div></div><div class="gal-overlay">🔍</div></div>
       <div class="gallery-item"><div class="gal-placeholder"><div class="ge">🔲</div><div class="gl">Ganti LCD</div></div><div class="gal-overlay">🔍</div></div>
@@ -1208,10 +937,7 @@
       <div class="gallery-item"><div class="gal-placeholder"><div class="ge">⚡</div><div class="gl">Upgrade SSD</div></div><div class="gal-overlay">🔍</div></div>
       <div class="gallery-item"><div class="gal-placeholder"><div class="ge">🪟</div><div class="gl">Install Windows</div></div><div class="gal-overlay">🔍</div></div>
     </div>
-    <p style="text-align:center;margin-top:36px;color:var(--mid);font-size:0.9rem;">
-      📸 Ingin lihat lebih banyak? Kunjungi Instagram kami 
-      <a href="https://www.instagram.com/_quickfixsolutions" target="_blank" style="color:var(--blue);font-weight:700;">@_quickfixsolutions</a>
-    </p>
+    <p style="text-align:center;margin-top:36px;color:var(--mid);font-size:0.9rem;">📸 Ingin lihat lebih banyak? Kunjungi Instagram kami <a href="https://www.instagram.com/_quickfixsolutions" target="_blank" style="color:var(--blue);font-weight:700;">@_quickfixsolutions</a></p>
   </div>
 </div>
 
@@ -1220,39 +946,345 @@
 ════════════════════════════════ -->
 <div class="page" id="page-lokasi">
   <div class="inner-page" style="background:var(--white);">
-    <div class="section-header reveal">
-      <div class="section-tag">Lokasi</div>
-      <h2 class="section-title">Temukan Kami</h2>
-      <p class="section-desc">Kunjungi langsung atau hubungi kami via WhatsApp untuk konsultasi gratis</p>
-    </div>
+    <div class="section-header reveal"><div class="section-tag">Lokasi</div><h2 class="section-title">Temukan Kami</h2><p class="section-desc">Kunjungi langsung atau hubungi kami via WhatsApp untuk konsultasi gratis</p></div>
     <div class="lokasi-wrap">
       <div class="lokasi-info reveal">
         <h3>QuickFix Solutions</h3>
-        <div class="lokasi-item">
-          <div class="lokasi-icon">📍</div>
-          <div class="lokasi-text"><strong>Alamat</strong><span>SMKN Gudo, Jombang, Jawa Timur</span></div>
+        <div class="lokasi-item"><div class="lokasi-icon">📍</div><div class="lokasi-text"><strong>Alamat</strong><span>SMKN Gudo, Jombang, Jawa Timur</span></div></div>
+        <div class="lokasi-item"><div class="lokasi-icon">💬</div><div class="lokasi-text"><strong>WhatsApp</strong><span>081905882031</span></div></div>
+        <div class="lokasi-item"><div class="lokasi-icon">📸</div><div class="lokasi-text"><strong>Instagram</strong><span>@_quickfixsolutions</span></div></div>
+        <div class="lokasi-item"><div class="lokasi-icon">⏰</div><div class="lokasi-text"><strong>Jam Operasional</strong><span>Senin – Sabtu, 08.00 – 17.00 WIB</span></div></div>
+        <a href="https://wa.me/6281905882031" target="_blank" class="btn-primary" style="margin-top:12px;display:inline-flex;"><span>💬 Hubungi via WhatsApp</span></a>
+      </div>
+      <div class="map-container reveal"><div class="map-emoji">🗺️</div><p>SMKN Gudo, Jombang</p><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20bisa%20minta%20lokasi%20lengkapnya?" target="_blank">Tanya Lokasi via WhatsApp →</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     PAGE: PORTOFOLIO
+════════════════════════════════ -->
+<div class="page" id="page-portofolio">
+  <!-- Hero -->
+  <div class="porto-hero">
+    <div class="porto-hero-inner reveal">
+      <div class="section-tag">Portofolio</div>
+      <h1>Hasil Kerja <span>Nyata</span><br>Bukan Sekadar Janji</h1>
+      <p>Setiap perangkat yang kami tangani adalah bukti komitmen kami. Lihat sendiri hasil pengerjaan teknisi QuickFix Solutions.</p>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-banner">
+    <div class="stats-row">
+      <div class="stats-col reveal"><span class="s-num">200+</span><span class="s-lbl">HP Diperbaiki</span></div>
+      <div class="stats-col reveal"><span class="s-num">150+</span><span class="s-lbl">Laptop Ditangani</span></div>
+      <div class="stats-col reveal"><span class="s-num">98%</span><span class="s-lbl">Kepuasan Pelanggan</span></div>
+      <div class="stats-col reveal"><span class="s-num">⭐5.0</span><span class="s-lbl">Rating Rata-rata</span></div>
+    </div>
+  </div>
+
+  <!-- Portfolio Grid -->
+  <div class="inner-page" style="background:var(--white);padding-top:70px;">
+    <div class="section-header reveal">
+      <div class="section-tag">Studi Kasus</div>
+      <h2 class="section-title">Kasus yang Pernah Kami Tangani</h2>
+      <p class="section-desc">Berbagai kerusakan berhasil kami selesaikan dengan cepat dan bergaransi</p>
+    </div>
+    <div class="porto-grid">
+      <div class="porto-card reveal">
+        <div class="porto-thumb"><span class="pt-icon">📱</span><span class="porto-badge done">✓ Selesai</span></div>
+        <div class="porto-body">
+          <h3>LCD iPhone Retak — Diganti, Normal Kembali</h3>
+          <p>Layar iPhone yang retak parah akibat terjatuh diganti dengan LCD original. Proses pengerjaan selesai dalam 2 jam dengan garansi 30 hari.</p>
+          <div class="porto-meta"><span class="porto-tag">Service HP</span><span class="porto-tag">Ganti LCD</span><span class="porto-tag">iPhone</span></div>
+          <div class="porto-result"><span class="pr-icon">⏱️</span><span>Waktu pengerjaan: <strong>2 jam</strong></span></div>
         </div>
-        <div class="lokasi-item">
-          <div class="lokasi-icon">💬</div>
-          <div class="lokasi-text"><strong>WhatsApp</strong><span>081905882031</span></div>
+      </div>
+      <div class="porto-card reveal">
+        <div class="porto-thumb"><span class="pt-icon">💻</span><span class="porto-badge done">✓ Selesai</span></div>
+        <div class="porto-body">
+          <h3>Laptop Lemot Akibat HDD Rusak — Upgrade SSD</h3>
+          <p>Laptop yang sangat lambat karena HDD aging diupgrade ke SSD 256GB. Waktu booting turun dari 3 menit menjadi hanya 15 detik.</p>
+          <div class="porto-meta"><span class="porto-tag">Service Laptop</span><span class="porto-tag">Upgrade SSD</span></div>
+          <div class="porto-result"><span class="pr-icon">⚡</span><span>Performa meningkat <strong>10x lebih cepat</strong></span></div>
         </div>
-        <div class="lokasi-item">
-          <div class="lokasi-icon">📸</div>
-          <div class="lokasi-text"><strong>Instagram</strong><span>@_quickfixsolutions</span></div>
+      </div>
+      <div class="porto-card reveal">
+        <div class="porto-thumb"><span class="pt-icon">🦠</span><span class="porto-badge done">✓ Selesai</span></div>
+        <div class="porto-body">
+          <h3>Komputer Kantor Terkena Virus — Bersih Total</h3>
+          <p>PC kantor yang terinfeksi malware berat dibersihkan total dan sistem diinstall ulang. Data penting berhasil diselamatkan sepenuhnya.</p>
+          <div class="porto-meta"><span class="porto-tag">Service PC</span><span class="porto-tag">Virus</span><span class="porto-tag">Install Windows</span></div>
+          <div class="porto-result"><span class="pr-icon">🛡️</span><span>Data berhasil <strong>diselamatkan 100%</strong></span></div>
         </div>
-        <div class="lokasi-item">
-          <div class="lokasi-icon">⏰</div>
-          <div class="lokasi-text"><strong>Jam Operasional</strong><span>Senin – Sabtu, 08.00 – 17.00 WIB</span></div>
+      </div>
+      <div class="porto-card reveal">
+        <div class="porto-thumb"><span class="pt-icon">🔋</span><span class="porto-badge done">✓ Selesai</span></div>
+        <div class="porto-body">
+          <h3>Baterai Android Drop Parah — Diganti Baru</h3>
+          <p>HP Android yang baterainya hanya tahan 1 jam diganti baterai baru berkapasitas original. Kini tahan lebih dari 8 jam pemakaian normal.</p>
+          <div class="porto-meta"><span class="porto-tag">Service HP</span><span class="porto-tag">Ganti Baterai</span><span class="porto-tag">Android</span></div>
+          <div class="porto-result"><span class="pr-icon">🔋</span><span>Daya tahan meningkat <strong>dari 1 jam ke 8+ jam</strong></span></div>
         </div>
-        <a href="https://wa.me/6281905882031" target="_blank" class="btn-primary" style="margin-top:12px;display:inline-flex;">
-          <span>💬 Hubungi via WhatsApp</span>
+      </div>
+      <div class="porto-card reveal">
+        <div class="porto-thumb"><span class="pt-icon">🔓</span><span class="porto-badge done">✓ Selesai</span></div>
+        <div class="porto-body">
+          <h3>HP Terkunci Lupa PIN — Berhasil di-Unlock</h3>
+          <p>HP Android yang terkunci karena lupa PIN berhasil di-unlock dan di-flashing ulang. Data yang bisa diselamatkan berhasil dibackup sebelum proses.</p>
+          <div class="porto-meta"><span class="porto-tag">Flashing</span><span class="porto-tag">Unlock</span><span class="porto-tag">Android</span></div>
+          <div class="porto-result"><span class="pr-icon">✅</span><span>HP kembali <strong>berfungsi normal</strong></span></div>
+        </div>
+      </div>
+      <div class="porto-card reveal">
+        <div class="porto-thumb"><span class="pt-icon">⌨️</span><span class="porto-badge done">✓ Selesai</span></div>
+        <div class="porto-body">
+          <h3>Keyboard Laptop Beberapa Tombol Mati — Diganti</h3>
+          <p>Keyboard laptop yang beberapa tombolnya tidak berfungsi diganti unit baru yang kompatibel. Proses pemasangan rapi tanpa bekas goresan.</p>
+          <div class="porto-meta"><span class="porto-tag">Service Laptop</span><span class="porto-tag">Ganti Keyboard</span></div>
+          <div class="porto-result"><span class="pr-icon">⌨️</span><span>Semua tombol <strong>berfungsi sempurna</strong></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimoni -->
+  <div class="testimoni-section">
+    <div class="section-header reveal">
+      <div class="section-tag">Testimoni</div>
+      <h2 class="section-title">Kata Mereka</h2>
+      <p class="section-desc">Kepuasan pelanggan adalah bukti terbaik kualitas kerja kami</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"HP saya yang layarnya retak parah diperbaiki dengan cepat dan hasilnya seperti baru lagi. Teknisinya ramah dan harganya wajar. Sangat rekomendasikan!"</p>
+        <div class="testi-author"><div class="testi-avatar">😊</div><div><div class="testi-name">Rina A.</div><div class="testi-loc">Gudo, Jombang</div></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Laptop saya yang sudah lemot banget sekarang jadi cepat setelah upgrade SSD di QuickFix. Bedanya kayak langit dan bumi. Puas banget!"</p>
+        <div class="testi-author"><div class="testi-avatar">😄</div><div><div class="testi-name">Budi S.</div><div class="testi-loc">Mojowarno, Jombang</div></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Komputer kantor kena virus, datanya penting semua. QuickFix berhasil bersihin virusnya dan selamatin semua data saya. Terima kasih banyak!"</p>
+        <div class="testi-author"><div class="testi-avatar">🤩</div><div><div class="testi-name">Sari W.</div><div class="testi-loc">Jombang Kota</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sosmed-cta">
+    <h2>Jadikan Gadget Anda Berikutnya</h2>
+    <p>Konsultasikan kerusakan gadget Anda sekarang — diagnosa gratis!</p>
+    <div class="sosmed-btns"><a href="https://wa.me/6281905882031" target="_blank" class="sosmed-btn btn-whatsapp">📱 Konsultasi Gratis</a><a href="https://www.instagram.com/_quickfixsolutions" target="_blank" class="sosmed-btn btn-ig">📸 Instagram Kami</a></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     PAGE: BLOG
+════════════════════════════════ -->
+<div class="page" id="page-blog">
+  <div class="blog-hero">
+    <div class="blog-hero-inner reveal">
+      <div class="section-tag">Blog & Edukasi</div>
+      <h1>Tips &amp; Trik <span>Gadget</span><br>Untuk Anda</h1>
+      <p>Artikel edukatif seputar perawatan gadget, tips agar HP dan laptop awet, serta update teknologi terkini dari tim QuickFix Solutions.</p>
+    </div>
+  </div>
+
+  <div class="blog-filter">
+    <div class="blog-filter-inner">
+      <button class="filter-btn active">Semua</button>
+      <button class="filter-btn">Tips Perawatan</button>
+      <button class="filter-btn">Teknologi</button>
+      <button class="filter-btn">Promo & Info</button>
+    </div>
+  </div>
+
+  <div class="blog-grid" style="padding-top:40px;background:var(--white);">
+    <!-- Blog 1 -->
+    <div class="blog-card reveal">
+      <div class="blog-thumb tech" style="position:relative;"><span class="bt-icon">🔋</span><span class="blog-cat tips-cat">Tips Perawatan</span></div>
+      <div class="blog-body">
+        <div class="blog-meta"><span>📅 10 Jun 2026</span><span>⏱️ 4 menit baca</span></div>
+        <h3>7 Cara Menjaga Baterai HP Agar Tetap Awet dan Tahan Lama</h3>
+        <p>Baterai HP yang cepat habis adalah masalah umum. Ketahui kebiasaan charging yang benar dan tips merawat baterai lithium-ion agar tetap prima.</p>
+      </div>
+      <div class="blog-footer"><span class="blog-read" onclick="showPage('hubungi')">Baca Selengkapnya →</span></div>
+    </div>
+
+    <!-- Blog 2 -->
+    <div class="blog-card reveal">
+      <div class="blog-thumb tips" style="position:relative;"><span class="bt-icon">💻</span><span class="blog-cat tips-cat">Tips Perawatan</span></div>
+      <div class="blog-body">
+        <div class="blog-meta"><span>📅 5 Jun 2026</span><span>⏱️ 5 menit baca</span></div>
+        <h3>Kenapa Laptop Lama Menjadi Lambat? Ini 5 Penyebab dan Solusinya</h3>
+        <p>Laptop yang dulunya kencang kini terasa lemot? Cari tahu penyebab utamanya — mulai dari storage penuh, RAM kurang, hingga debu di kipas pendingin.</p>
+      </div>
+      <div class="blog-footer"><span class="blog-read" onclick="showPage('hubungi')">Baca Selengkapnya →</span></div>
+    </div>
+
+    <!-- Blog 3 -->
+    <div class="blog-card reveal">
+      <div class="blog-thumb tech" style="position:relative;"><span class="bt-icon">🛡️</span><span class="blog-cat" style="background:var(--blue);">Teknologi</span></div>
+      <div class="blog-body">
+        <div class="blog-meta"><span>📅 28 Mei 2026</span><span>⏱️ 6 menit baca</span></div>
+        <h3>Perbedaan SSD dan HDD: Mana yang Lebih Cocok untuk Laptop Kamu?</h3>
+        <p>SSD vs HDD — apa bedanya dan kenapa upgrade ke SSD bisa membuat laptop lama terasa seperti baru? Semua dijelaskan secara sederhana di sini.</p>
+      </div>
+      <div class="blog-footer"><span class="blog-read" onclick="showPage('hubungi')">Baca Selengkapnya →</span></div>
+    </div>
+
+    <!-- Blog 4 -->
+    <div class="blog-card reveal">
+      <div class="blog-thumb promo" style="position:relative;"><span class="bt-icon">🔥</span><span class="blog-cat promo-cat">Promo & Info</span></div>
+      <div class="blog-body">
+        <div class="blog-meta"><span>📅 20 Mei 2026</span><span>⏱️ 2 menit baca</span></div>
+        <h3>Promo Bulan Juni: Diskon 10% untuk Semua Layanan Ganti LCD dan Baterai</h3>
+        <p>Jangan lewatkan promo spesial bulan ini! Dapatkan diskon 10% untuk layanan penggantian LCD dan baterai HP maupun laptop. Berlaku hingga akhir Juni.</p>
+      </div>
+      <div class="blog-footer"><span class="blog-read" onclick="showPage('layanan')">Lihat Promo →</span></div>
+    </div>
+
+    <!-- Blog 5 -->
+    <div class="blog-card reveal">
+      <div class="blog-thumb tech" style="position:relative;"><span class="bt-icon">🦠</span><span class="blog-cat tips-cat">Tips Perawatan</span></div>
+      <div class="blog-body">
+        <div class="blog-meta"><span>📅 14 Mei 2026</span><span>⏱️ 5 menit baca</span></div>
+        <h3>Tanda-tanda HP atau Laptop Terkena Virus dan Cara Mengatasinya</h3>
+        <p>Perangkat tiba-tiba lambat, iklan muncul sendiri, atau baterai cepat habis? Bisa jadi itu tanda virus! Kenali gejalanya dan cara penanganan yang tepat.</p>
+      </div>
+      <div class="blog-footer"><span class="blog-read" onclick="showPage('hubungi')">Baca Selengkapnya →</span></div>
+    </div>
+
+    <!-- Blog 6 -->
+    <div class="blog-card reveal">
+      <div class="blog-thumb info" style="position:relative;"><span class="bt-icon">📱</span><span class="blog-cat" style="background:#8b5cf6;">Info</span></div>
+      <div class="blog-body">
+        <div class="blog-meta"><span>📅 8 Mei 2026</span><span>⏱️ 3 menit baca</span></div>
+        <h3>Kapan Waktu yang Tepat untuk Ganti HP? Ini Tandanya</h3>
+        <p>HP sudah sering bermasalah tapi bingung apakah harus diperbaiki atau beli baru? Artikel ini membantu Anda membuat keputusan yang tepat secara finansial.</p>
+      </div>
+      <div class="blog-footer"><span class="blog-read" onclick="showPage('hubungi')">Baca Selengkapnya →</span></div>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:0 5% 70px;background:var(--white);">
+    <p style="color:var(--mid);font-size:0.9rem;margin-bottom:20px;">Punya pertanyaan seputar gadget? Langsung tanyakan ke kami!</p>
+    <a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20punya%20pertanyaan%20tentang%20gadget" target="_blank" class="btn-primary"><span>💬 Tanya via WhatsApp</span></a>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     PAGE: HUBUNGI KAMI
+════════════════════════════════ -->
+<div class="page" id="page-hubungi">
+  <!-- Hero -->
+  <div class="contact-hero">
+    <div class="contact-hero-inner reveal">
+      <div class="section-tag">Hubungi Kami</div>
+      <h1>Ada yang Bisa<br>Kami <span>Bantu?</span></h1>
+      <p>Konsultasikan masalah gadget Anda — gratis! Kami siap merespons dengan cepat dan memberikan estimasi biaya yang transparan.</p>
+    </div>
+  </div>
+
+  <!-- Main Contact -->
+  <div class="contact-main">
+    <div class="contact-grid">
+      <!-- Info Col -->
+      <div class="contact-info-col reveal">
+        <h2>Kontak <span>Langsung</span></h2>
+        <p>Pilih cara yang paling nyaman untuk menghubungi kami. Kami aktif setiap hari Senin–Sabtu.</p>
+
+        <a href="https://wa.me/6281905882031" target="_blank" class="contact-card">
+          <div class="cc-icon wa-i">💬</div>
+          <div class="cc-text"><strong>WhatsApp</strong><span>081905882031 — Respons Cepat</span></div>
+          <span class="cc-arrow">›</span>
         </a>
+        <a href="https://www.instagram.com/_quickfixsolutions" target="_blank" class="contact-card">
+          <div class="cc-icon ig-i">📸</div>
+          <div class="cc-text"><strong>Instagram</strong><span>@_quickfixsolutions</span></div>
+          <span class="cc-arrow">›</span>
+        </a>
+        <a href="#" onclick="showPage('lokasi');return false;" class="contact-card">
+          <div class="cc-icon loc-i">📍</div>
+          <div class="cc-text"><strong>Lokasi</strong><span>SMKN Gudo, Jombang, Jawa Timur</span></div>
+          <span class="cc-arrow">›</span>
+        </a>
+        <div class="contact-card" style="cursor:default;">
+          <div class="cc-icon time-i">⏰</div>
+          <div class="cc-text"><strong>Jam Operasional</strong><span>Senin – Sabtu, 08.00 – 17.00 WIB</span></div>
+        </div>
       </div>
-      <div class="map-container reveal">
-        <div class="map-emoji">🗺️</div>
-        <p>SMKN Gudo, Jombang</p>
-        <a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20bisa%20minta%20lokasi%20lengkapnya?" target="_blank">Tanya Lokasi via WhatsApp →</a>
+
+      <!-- Form Col -->
+      <div class="contact-form-col reveal">
+        <h2>Kirim Pesan</h2>
+        <p>Isi formulir di bawah ini dan kami akan menghubungi Anda sesegera mungkin via WhatsApp.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nama Lengkap</label>
+            <input type="text" placeholder="Contoh: Budi Santoso" id="f-nama"/>
+          </div>
+          <div class="form-group">
+            <label>Nomor HP / WA</label>
+            <input type="tel" placeholder="08xxxxxxxxxx" id="f-hp"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Jenis Layanan</label>
+          <select id="f-layanan">
+            <option value="">-- Pilih Layanan --</option>
+            <option>Service HP (Android / iPhone)</option>
+            <option>Perbaikan Laptop & Komputer</option>
+            <option>Ganti LCD / Baterai / Keyboard</option>
+            <option>Install Ulang Windows & Software</option>
+            <option>Upgrade RAM & SSD</option>
+            <option>Flashing & Unlock HP</option>
+            <option>Pembersihan Virus & Optimasi</option>
+            <option>Konsultasi / Lainnya</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Deskripsi Masalah</label>
+          <textarea placeholder="Ceritakan masalah pada gadget Anda secara singkat. Contoh: HP saya layarnya retak dan touch tidak berfungsi..." id="f-pesan"></textarea>
+        </div>
+        <button class="form-submit" onclick="kirimPesan()">
+          <span>📱 Kirim via WhatsApp</span>
+        </button>
+        <p class="form-note">Setelah mengklik tombol di atas, Anda akan diarahkan ke WhatsApp dengan pesan yang sudah terisi otomatis. Kami akan membalas secepatnya!</p>
       </div>
+    </div>
+  </div>
+
+  <!-- WA CTA Band -->
+  <div class="wa-cta-band">
+    <h2>Chat Langsung Sekarang</h2>
+    <p>Butuh jawaban cepat? WhatsApp kami selalu aktif untuk konsultasi gratis!</p>
+    <a href="https://wa.me/6281905882031" target="_blank" class="wa-big-btn">
+      💬 Hubungi via WhatsApp<span class="wa-num">0819-0588-2031</span>
+    </a>
+  </div>
+
+  <!-- Peta Lokasi -->
+  <div style="padding:70px 5% 80px;background:var(--white);">
+    <div class="section-header reveal">
+      <div class="section-tag">Lokasi</div>
+      <h2 class="section-title">Kunjungi Kami</h2>
+      <p class="section-desc">Datang langsung ke bengkel kami di SMKN Gudo, Jombang</p>
+    </div>
+    <div class="lokasi-wrap" style="max-width:900px;">
+      <div class="lokasi-info reveal">
+        <h3>QuickFix Solutions</h3>
+        <div class="lokasi-item"><div class="lokasi-icon">📍</div><div class="lokasi-text"><strong>Alamat Lengkap</strong><span>SMKN Gudo, Jombang, Jawa Timur</span></div></div>
+        <div class="lokasi-item"><div class="lokasi-icon">🚗</div><div class="lokasi-text"><strong>Akses Kendaraan</strong><span>Mudah dijangkau dengan motor maupun mobil</span></div></div>
+        <div class="lokasi-item"><div class="lokasi-icon">⏰</div><div class="lokasi-text"><strong>Jam Buka</strong><span>Senin – Sabtu, 08.00 – 17.00 WIB</span></div></div>
+        <div class="lokasi-item"><div class="lokasi-icon">💬</div><div class="lokasi-text"><strong>Tanya Arah</strong><span>Hubungi WhatsApp kami untuk panduan lokasi</span></div></div>
+      </div>
+      <div class="map-container reveal"><div class="map-emoji">🗺️</div><p>SMKN Gudo, Jombang</p><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20bisa%20minta%20petunjuk%20arah%20ke%20lokasi?" target="_blank">Minta Petunjuk Arah via WhatsApp →</a></div>
     </div>
   </div>
 </div>
@@ -1265,14 +1297,12 @@
     const oldPage = document.getElementById('page-' + currentPage);
     const newPage = document.getElementById('page-' + pageId);
     if (!newPage) return;
-
-    // trigger exit on old
     oldPage.classList.add('exit');
     setTimeout(() => {
-      oldPage.classList.remove('active', 'exit');
+      oldPage.classList.remove('active','exit');
       newPage.classList.add('active');
       currentPage = pageId;
-      window.scrollTo({top:0, behavior:'smooth'});
+      window.scrollTo({top:0,behavior:'smooth'});
       updateNavActive(pageId);
       initReveal();
     }, 280);
@@ -1282,113 +1312,107 @@
     document.querySelectorAll('.nav-links a[data-page]').forEach(a => {
       a.classList.toggle('active', a.dataset.page === pageId);
     });
+    // also mark layanan-family pages active on layanan nav item
+    const layananPages = ['layanan','semua-layanan'];
+    const layananLink = document.querySelector('.nav-links a[data-page="layanan"]');
+    if (layananLink) layananLink.classList.toggle('active', layananPages.includes(pageId));
   }
 
   // ══════════ SLIDER ══════════
   let currentSlide = 0;
   const totalSlides = 3;
-  const slideDuration = 5000; // 5 detik
-  let sliderInterval = null;
-  let progressInterval = null;
-  let progressValue = 0;
+  const slideDuration = 5000;
+  let sliderInterval = null, progressInterval = null, progressValue = 0;
 
   function updateSlider() {
     const track = document.getElementById('sliderTrack');
+    if(!track) return;
     track.style.transform = `translateX(-${currentSlide * 33.333}%)`;
-    document.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+    document.querySelectorAll('.slider-dot').forEach((d,i) => d.classList.toggle('active', i === currentSlide));
   }
-
-  function nextSlide() {
-    currentSlide = (currentSlide + 1) % totalSlides;
-    updateSlider();
-    resetProgress();
-  }
-  function prevSlide() {
-    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-    updateSlider();
-    resetProgress();
-  }
-  function goSlide(idx) {
-    currentSlide = idx;
-    updateSlider();
-    resetProgress();
-  }
-
-  function resetProgress() {
-    clearInterval(progressInterval);
-    progressValue = 0;
-    const bar = document.getElementById('progressBar');
-    if(bar) bar.style.width = '0%';
+  function nextSlide(){currentSlide=(currentSlide+1)%totalSlides;updateSlider();resetProgress();}
+  function prevSlide(){currentSlide=(currentSlide-1+totalSlides)%totalSlides;updateSlider();resetProgress();}
+  function goSlide(idx){currentSlide=idx;updateSlider();resetProgress();}
+  function resetProgress(){
+    clearInterval(progressInterval);progressValue=0;
+    const bar=document.getElementById('progressBar');if(bar)bar.style.width='0%';
     startProgress();
   }
-
-  function startProgress() {
-    const bar = document.getElementById('progressBar');
-    if(!bar) return;
-    const step = 100 / (slideDuration / 100);
-    progressInterval = setInterval(() => {
-      progressValue += step;
-      bar.style.width = Math.min(progressValue, 100) + '%';
-    }, 100);
+  function startProgress(){
+    const bar=document.getElementById('progressBar');if(!bar)return;
+    const step=100/(slideDuration/100);
+    progressInterval=setInterval(()=>{progressValue+=step;bar.style.width=Math.min(progressValue,100)+'%';},100);
   }
-
-  function startAutoSlide() {
-    sliderInterval = setInterval(nextSlide, slideDuration);
-    startProgress();
-  }
+  function startAutoSlide(){sliderInterval=setInterval(nextSlide,slideDuration);startProgress();}
 
   // ══════════ PARTICLES ══════════
-  function createParticles(containerId) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    for (let i = 0; i < 12; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      p.style.left = Math.random() * 100 + '%';
-      p.style.bottom = '-10px';
-      p.style.animationDuration = (3 + Math.random() * 4) + 's';
-      p.style.animationDelay = (Math.random() * 4) + 's';
-      p.style.width = p.style.height = (2 + Math.random() * 4) + 'px';
-      p.style.opacity = 0.2 + Math.random() * 0.4;
-      container.appendChild(p);
+  function createParticles(id){
+    const c=document.getElementById(id);if(!c)return;
+    for(let i=0;i<12;i++){
+      const p=document.createElement('div');p.className='particle';
+      p.style.left=Math.random()*100+'%';p.style.bottom='-10px';
+      p.style.animationDuration=(3+Math.random()*4)+'s';p.style.animationDelay=(Math.random()*4)+'s';
+      const s=(2+Math.random()*4)+'px';p.style.width=p.style.height=s;
+      p.style.opacity=0.2+Math.random()*0.4;c.appendChild(p);
     }
   }
 
-  // ══════════ HAMBURGER ══════════
-  function toggleMenu() {
-    const m = document.getElementById('mobileMenu');
-    const h = document.getElementById('hamburger');
-    m.classList.toggle('open');
-    h.classList.toggle('open');
+  // ══════════ MOBILE MENU ══════════
+  function toggleMenu(){
+    const m=document.getElementById('mobileMenu'),h=document.getElementById('hamburger');
+    m.classList.toggle('open');h.classList.toggle('open');
   }
-  function closeMenu() {
+  function closeMenu(){
     document.getElementById('mobileMenu').classList.remove('open');
     document.getElementById('hamburger').classList.remove('open');
   }
+  function toggleMobileDd(el){
+    el.classList.toggle('open-dd');
+    const sub=document.getElementById('mobileSub');
+    sub.classList.toggle('open');
+  }
+
+  // ══════════ FILTER BLOG ══════════
+  document.addEventListener('click', e => {
+    if(e.target.classList.contains('filter-btn')){
+      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      e.target.classList.add('active');
+    }
+  });
+
+  // ══════════ CONTACT FORM → WA ══════════
+  function kirimPesan(){
+    const nama = document.getElementById('f-nama')?.value.trim() || '';
+    const hp   = document.getElementById('f-hp')?.value.trim() || '';
+    const lay  = document.getElementById('f-layanan')?.value || '';
+    const pesan= document.getElementById('f-pesan')?.value.trim() || '';
+    if(!nama && !hp && !lay && !pesan){
+      alert('Silakan isi minimal satu field sebelum mengirim.');return;
+    }
+    let msg = `Halo QuickFix Solutions! 👋\n\n`;
+    if(nama) msg += `*Nama:* ${nama}\n`;
+    if(hp)   msg += `*No. HP:* ${hp}\n`;
+    if(lay)  msg += `*Layanan:* ${lay}\n`;
+    if(pesan)msg += `*Masalah:* ${pesan}\n`;
+    msg += `\nMohon bantuannya, terima kasih!`;
+    window.open('https://wa.me/6281905882031?text='+encodeURIComponent(msg),'_blank');
+  }
 
   // ══════════ REVEAL OBSERVER ══════════
-  function initReveal() {
-    setTimeout(() => {
-      const revEls = document.querySelectorAll('#page-'+currentPage+' .reveal');
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach((e, i) => {
-          if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 70);
-        });
-      }, {threshold: 0.08});
-      revEls.forEach(el => {
-        el.classList.remove('visible');
-        obs.observe(el);
-      });
-    }, 100);
+  function initReveal(){
+    setTimeout(()=>{
+      const els=document.querySelectorAll('#page-'+currentPage+' .reveal');
+      const obs=new IntersectionObserver((entries)=>{
+        entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*70);});
+      },{threshold:0.08});
+      els.forEach(el=>{el.classList.remove('visible');obs.observe(el);});
+    },100);
   }
 
   // ══════════ INIT ══════════
-  window.addEventListener('DOMContentLoaded', () => {
-    createParticles('particles1');
-    createParticles('particles2');
-    createParticles('particles3');
-    startAutoSlide();
-    initReveal();
+  window.addEventListener('DOMContentLoaded',()=>{
+    createParticles('particles1');createParticles('particles2');createParticles('particles3');
+    startAutoSlide();initReveal();
   });
 </script>
 </body>
