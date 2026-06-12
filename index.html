@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
   <meta name="description" content="Solusi cepat & terpercaya untuk semua masalah gadget Anda. Service HP, Laptop, Komputer, Install Windows dan banyak lagi."/>
   <title>QuickFix Solutions - Solusi Cepat & Terpercaya</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet"/>
@@ -23,11 +23,21 @@
       --white:       #ffffff;
       --wa:          #25D366;
       --diskon:      #ef4444;
+
+      /* ── Colorful service accent palette ── */
+      --c1-a: #2563eb; --c1-b: #38bdf8; /* biru cyan */
+      --c2-a: #059669; --c2-b: #34d399; /* hijau emerald */
+      --c3-a: #7c3aed; --c3-b: #c084fc; /* ungu violet */
+      --c4-a: #ea580c; --c4-b: #fbbf24; /* oranye amber */
+      --c5-a: #db2777; --c5-b: #f472b6; /* pink magenta */
+      --c6-a: #dc2626; --c6-b: #f87171; /* merah */
     }
 
-    *{margin:0;padding:0;box-sizing:border-box;}
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
     html{scroll-behavior:smooth;}
-    body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--dark);overflow-x:hidden;}
+    html,body{max-width:100%;overflow-x:hidden;}
+    body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--dark);overflow-x:hidden;width:100%;}
+    img{max-width:100%;display:block;}
 
     /* ══════════ NAVBAR ══════════ */
     nav{
@@ -188,7 +198,7 @@
     .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
     /* ══════════ PAGE SYSTEM ══════════ */
-    .page{display:none;animation:pageIn 0.55s cubic-bezier(0.25,0.46,0.45,0.94) both;}
+    .page{display:none;animation:pageIn 0.55s cubic-bezier(0.25,0.46,0.45,0.94) both;width:100%;overflow-x:hidden;}
     .page.active{display:block;}
     @keyframes pageIn{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
     @keyframes pageOut{from{opacity:1;transform:translateX(0);}to{opacity:0;transform:translateX(-40px);}}
@@ -202,7 +212,7 @@
     .hero-content{position:relative;padding:120px 5% 80px;max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
 
     /* ══════════ SLIDER ══════════ */
-    .hero-slider{position:relative;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.5);aspect-ratio:4/3;background:var(--black2);}
+    .hero-slider{position:relative;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.5);aspect-ratio:4/3;background:var(--black2);width:100%;}
     .slider-track{display:flex;width:300%;height:100%;transition:transform 0.8s cubic-bezier(0.77,0,0.175,1);}
     .slide{width:33.333%;height:100%;position:relative;flex-shrink:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;overflow:hidden;}
     .slide:nth-child(1){background:linear-gradient(135deg,#0a0f1e 0%,#1a1f3a 40%,#0d2060 100%);}
@@ -214,7 +224,7 @@
     .slide-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
     .particle{position:absolute;width:4px;height:4px;background:rgba(255,255,255,0.3);border-radius:50%;animation:floatUp linear infinite;}
     @keyframes floatUp{0%{transform:translateY(100%) scale(0);opacity:0;}10%{opacity:1;}90%{opacity:0.5;}100%{transform:translateY(-200px) scale(1);opacity:0;}}
-    .slide-content{position:relative;z-index:2;text-align:center;padding:0 30px;}
+    .slide-content{position:relative;z-index:2;text-align:center;padding:0 30px;max-width:100%;}
     .slide-icon{font-size:72px;display:block;margin-bottom:16px;animation:iconFloat 3s ease-in-out infinite;}
     @keyframes iconFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
     .slide-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.7rem;font-weight:800;color:white;line-height:1.15;margin-bottom:8px;text-shadow:0 2px 20px rgba(0,0,0,0.5);}
@@ -264,50 +274,114 @@
     .section-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.9rem,3.5vw,2.8rem);font-weight:800;color:var(--black2);margin-bottom:12px;letter-spacing:-0.5px;}
     .section-desc{font-size:0.97rem;color:var(--mid);max-width:520px;margin:0 auto;line-height:1.75;font-family:'DM Sans',sans-serif;}
 
-    /* ══════════ LAYANAN CARDS ══════════ */
-    .layanan-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;max-width:1200px;margin:0 auto;}
-    .layanan-card{background:var(--white);border-radius:20px;overflow:hidden;border:1.5px solid #e5e7eb;transition:all 0.35s;display:flex;flex-direction:column;position:relative;}
-    .layanan-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,86,232,0.03),rgba(96,165,250,0.03));opacity:0;transition:opacity 0.35s;pointer-events:none;border-radius:20px;}
-    .layanan-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(26,86,232,0.13);border-color:rgba(26,86,232,0.35);}
+    /* ══════════ LAYANAN CARDS — COLORFUL + ZOOM EFFECT ══════════ */
+    .layanan-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;max-width:1200px;margin:0 auto;perspective:1000px;}
+    .layanan-card{
+      background:var(--white);border-radius:20px;overflow:hidden;
+      border:1.5px solid #e5e7eb;
+      transition:transform 0.45s cubic-bezier(0.34,1.35,0.64,1),
+                 box-shadow 0.45s cubic-bezier(0.25,0.46,0.45,0.94),
+                 border-color 0.35s ease;
+      display:flex;flex-direction:column;position:relative;
+      transform:scale(1) translateY(0);
+      will-change:transform;
+    }
+    .layanan-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,86,232,0.03),rgba(96,165,250,0.03));opacity:0;transition:opacity 0.35s;pointer-events:none;border-radius:20px;z-index:1;}
+    /* Zoom-in on hover: card scales up & lifts. Mouse leave reverses (zoom out) automatically via transition */
+    .layanan-card:hover{
+      transform:scale(1.045) translateY(-8px);
+      box-shadow:0 28px 60px -10px var(--card-glow,rgba(26,86,232,0.35));
+      border-color:var(--card-border,rgba(26,86,232,0.4));
+      z-index:5;
+    }
     .layanan-card:hover::before{opacity:1;}
+    .layanan-card:active{transform:scale(1.01) translateY(-3px);}
 
-    /* Thumbnail dengan efek zoom+gradasi seperti astacloud */
-    .layanan-thumb{height:130px;background:linear-gradient(135deg,var(--black2),var(--blue-dark));display:flex;align-items:center;justify-content:center;font-size:52px;position:relative;overflow:hidden;transition:all 0.35s;}
-    .layanan-thumb-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--black2),var(--blue-dark));transition:transform 0.55s cubic-bezier(0.34,1.2,0.64,1);}
-    .layanan-thumb-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,86,232,0.6),rgba(96,165,250,0.35));opacity:0;transition:opacity 0.4s ease;}
-    .layanan-thumb .thumb-icon{position:relative;z-index:2;display:block;line-height:1;transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);}
-    .layanan-card:hover .layanan-thumb-bg{transform:scale(1.15);}
+    /* Colorful gradient accent assigned per card */
+    .layanan-card.c1{--card-a:var(--c1-a);--card-b:var(--c1-b);--card-glow:rgba(37,99,235,0.35);--card-border:rgba(37,99,235,0.45);}
+    .layanan-card.c2{--card-a:var(--c2-a);--card-b:var(--c2-b);--card-glow:rgba(5,150,105,0.35);--card-border:rgba(5,150,105,0.45);}
+    .layanan-card.c3{--card-a:var(--c3-a);--card-b:var(--c3-b);--card-glow:rgba(124,58,237,0.35);--card-border:rgba(124,58,237,0.45);}
+    .layanan-card.c4{--card-a:var(--c4-a);--card-b:var(--c4-b);--card-glow:rgba(234,88,12,0.35);--card-border:rgba(234,88,12,0.45);}
+    .layanan-card.c5{--card-a:var(--c5-a);--card-b:var(--c5-b);--card-glow:rgba(219,39,119,0.35);--card-border:rgba(219,39,119,0.45);}
+    .layanan-card.c6{--card-a:var(--c6-a);--card-b:var(--c6-b);--card-glow:rgba(220,38,38,0.35);--card-border:rgba(220,38,38,0.45);}
+
+    /* Top accent strip — colorful, animates wider on hover */
+    .layanan-card .card-accent{
+      position:absolute;top:0;left:0;right:0;height:5px;
+      background:linear-gradient(90deg,var(--card-a),var(--card-b),var(--card-a));
+      background-size:200% 100%;
+      z-index:3;transition:height 0.35s ease;
+    }
+    .layanan-card:hover .card-accent{height:7px;animation:accentShift 2.2s linear infinite;}
+    @keyframes accentShift{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
+
+    /* Thumbnail dengan efek zoom+gradasi berwarna sesuai kategori */
+    .layanan-thumb{height:130px;display:flex;align-items:center;justify-content:center;font-size:52px;position:relative;overflow:hidden;transition:all 0.35s;}
+    .layanan-thumb-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--card-a),var(--card-b));transition:transform 0.55s cubic-bezier(0.34,1.2,0.64,1);}
+    .layanan-thumb-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.28),rgba(255,255,255,0.05));opacity:0;transition:opacity 0.4s ease;}
+    .layanan-thumb .thumb-icon{position:relative;z-index:2;display:block;line-height:1;transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);filter:drop-shadow(0 4px 14px rgba(0,0,0,0.25));}
+    /* Zoom-in/zoom-out effect on the thumbnail icon + background as cursor approaches */
+    .layanan-card:hover .layanan-thumb-bg{transform:scale(1.22);}
     .layanan-card:hover .layanan-thumb-overlay{opacity:1;}
-    .layanan-card:hover .layanan-thumb .thumb-icon{transform:scale(1.2) rotate(-8deg);}
+    .layanan-card:hover .layanan-thumb .thumb-icon{transform:scale(1.28) rotate(-8deg);}
+
+    /* Floating colorful particles inside thumb on hover */
+    .layanan-thumb .thumb-glow{position:absolute;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.35),transparent 70%);top:-30%;left:-20%;opacity:0;transition:opacity 0.4s ease,transform 0.6s cubic-bezier(0.34,1.2,0.64,1);transform:scale(0.6);pointer-events:none;}
+    .layanan-card:hover .thumb-glow{opacity:1;transform:scale(1.2);}
 
     .layanan-tags{display:flex;gap:6px;padding:14px 18px 0;flex-wrap:wrap;}
-    .tag{background:var(--blue-pale);color:var(--blue);font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:50px;letter-spacing:0.3px;text-transform:uppercase;font-family:'DM Sans',sans-serif;}
+    .tag{
+      background:linear-gradient(135deg,var(--card-a),var(--card-b));
+      color:#fff;font-size:0.68rem;font-weight:700;padding:4px 11px;border-radius:50px;
+      letter-spacing:0.3px;text-transform:uppercase;font-family:'DM Sans',sans-serif;
+      box-shadow:0 3px 10px -2px var(--card-glow);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .layanan-card:hover .tag{transform:translateY(-2px) scale(1.04);}
     .layanan-body{padding:14px 18px 22px;flex:1;display:flex;flex-direction:column;}
-    .layanan-body h3{font-size:0.97rem;font-weight:700;color:var(--black2);margin-bottom:7px;font-family:'Plus Jakarta Sans',sans-serif;}
+    .layanan-body h3{font-size:0.97rem;font-weight:700;color:var(--black2);margin-bottom:7px;font-family:'Plus Jakarta Sans',sans-serif;transition:color 0.3s;}
+    .layanan-card:hover .layanan-body h3{color:var(--card-a);}
     .layanan-body p{font-size:0.85rem;color:var(--mid);line-height:1.65;flex:1;font-family:'DM Sans',sans-serif;}
-    .layanan-price{margin-top:16px;padding-top:14px;border-top:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;}
+    .layanan-price{margin-top:16px;padding-top:14px;border-top:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
     .price-label{font-size:0.7rem;color:var(--light);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;font-family:'DM Sans',sans-serif;}
-    .price-value{font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--blue);}
-    .btn-wa{display:inline-flex;align-items:center;gap:6px;background:var(--wa);color:white;padding:9px 18px;border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;transition:all 0.25s;white-space:nowrap;font-family:'DM Sans',sans-serif;}
-    .btn-wa:hover{background:#1ebe5d;transform:scale(1.04);}
+    .price-value{font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;background:linear-gradient(135deg,var(--card-a),var(--card-b));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .btn-wa{
+      display:inline-flex;align-items:center;gap:6px;
+      background:linear-gradient(135deg,var(--card-a),var(--card-b));
+      color:white;padding:9px 18px;border-radius:10px;font-size:0.8rem;font-weight:700;
+      text-decoration:none;transition:all 0.3s cubic-bezier(0.34,1.45,0.64,1);white-space:nowrap;
+      font-family:'DM Sans',sans-serif;box-shadow:0 6px 16px -4px var(--card-glow);
+      flex-shrink:0;
+    }
+    .btn-wa:hover{transform:scale(1.07) translateY(-2px);box-shadow:0 10px 24px -4px var(--card-glow);}
+    .btn-wa:active{transform:scale(0.97);}
 
     /* ══════════ SEMUA LAYANAN LIST ══════════ */
     .laylist-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;max-width:1100px;margin:0 auto;}
-    .laylist-item{display:flex;align-items:flex-start;gap:16px;background:var(--bg);border:1.5px solid #e5e7eb;border-radius:16px;padding:22px 20px;transition:all 0.3s;position:relative;overflow:hidden;}
-    .laylist-item::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--blue-xlight));transform:scaleX(0);transition:transform 0.3s;transform-origin:left;}
-    .laylist-item:hover{border-color:var(--blue);box-shadow:0 8px 25px rgba(26,86,232,0.1);transform:translateY(-3px);}
+    .laylist-item{display:flex;align-items:flex-start;gap:16px;background:var(--bg);border:1.5px solid #e5e7eb;border-radius:16px;padding:22px 20px;transition:all 0.3s cubic-bezier(0.34,1.2,0.64,1);position:relative;overflow:hidden;}
+    .laylist-item::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--item-a,var(--blue)),var(--item-b,var(--blue-xlight)));transform:scaleX(0);transition:transform 0.3s;transform-origin:left;}
+    .laylist-item:hover{border-color:var(--item-a,var(--blue));box-shadow:0 10px 28px -6px var(--item-glow,rgba(26,86,232,0.18));transform:translateY(-4px) scale(1.015);}
     .laylist-item:hover::before{transform:scaleX(1);}
 
+    .laylist-item.l1{--item-a:var(--c1-a);--item-b:var(--c1-b);--item-glow:rgba(37,99,235,0.22);}
+    .laylist-item.l2{--item-a:var(--c3-a);--item-b:var(--c3-b);--item-glow:rgba(124,58,237,0.22);}
+    .laylist-item.l3{--item-a:var(--c2-a);--item-b:var(--c2-b);--item-glow:rgba(5,150,105,0.22);}
+    .laylist-item.l4{--item-a:var(--c4-a);--item-b:var(--c4-b);--item-glow:rgba(234,88,12,0.22);}
+    .laylist-item.l5{--item-a:#1d4ed8;--item-b:#3b82f6;--item-glow:rgba(29,78,216,0.22);}
+    .laylist-item.l6{--item-a:var(--c6-a);--item-b:var(--c6-b);--item-glow:rgba(220,38,38,0.22);}
+    .laylist-item.l7{--item-a:var(--c5-a);--item-b:var(--c5-b);--item-glow:rgba(219,39,119,0.22);}
+
     /* icon dengan efek hover zoom */
-    .laylist-icon{width:50px;height:50px;flex-shrink:0;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 14px rgba(26,86,232,0.3);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);position:relative;overflow:hidden;}
-    .laylist-icon-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--blue),var(--blue-light));transition:transform 0.45s cubic-bezier(0.34,1.3,0.64,1);}
-    .laylist-icon-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(96,165,250,0.5),rgba(26,86,232,0.2));opacity:0;transition:opacity 0.3s;}
+    .laylist-icon{width:50px;height:50px;flex-shrink:0;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 14px var(--item-glow,rgba(26,86,232,0.3));transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);position:relative;overflow:hidden;}
+    .laylist-icon-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--item-a,var(--blue)),var(--item-b,var(--blue-light)));transition:transform 0.45s cubic-bezier(0.34,1.3,0.64,1);}
+    .laylist-icon-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.35),rgba(255,255,255,0.05));opacity:0;transition:opacity 0.3s;}
     .laylist-icon span{position:relative;z-index:2;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);display:block;}
     .laylist-item:hover .laylist-icon-bg{transform:scale(1.2);}
     .laylist-item:hover .laylist-icon-overlay{opacity:1;}
+    .laylist-item:hover .laylist-icon{transform:scale(1.1) rotate(-5deg);}
     .laylist-item:hover .laylist-icon span{transform:scale(1.18) rotate(-10deg);}
 
-    .laylist-text strong{display:block;font-size:0.9rem;font-weight:700;color:var(--black2);margin-bottom:4px;font-family:'Plus Jakarta Sans',sans-serif;}
+    .laylist-text strong{display:block;font-size:0.9rem;font-weight:700;color:var(--black2);margin-bottom:4px;font-family:'Plus Jakarta Sans',sans-serif;transition:color 0.3s;}
+    .laylist-item:hover .laylist-text strong{color:var(--item-a,var(--black2));}
     .laylist-text span{font-size:0.82rem;color:var(--mid);line-height:1.55;font-family:'DM Sans',sans-serif;}
     .laylist-item.garansi{border-color:var(--blue);background:var(--blue-pale);}
     .laylist-item.garansi .laylist-text strong{color:var(--blue-dark);}
@@ -391,14 +465,14 @@
     .footer-bottom span{color:var(--blue-xlight);}
 
     /* ══════════ MOBILE MENU ══════════ */
-    .mobile-menu{display:none;position:fixed;top:70px;left:0;right:0;background:rgba(6,11,22,0.98);backdrop-filter:blur(12px);padding:20px 5%;z-index:999;border-bottom:1px solid rgba(255,255,255,0.05);transform:translateY(-10px);opacity:0;transition:all 0.3s;pointer-events:none;max-height:calc(100vh - 70px);overflow-y:auto;}
+    .mobile-menu{display:none;position:fixed;top:70px;left:0;right:0;background:rgba(6,11,22,0.98);backdrop-filter:blur(12px);padding:20px 5%;z-index:999;border-bottom:1px solid rgba(255,255,255,0.05);transform:translateY(-10px);opacity:0;transition:all 0.3s;pointer-events:none;max-height:calc(100vh - 70px);overflow-y:auto;-webkit-overflow-scrolling:touch;}
     .mobile-menu.open{display:block;opacity:1;transform:translateY(0);pointer-events:all;}
     .mobile-menu ul{list-style:none;}
     .mobile-menu ul li{border-bottom:1px solid rgba(255,255,255,0.05);}
     .mobile-menu ul a{display:block;color:rgba(255,255,255,0.7);text-decoration:none;padding:14px 0;font-size:0.95rem;font-weight:600;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
     .mobile-menu ul a:hover{color:var(--blue-xlight);padding-left:8px;}
     .mobile-dd-toggle{display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
-    .mobile-dd-toggle .dd-arrow-m{transition:transform 0.3s;font-size:0.7rem;}
+    .mobile-dd-toggle .dd-arrow-m{transition:transform 0.3s;font-size:0.7rem;padding:14px 0 14px 14px;}
     .mobile-dd-toggle.open-dd .dd-arrow-m{transform:rotate(180deg);}
     .mobile-sub{display:none;padding:6px 0 6px 16px;}
     .mobile-sub.open{display:block;}
@@ -581,7 +655,7 @@
     .blog-body h3{font-size:0.97rem;font-weight:700;color:var(--black2);line-height:1.45;margin-bottom:10px;font-family:'Plus Jakarta Sans',sans-serif;}
     .blog-body p{font-size:0.83rem;color:var(--mid);line-height:1.68;font-family:'DM Sans',sans-serif;}
     .blog-footer{padding:0 22px 22px;display:flex;align-items:center;justify-content:space-between;}
-    .blog-read{font-size:0.82rem;font-weight:700;color:var(--blue);display:flex;align-items:center;gap:5px;text-decoration:none;transition:gap 0.2s;font-family:'DM Sans',sans-serif;}
+    .blog-read{font-size:0.82rem;font-weight:700;color:var(--blue);display:flex;align-items:center;gap:5px;text-decoration:none;transition:gap 0.2s;font-family:'DM Sans',sans-serif;cursor:pointer;}
     .blog-card:hover .blog-read{gap:9px;}
 
     /* ══════════ HUBUNGI PAGE ══════════ */
@@ -674,10 +748,25 @@
       .contact-form-col{padding:26px 22px;}
       .stats-row{grid-template-columns:1fr 1fr;}
       .tim-grid{grid-template-columns:1fr 1fr;}
+      .layanan-grid{grid-template-columns:1fr;}
+      .layanan-card:hover{transform:scale(1.025) translateY(-4px);}
+      .vm-card{padding:28px 22px;}
+      .promo-inner{flex-direction:column;text-align:center;}
+      .about-story-inner,.contact-grid{gap:40px;}
     }
     @media(max-width:480px){
       .tim-grid{grid-template-columns:1fr;}
       .testi-grid{grid-template-columns:1fr;}
+      .hero-content{padding:90px 5% 60px;}
+      .inner-page{padding:80px 5% 60px;}
+      .section-title{font-size:1.7rem;}
+      .laylist-grid{grid-template-columns:1fr;}
+      .form-row{gap:0;}
+    }
+
+    /* Reduced motion accessibility */
+    @media (prefers-reduced-motion: reduce){
+      *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}
     }
   </style>
 </head>
@@ -771,7 +860,7 @@
     <li><a href="#" onclick="showPage('portofolio');return false;" data-page="portofolio"><span class="link-txt">Portofolio</span></a></li>
     <li><a href="#" onclick="showPage('blog');return false;" data-page="blog"><span class="link-txt">Blog</span></a></li>
     <li><a href="#" onclick="showPage('hubungi');return false;" data-page="hubungi"><span class="link-txt">Hubungi Kami</span></a></li>
-    <li><a href="https://wa.me/6281905882031" class="nav-wa" target="_blank"><span class="link-txt">💬 WhatsApp</span></a></li>
+    <li><a href="https://wa.me/6281905882031" class="nav-wa" target="_blank" rel="noopener"><span class="link-txt">💬 WhatsApp</span></a></li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -801,7 +890,7 @@
     <li><a href="#" onclick="showPage('portofolio');closeMenu();return false;">Portofolio</a></li>
     <li><a href="#" onclick="showPage('blog');closeMenu();return false;">Blog & Edukasi</a></li>
     <li><a href="#" onclick="showPage('hubungi');closeMenu();return false;">Hubungi Kami</a></li>
-    <li><a href="https://wa.me/6281905882031" target="_blank">💬 WhatsApp — 081905882031</a></li>
+    <li><a href="https://wa.me/6281905882031" target="_blank" rel="noopener">💬 WhatsApp — 081905882031</a></li>
   </ul>
 </div>
 
@@ -845,9 +934,9 @@
           <button class="slider-prev" onclick="prevSlide()" aria-label="Previous">&#8249;</button>
           <button class="slider-next" onclick="nextSlide()" aria-label="Next">&#8250;</button>
           <div class="slider-dots">
-            <button class="slider-dot active" onclick="goSlide(0)"></button>
-            <button class="slider-dot" onclick="goSlide(1)"></button>
-            <button class="slider-dot" onclick="goSlide(2)"></button>
+            <button class="slider-dot active" onclick="goSlide(0)" aria-label="Slide 1"></button>
+            <button class="slider-dot" onclick="goSlide(1)" aria-label="Slide 2"></button>
+            <button class="slider-dot" onclick="goSlide(2)" aria-label="Slide 3"></button>
           </div>
           <div class="slider-progress"><div class="slider-progress-bar" id="progressBar"></div></div>
         </div>
@@ -890,8 +979,8 @@
     <h2>Ikuti Kami di Media Sosial</h2>
     <p>Dapatkan tips gadget, promo terbaru, dan update layanan QuickFix Solutions</p>
     <div class="sosmed-btns">
-      <a href="https://wa.me/6281905882031" target="_blank" class="sosmed-btn btn-whatsapp">📱 WhatsApp</a>
-      <a href="https://www.instagram.com/_quickfixsolutions" target="_blank" class="sosmed-btn btn-ig">📸 Instagram</a>
+      <a href="https://wa.me/6281905882031" target="_blank" rel="noopener" class="sosmed-btn btn-whatsapp">📱 WhatsApp</a>
+      <a href="https://www.instagram.com/_quickfixsolutions" target="_blank" rel="noopener" class="sosmed-btn btn-ig">📸 Instagram</a>
     </div>
   </div>
 
@@ -901,13 +990,13 @@
         <a href="#" onclick="showPage('beranda');return false;" class="nav-logo" style="margin-bottom:4px;display:inline-flex;"><div class="nav-logo-icon">🔧</div><div class="nav-logo-text">QUICKFIX <span>Solutions</span></div></a>
         <p>Solusi cepat &amp; terpercaya untuk semua masalah gadget Anda. Service HP, Laptop, Komputer dikerjakan teknisi ahli dengan garansi.</p>
         <div class="footer-socials">
-          <a href="https://wa.me/6281905882031" class="footer-social-btn" target="_blank"><div class="footer-social-btn-bg"></div><span>📱</span></a>
-          <a href="https://www.instagram.com/_quickfixsolutions" class="footer-social-btn" target="_blank"><div class="footer-social-btn-bg"></div><span>📸</span></a>
+          <a href="https://wa.me/6281905882031" class="footer-social-btn" target="_blank" rel="noopener"><div class="footer-social-btn-bg"></div><span>📱</span></a>
+          <a href="https://www.instagram.com/_quickfixsolutions" class="footer-social-btn" target="_blank" rel="noopener"><div class="footer-social-btn-bg"></div><span>📸</span></a>
         </div>
       </div>
       <div class="footer-col"><h4>Navigasi</h4><ul><li><a href="#" onclick="showPage('beranda');return false;">Beranda</a></li><li><a href="#" onclick="showPage('tentang');return false;">Tentang Kami</a></li><li><a href="#" onclick="showPage('layanan');return false;">Layanan</a></li><li><a href="#" onclick="showPage('portofolio');return false;">Portofolio</a></li><li><a href="#" onclick="showPage('blog');return false;">Blog & Edukasi</a></li><li><a href="#" onclick="showPage('hubungi');return false;">Hubungi Kami</a></li></ul></div>
       <div class="footer-col"><h4>Layanan</h4><ul><li><a href="#" onclick="showPage('layanan');return false;">Service HP</a></li><li><a href="#" onclick="showPage('layanan');return false;">Service Laptop</a></li><li><a href="#" onclick="showPage('layanan');return false;">Ganti LCD &amp; Baterai</a></li><li><a href="#" onclick="showPage('layanan');return false;">Install Windows</a></li><li><a href="#" onclick="showPage('layanan');return false;">Upgrade RAM/SSD</a></li><li><a href="#" onclick="showPage('layanan');return false;">Flashing &amp; Unlock</a></li></ul></div>
-      <div class="footer-col"><h4>Kontak</h4><ul><li><a href="https://wa.me/6281905882031" target="_blank">WA: 081905882031</a></li><li><a href="https://www.instagram.com/_quickfixsolutions" target="_blank">IG: @_quickfixsolutions</a></li><li><a href="#" onclick="showPage('hubungi');return false;">Lokasi: SMKN Gudo</a></li></ul></div>
+      <div class="footer-col"><h4>Kontak</h4><ul><li><a href="https://wa.me/6281905882031" target="_blank" rel="noopener">WA: 081905882031</a></li><li><a href="https://www.instagram.com/_quickfixsolutions" target="_blank" rel="noopener">IG: @_quickfixsolutions</a></li><li><a href="#" onclick="showPage('hubungi');return false;">Lokasi: SMKN Gudo</a></li></ul></div>
     </div>
     <div class="footer-bottom"><p>© 2026 <span>QuickFix Solutions</span>. All rights reserved.</p><p>Kerusakan kecil? <span>Jangan tunggu jadi besar!</span></p></div>
   </footer>
@@ -1007,62 +1096,129 @@
     <h2>Mau Kenal Lebih Dekat?</h2>
     <p>Kunjungi kami langsung di SMKN Gudo atau hubungi via WhatsApp & Instagram</p>
     <div class="sosmed-btns">
-      <a href="https://wa.me/6281905882031" target="_blank" class="sosmed-btn btn-whatsapp">📱 WhatsApp Kami</a>
-      <a href="https://www.instagram.com/_quickfixsolutions" target="_blank" class="sosmed-btn btn-ig">📸 Follow Instagram</a>
+      <a href="https://wa.me/6281905882031" target="_blank" rel="noopener" class="sosmed-btn btn-whatsapp">📱 WhatsApp Kami</a>
+      <a href="https://www.instagram.com/_quickfixsolutions" target="_blank" rel="noopener" class="sosmed-btn btn-ig">📸 Follow Instagram</a>
     </div>
   </div>
 </div>
 
 <!-- ════════════════════════════════
-     PAGE: LAYANAN
+     PAGE: LAYANAN  (COLORFUL CARDS + ZOOM HOVER)
 ════════════════════════════════ -->
 <div class="page" id="page-layanan">
   <div class="inner-page" style="background:var(--bg);">
     <div class="section-header reveal">
       <div class="section-tag">Layanan Kami</div>
       <h2 class="section-title">Layanan Unggulan</h2>
-      <p class="section-desc">Solusi cepat, aman, dan profesional untuk semua masalah perangkat Anda</p>
+      <p class="section-desc">Solusi cepat, aman, dan profesional untuk semua masalah perangkat Anda — arahkan kursor untuk melihat detail!</p>
     </div>
     <div class="layanan-grid">
-      <div class="layanan-card reveal">
-        <div class="layanan-thumb"><div class="layanan-thumb-bg"></div><div class="layanan-thumb-overlay"></div><span class="thumb-icon">📱</span></div>
+
+      <!-- 1. Service HP — Biru Cyan -->
+      <div class="layanan-card reveal c1">
+        <div class="card-accent"></div>
+        <div class="layanan-thumb">
+          <div class="layanan-thumb-bg"></div>
+          <div class="thumb-glow"></div>
+          <div class="layanan-thumb-overlay"></div>
+          <span class="thumb-icon">📱</span>
+        </div>
         <div class="layanan-tags"><span class="tag">Android</span><span class="tag">iPhone</span></div>
-        <div class="layanan-body"><h3>Service HP</h3><p>Perbaikan HP Android dan iPhone — layar pecah, mati total, bootloop, error software, dan lainnya ditangani teknisi berpengalaman.</p>
-        <div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Service%20HP" target="_blank" class="btn-wa">📱 Pesan</a></div></div>
+        <div class="layanan-body">
+          <h3>Service HP</h3>
+          <p>Perbaikan HP Android dan iPhone — layar pecah, mati total, bootloop, error software, dan lainnya ditangani teknisi berpengalaman.</p>
+          <div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Service%20HP" target="_blank" rel="noopener" class="btn-wa">📱 Pesan</a></div>
+        </div>
       </div>
-      <div class="layanan-card reveal">
-        <div class="layanan-thumb"><div class="layanan-thumb-bg" style="background:linear-gradient(135deg,#0d4020,#1a6032);"></div><div class="layanan-thumb-overlay" style="background:linear-gradient(135deg,rgba(34,197,94,0.55),rgba(16,185,129,0.25));"></div><span class="thumb-icon">💻</span></div>
+
+      <!-- 2. Laptop & Komputer — Hijau Emerald -->
+      <div class="layanan-card reveal c2">
+        <div class="card-accent"></div>
+        <div class="layanan-thumb">
+          <div class="layanan-thumb-bg"></div>
+          <div class="thumb-glow"></div>
+          <div class="layanan-thumb-overlay"></div>
+          <span class="thumb-icon">💻</span>
+        </div>
         <div class="layanan-tags"><span class="tag">Laptop</span><span class="tag">Komputer</span></div>
-        <div class="layanan-body"><h3>Perbaikan Laptop &amp; Komputer</h3><p>Service laptop dan komputer untuk masalah hardware maupun software. Diagnosa cepat dan penanganan tepat oleh teknisi ahli.</p>
-        <div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Service%20Laptop" target="_blank" class="btn-wa">📱 Pesan</a></div></div>
+        <div class="layanan-body">
+          <h3>Perbaikan Laptop &amp; Komputer</h3>
+          <p>Service laptop dan komputer untuk masalah hardware maupun software. Diagnosa cepat dan penanganan tepat oleh teknisi ahli.</p>
+          <div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Service%20Laptop" target="_blank" rel="noopener" class="btn-wa">📱 Pesan</a></div>
+        </div>
       </div>
-      <div class="layanan-card reveal">
-        <div class="layanan-thumb"><div class="layanan-thumb-bg" style="background:linear-gradient(135deg,#1a0a30,#3d1a70);"></div><div class="layanan-thumb-overlay" style="background:linear-gradient(135deg,rgba(139,92,246,0.55),rgba(167,139,250,0.25));"></div><span class="thumb-icon">🔲</span></div>
+
+      <!-- 3. Ganti LCD, Baterai & Keyboard — Ungu Violet -->
+      <div class="layanan-card reveal c3">
+        <div class="card-accent"></div>
+        <div class="layanan-thumb">
+          <div class="layanan-thumb-bg"></div>
+          <div class="thumb-glow"></div>
+          <div class="layanan-thumb-overlay"></div>
+          <span class="thumb-icon">🔲</span>
+        </div>
         <div class="layanan-tags"><span class="tag">LCD</span><span class="tag">Baterai</span><span class="tag">Keyboard</span></div>
-        <div class="layanan-body"><h3>Ganti LCD, Baterai &amp; Keyboard</h3><p>Penggantian komponen HP dan laptop original berkualitas. LCD buram, baterai boros, keyboard error — kami siap membantu.</p>
-        <div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Ganti%20Komponen" target="_blank" class="btn-wa">📱 Pesan</a></div></div>
+        <div class="layanan-body">
+          <h3>Ganti LCD, Baterai &amp; Keyboard</h3>
+          <p>Penggantian komponen HP dan laptop original berkualitas. LCD buram, baterai boros, keyboard error — kami siap membantu.</p>
+          <div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Ganti%20Komponen" target="_blank" rel="noopener" class="btn-wa">📱 Pesan</a></div>
+        </div>
       </div>
-      <div class="layanan-card reveal">
-        <div class="layanan-thumb"><div class="layanan-thumb-bg" style="background:linear-gradient(135deg,#0a1a30,#0d2a70);"></div><div class="layanan-thumb-overlay" style="background:linear-gradient(135deg,rgba(59,130,246,0.55),rgba(147,197,253,0.25));"></div><span class="thumb-icon">🪟</span></div>
+
+      <!-- 4. Install Windows & Software — Oranye Amber -->
+      <div class="layanan-card reveal c4">
+        <div class="card-accent"></div>
+        <div class="layanan-thumb">
+          <div class="layanan-thumb-bg"></div>
+          <div class="thumb-glow"></div>
+          <div class="layanan-thumb-overlay"></div>
+          <span class="thumb-icon">🪟</span>
+        </div>
         <div class="layanan-tags"><span class="tag">Windows</span><span class="tag">Software</span></div>
-        <div class="layanan-body"><h3>Install Ulang Windows &amp; Software</h3><p>Install ulang Windows 10/11, driver, dan berbagai software kebutuhan Anda. Cepat, bersih, dan siap pakai langsung.</p>
-        <div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Install%20Windows" target="_blank" class="btn-wa">📱 Pesan</a></div></div>
+        <div class="layanan-body">
+          <h3>Install Ulang Windows &amp; Software</h3>
+          <p>Install ulang Windows 10/11, driver, dan berbagai software kebutuhan Anda. Cepat, bersih, dan siap pakai langsung.</p>
+          <div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Install%20Windows" target="_blank" rel="noopener" class="btn-wa">📱 Pesan</a></div>
+        </div>
       </div>
-      <div class="layanan-card reveal">
-        <div class="layanan-thumb"><div class="layanan-thumb-bg" style="background:linear-gradient(135deg,#1a1000,#604800);"></div><div class="layanan-thumb-overlay" style="background:linear-gradient(135deg,rgba(251,191,36,0.55),rgba(245,158,11,0.25));"></div><span class="thumb-icon">⚡</span></div>
+
+      <!-- 5. Upgrade RAM & SSD — Pink Magenta -->
+      <div class="layanan-card reveal c5">
+        <div class="card-accent"></div>
+        <div class="layanan-thumb">
+          <div class="layanan-thumb-bg"></div>
+          <div class="thumb-glow"></div>
+          <div class="layanan-thumb-overlay"></div>
+          <span class="thumb-icon">⚡</span>
+        </div>
         <div class="layanan-tags"><span class="tag">RAM</span><span class="tag">SSD</span></div>
-        <div class="layanan-body"><h3>Upgrade RAM &amp; SSD</h3><p>Tingkatkan performa laptop atau komputer Anda dengan upgrade RAM dan SSD. Lebih cepat, lebih responsif, lebih produktif.</p>
-        <div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Upgrade%20RAM%20SSD" target="_blank" class="btn-wa">📱 Pesan</a></div></div>
+        <div class="layanan-body">
+          <h3>Upgrade RAM &amp; SSD</h3>
+          <p>Tingkatkan performa laptop atau komputer Anda dengan upgrade RAM dan SSD. Lebih cepat, lebih responsif, lebih produktif.</p>
+          <div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Upgrade%20RAM%20SSD" target="_blank" rel="noopener" class="btn-wa">📱 Pesan</a></div>
+        </div>
       </div>
-      <div class="layanan-card reveal">
-        <div class="layanan-thumb"><div class="layanan-thumb-bg" style="background:linear-gradient(135deg,#1a0008,#5a0028);"></div><div class="layanan-thumb-overlay" style="background:linear-gradient(135deg,rgba(239,68,68,0.55),rgba(252,165,165,0.25));"></div><span class="thumb-icon">🔓</span></div>
+
+      <!-- 6. Flashing & Unlock HP — Merah -->
+      <div class="layanan-card reveal c6">
+        <div class="card-accent"></div>
+        <div class="layanan-thumb">
+          <div class="layanan-thumb-bg"></div>
+          <div class="thumb-glow"></div>
+          <div class="layanan-thumb-overlay"></div>
+          <span class="thumb-icon">🔓</span>
+        </div>
         <div class="layanan-tags"><span class="tag">Flashing</span><span class="tag">Unlock</span></div>
-        <div class="layanan-body"><h3>Flashing &amp; Unlock HP</h3><p>HP terkunci, lupa PIN, atau perlu di-flashing ulang? Kami menanganinya dengan aman tanpa merusak data yang bisa diselamatkan.</p>
-        <div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Flashing%20HP" target="_blank" class="btn-wa">📱 Pesan</a></div></div>
+        <div class="layanan-body">
+          <h3>Flashing &amp; Unlock HP</h3>
+          <p>HP terkunci, lupa PIN, atau perlu di-flashing ulang? Kami menanganinya dengan aman tanpa merusak data yang bisa diselamatkan.</p>
+          <div class="layanan-price"><div><div class="price-label">Mulai dari</div><div class="price-value">Hubungi Kami</div></div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20ingin%20Flashing%20HP" target="_blank" rel="noopener" class="btn-wa">📱 Pesan</a></div>
+        </div>
       </div>
+
     </div>
     <div class="promo-banner" style="margin-top:60px;border-radius:24px;">
-      <div class="promo-inner"><div><div class="promo-eyebrow">Promo Spesial Bulan Ini</div><div class="promo-title">Layar Pecah? Baterai Drop?</div><span class="promo-highlight">DISKON 10%</span><div class="promo-note">Cepat, aman, dan bergaransi — Segera klaim sebelum kehabisan!</div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix%20Solutions,%20saya%20ingin%20klaim%20diskon%2010%25" target="_blank" class="promo-cta">📱 Klaim via WhatsApp</a></div><div><div class="promo-badge-big"><div class="big-pct">10%</div><div class="big-off">OFF</div></div></div></div>
+      <div class="promo-inner"><div><div class="promo-eyebrow">Promo Spesial Bulan Ini</div><div class="promo-title">Layar Pecah? Baterai Drop?</div><span class="promo-highlight">DISKON 10%</span><div class="promo-note">Cepat, aman, dan bergaransi — Segera klaim sebelum kehabisan!</div><a href="https://wa.me/6281905882031?text=Halo%20QuickFix%20Solutions,%20saya%20ingin%20klaim%20diskon%2010%25" target="_blank" rel="noopener" class="promo-cta">📱 Klaim via WhatsApp</a></div><div><div class="promo-badge-big"><div class="big-pct">10%</div><div class="big-off">OFF</div></div></div></div>
     </div>
   </div>
 </div>
@@ -1074,16 +1230,16 @@
   <div class="inner-page" style="background:var(--white);">
     <div class="section-header reveal"><div class="section-tag">Semua Layanan</div><h2 class="section-title">Daftar Lengkap Layanan</h2><p class="section-desc">Solusi lengkap yang kami sediakan untuk semua kebutuhan gadget Anda</p></div>
     <div class="laylist-grid">
-      <div class="laylist-item reveal"><div class="laylist-icon"><div class="laylist-icon-bg"></div><div class="laylist-icon-overlay"></div><span>📱</span></div><div class="laylist-text"><strong>Service HP (Android &amp; iPhone)</strong><span>Perbaikan segala kerusakan HP Android dan iPhone oleh teknisi berpengalaman</span></div></div>
-      <div class="laylist-item reveal"><div class="laylist-icon"><div class="laylist-icon-bg" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);"></div><div class="laylist-icon-overlay"></div><span>🔲</span></div><div class="laylist-text"><strong>Ganti LCD, Baterai, Keyboard</strong><span>Penggantian komponen HP dan laptop dengan spare part berkualitas</span></div></div>
-      <div class="laylist-item reveal"><div class="laylist-icon"><div class="laylist-icon-bg" style="background:linear-gradient(135deg,#059669,#34d399);"></div><div class="laylist-icon-overlay"></div><span>💻</span></div><div class="laylist-text"><strong>Perbaikan Laptop &amp; Komputer</strong><span>Diagnosa dan perbaikan laptop serta komputer untuk semua merk dan tipe</span></div></div>
-      <div class="laylist-item reveal"><div class="laylist-icon"><div class="laylist-icon-bg" style="background:linear-gradient(135deg,#d97706,#fbbf24);"></div><div class="laylist-icon-overlay"></div><span>⚡</span></div><div class="laylist-text"><strong>Upgrade RAM &amp; SSD</strong><span>Tingkatkan performa perangkat Anda dengan RAM dan SSD terbaik</span></div></div>
-      <div class="laylist-item reveal"><div class="laylist-icon"><div class="laylist-icon-bg" style="background:linear-gradient(135deg,#1d4ed8,#3b82f6);"></div><div class="laylist-icon-overlay"></div><span>🪟</span></div><div class="laylist-text"><strong>Install Ulang Windows &amp; Software</strong><span>Install Windows 10/11, driver, dan software kebutuhan kantor maupun gaming</span></div></div>
-      <div class="laylist-item reveal"><div class="laylist-icon"><div class="laylist-icon-bg" style="background:linear-gradient(135deg,#dc2626,#f87171);"></div><div class="laylist-icon-overlay"></div><span>🛡️</span></div><div class="laylist-text"><strong>Pembersihan Virus &amp; Optimasi Sistem</strong><span>Hapus virus, malware, dan optimalkan sistem agar performa kembali prima</span></div></div>
-      <div class="laylist-item reveal"><div class="laylist-icon"><div class="laylist-icon-bg" style="background:linear-gradient(135deg,#be185d,#f472b6);"></div><div class="laylist-icon-overlay"></div><span>🔓</span></div><div class="laylist-text"><strong>Flashing &amp; Unlock HP</strong><span>Flash ulang firmware HP dan unlock perangkat yang terkunci dengan aman</span></div></div>
+      <div class="laylist-item l1 reveal"><div class="laylist-icon"><div class="laylist-icon-bg"></div><div class="laylist-icon-overlay"></div><span>📱</span></div><div class="laylist-text"><strong>Service HP (Android &amp; iPhone)</strong><span>Perbaikan segala kerusakan HP Android dan iPhone oleh teknisi berpengalaman</span></div></div>
+      <div class="laylist-item l2 reveal"><div class="laylist-icon"><div class="laylist-icon-bg"></div><div class="laylist-icon-overlay"></div><span>🔲</span></div><div class="laylist-text"><strong>Ganti LCD, Baterai, Keyboard</strong><span>Penggantian komponen HP dan laptop dengan spare part berkualitas</span></div></div>
+      <div class="laylist-item l3 reveal"><div class="laylist-icon"><div class="laylist-icon-bg"></div><div class="laylist-icon-overlay"></div><span>💻</span></div><div class="laylist-text"><strong>Perbaikan Laptop &amp; Komputer</strong><span>Diagnosa dan perbaikan laptop serta komputer untuk semua merk dan tipe</span></div></div>
+      <div class="laylist-item l4 reveal"><div class="laylist-icon"><div class="laylist-icon-bg"></div><div class="laylist-icon-overlay"></div><span>⚡</span></div><div class="laylist-text"><strong>Upgrade RAM &amp; SSD</strong><span>Tingkatkan performa perangkat Anda dengan RAM dan SSD terbaik</span></div></div>
+      <div class="laylist-item l5 reveal"><div class="laylist-icon"><div class="laylist-icon-bg"></div><div class="laylist-icon-overlay"></div><span>🪟</span></div><div class="laylist-text"><strong>Install Ulang Windows &amp; Software</strong><span>Install Windows 10/11, driver, dan software kebutuhan kantor maupun gaming</span></div></div>
+      <div class="laylist-item l6 reveal"><div class="laylist-icon"><div class="laylist-icon-bg"></div><div class="laylist-icon-overlay"></div><span>🛡️</span></div><div class="laylist-text"><strong>Pembersihan Virus &amp; Optimasi Sistem</strong><span>Hapus virus, malware, dan optimalkan sistem agar performa kembali prima</span></div></div>
+      <div class="laylist-item l7 reveal"><div class="laylist-icon"><div class="laylist-icon-bg"></div><div class="laylist-icon-overlay"></div><span>🔓</span></div><div class="laylist-text"><strong>Flashing &amp; Unlock HP</strong><span>Flash ulang firmware HP dan unlock perangkat yang terkunci dengan aman</span></div></div>
       <div class="laylist-item garansi reveal"><div class="laylist-icon"><div class="laylist-icon-bg"></div><div class="laylist-icon-overlay"></div><span>🏆</span></div><div class="laylist-text"><strong>Bergaransi untuk Setiap Layanan</strong><span>Semua pengerjaan dilengkapi garansi resmi — kepuasan Anda adalah prioritas kami</span></div></div>
     </div>
-    <div style="text-align:center;margin-top:48px;"><a href="https://wa.me/6281905882031" target="_blank" class="btn-primary"><span>💬 Konsultasi Gratis via WhatsApp</span></a></div>
+    <div style="text-align:center;margin-top:48px;"><a href="https://wa.me/6281905882031" target="_blank" rel="noopener" class="btn-primary"><span>💬 Konsultasi Gratis via WhatsApp</span></a></div>
   </div>
 </div>
 
@@ -1125,7 +1281,7 @@
       <div class="testi-card reveal"><div class="testi-stars">★★★★★</div><p class="testi-text">"Komputer kantor kena virus, datanya penting semua. QuickFix berhasil bersihin virusnya dan selamatin semua data saya. Terima kasih banyak!"</p><div class="testi-author"><div class="testi-avatar"><div class="testi-avatar-bg"></div><span>🤩</span></div><div><div class="testi-name">Sari W.</div><div class="testi-loc">Jombang Kota</div></div></div></div>
     </div>
   </div>
-  <div class="sosmed-cta"><h2>Jadikan Gadget Anda Berikutnya</h2><p>Konsultasikan kerusakan gadget Anda sekarang — diagnosa gratis!</p><div class="sosmed-btns"><a href="https://wa.me/6281905882031" target="_blank" class="sosmed-btn btn-whatsapp">📱 Konsultasi Gratis</a><a href="https://www.instagram.com/_quickfixsolutions" target="_blank" class="sosmed-btn btn-ig">📸 Instagram Kami</a></div></div>
+  <div class="sosmed-cta"><h2>Jadikan Gadget Anda Berikutnya</h2><p>Konsultasikan kerusakan gadget Anda sekarang — diagnosa gratis!</p><div class="sosmed-btns"><a href="https://wa.me/6281905882031" target="_blank" rel="noopener" class="sosmed-btn btn-whatsapp">📱 Konsultasi Gratis</a><a href="https://www.instagram.com/_quickfixsolutions" target="_blank" rel="noopener" class="sosmed-btn btn-ig">📸 Instagram Kami</a></div></div>
 </div>
 
 <!-- ════════════════════════════════
@@ -1148,7 +1304,7 @@
     <div class="blog-card reveal"><div class="blog-thumb tech" style="position:relative;"><div class="blog-thumb-bg"></div><div class="blog-thumb-overlay"></div><span class="bt-icon">🦠</span><span class="blog-cat tips-cat">Tips Perawatan</span></div><div class="blog-body"><div class="blog-meta"><span>📅 14 Mei 2026</span><span>⏱️ 5 menit</span></div><h3>Tanda-tanda HP atau Laptop Terkena Virus dan Cara Mengatasinya</h3><p>Perangkat tiba-tiba lambat, iklan muncul sendiri, atau baterai cepat habis? Bisa jadi itu tanda virus! Kenali gejalanya dan cara penanganan yang tepat.</p></div><div class="blog-footer"><span class="blog-read" onclick="showPage('hubungi')">Baca Selengkapnya →</span></div></div>
     <div class="blog-card reveal"><div class="blog-thumb info" style="position:relative;"><div class="blog-thumb-bg"></div><div class="blog-thumb-overlay" style="background:linear-gradient(135deg,rgba(139,92,246,0.5),rgba(167,139,250,0.25));"></div><span class="bt-icon">📱</span><span class="blog-cat" style="background:#8b5cf6;">Info</span></div><div class="blog-body"><div class="blog-meta"><span>📅 8 Mei 2026</span><span>⏱️ 3 menit</span></div><h3>Kapan Waktu yang Tepat untuk Ganti HP? Ini Tandanya</h3><p>HP sudah sering bermasalah tapi bingung apakah harus diperbaiki atau beli baru? Artikel ini membantu Anda membuat keputusan yang tepat secara finansial.</p></div><div class="blog-footer"><span class="blog-read" onclick="showPage('hubungi')">Baca Selengkapnya →</span></div></div>
   </div>
-  <div style="text-align:center;padding:0 5% 70px;background:var(--white);"><p style="color:var(--mid);font-size:0.9rem;margin-bottom:20px;font-family:'DM Sans',sans-serif;">Punya pertanyaan seputar gadget? Langsung tanyakan ke kami!</p><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20punya%20pertanyaan%20tentang%20gadget" target="_blank" class="btn-primary"><span>💬 Tanya via WhatsApp</span></a></div>
+  <div style="text-align:center;padding:0 5% 70px;background:var(--white);"><p style="color:var(--mid);font-size:0.9rem;margin-bottom:20px;font-family:'DM Sans',sans-serif;">Punya pertanyaan seputar gadget? Langsung tanyakan ke kami!</p><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20saya%20punya%20pertanyaan%20tentang%20gadget" target="_blank" rel="noopener" class="btn-primary"><span>💬 Tanya via WhatsApp</span></a></div>
 </div>
 
 <!-- ════════════════════════════════
@@ -1167,8 +1323,8 @@
       <div class="contact-info-col reveal">
         <h2>Kontak <span>Langsung</span></h2>
         <p>Pilih cara yang paling nyaman untuk menghubungi kami. Kami aktif setiap hari Senin–Sabtu.</p>
-        <a href="https://wa.me/6281905882031" target="_blank" class="contact-card"><div class="cc-icon wa-i"><div class="cc-icon-bg"></div><span>💬</span></div><div class="cc-text"><strong>WhatsApp</strong><span>081905882031 — Respons Cepat</span></div><span class="cc-arrow">›</span></a>
-        <a href="https://www.instagram.com/_quickfixsolutions" target="_blank" class="contact-card"><div class="cc-icon ig-i"><div class="cc-icon-bg"></div><span>📸</span></div><div class="cc-text"><strong>Instagram</strong><span>@_quickfixsolutions</span></div><span class="cc-arrow">›</span></a>
+        <a href="https://wa.me/6281905882031" target="_blank" rel="noopener" class="contact-card"><div class="cc-icon wa-i"><div class="cc-icon-bg"></div><span>💬</span></div><div class="cc-text"><strong>WhatsApp</strong><span>081905882031 — Respons Cepat</span></div><span class="cc-arrow">›</span></a>
+        <a href="https://www.instagram.com/_quickfixsolutions" target="_blank" rel="noopener" class="contact-card"><div class="cc-icon ig-i"><div class="cc-icon-bg"></div><span>📸</span></div><div class="cc-text"><strong>Instagram</strong><span>@_quickfixsolutions</span></div><span class="cc-arrow">›</span></a>
         <a href="#" onclick="return false;" class="contact-card"><div class="cc-icon loc-i"><div class="cc-icon-bg"></div><span>📍</span></div><div class="cc-text"><strong>Lokasi</strong><span>SMKN Gudo, Jombang, Jawa Timur</span></div><span class="cc-arrow">›</span></a>
         <div class="contact-card" style="cursor:default;"><div class="cc-icon time-i"><div class="cc-icon-bg"></div><span>⏰</span></div><div class="cc-text"><strong>Jam Operasional</strong><span>Senin – Sabtu, 08.00 – 17.00 WIB</span></div></div>
       </div>
@@ -1181,7 +1337,7 @@
         </div>
         <div class="form-group"><label>Jenis Layanan</label><select id="f-layanan"><option value="">-- Pilih Layanan --</option><option>Service HP (Android / iPhone)</option><option>Perbaikan Laptop & Komputer</option><option>Ganti LCD / Baterai / Keyboard</option><option>Install Ulang Windows & Software</option><option>Upgrade RAM & SSD</option><option>Flashing & Unlock HP</option><option>Pembersihan Virus & Optimasi</option><option>Konsultasi / Lainnya</option></select></div>
         <div class="form-group"><label>Deskripsi Masalah</label><textarea placeholder="Ceritakan masalah pada gadget Anda secara singkat. Contoh: HP saya layarnya retak dan touch tidak berfungsi..." id="f-pesan"></textarea></div>
-        <button class="form-submit" onclick="kirimPesan()"><span>📱 Kirim via WhatsApp</span></button>
+        <button class="form-submit" onclick="kirimPesan()" type="button"><span>📱 Kirim via WhatsApp</span></button>
         <p class="form-note">Setelah mengklik tombol di atas, Anda akan diarahkan ke WhatsApp dengan pesan yang sudah terisi otomatis. Kami akan membalas secepatnya!</p>
       </div>
     </div>
@@ -1189,7 +1345,7 @@
   <div class="wa-cta-band">
     <h2>Chat Langsung Sekarang</h2>
     <p>Butuh jawaban cepat? WhatsApp kami selalu aktif untuk konsultasi gratis!</p>
-    <a href="https://wa.me/6281905882031" target="_blank" class="wa-big-btn">💬 Hubungi via WhatsApp<span class="wa-num">0819-0588-2031</span></a>
+    <a href="https://wa.me/6281905882031" target="_blank" rel="noopener" class="wa-big-btn">💬 Hubungi via WhatsApp<span class="wa-num">0819-0588-2031</span></a>
   </div>
   <div style="padding:70px 5% 80px;background:var(--white);">
     <div class="section-header reveal"><div class="section-tag">Lokasi</div><h2 class="section-title">Kunjungi Kami</h2><p class="section-desc">Datang langsung ke bengkel kami di SMKN Gudo, Jombang</p></div>
@@ -1201,18 +1357,21 @@
         <div class="lokasi-item"><div class="lokasi-icon"><div class="lokasi-icon-bg"></div><span>⏰</span></div><div class="lokasi-text"><strong>Jam Buka</strong><span>Senin – Sabtu, 08.00 – 17.00 WIB</span></div></div>
         <div class="lokasi-item"><div class="lokasi-icon"><div class="lokasi-icon-bg"></div><span>💬</span></div><div class="lokasi-text"><strong>Tanya Arah</strong><span>Hubungi WhatsApp kami untuk panduan lokasi</span></div></div>
       </div>
-      <div class="map-container reveal"><div class="map-emoji">🗺️</div><p>SMKN Gudo, Jombang</p><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20bisa%20minta%20petunjuk%20arah%20ke%20lokasi?" target="_blank">Minta Petunjuk Arah via WhatsApp →</a></div>
+      <div class="map-container reveal"><div class="map-emoji">🗺️</div><p>SMKN Gudo, Jombang</p><a href="https://wa.me/6281905882031?text=Halo%20QuickFix,%20bisa%20minta%20petunjuk%20arah%20ke%20lokasi?" target="_blank" rel="noopener">Minta Petunjuk Arah via WhatsApp →</a></div>
     </div>
   </div>
 </div>
 
 <script>
   let currentPage = 'beranda';
+  let pageTransitionLock = false;
+
   function showPage(pageId) {
-    if (pageId === currentPage) return;
+    if (pageId === currentPage || pageTransitionLock) return;
     const oldPage = document.getElementById('page-' + currentPage);
     const newPage = document.getElementById('page-' + pageId);
-    if (!newPage) return;
+    if (!newPage || !oldPage) return;
+    pageTransitionLock = true;
     oldPage.classList.add('exit');
     setTimeout(() => {
       oldPage.classList.remove('active','exit');
@@ -1221,6 +1380,7 @@
       window.scrollTo({top:0,behavior:'smooth'});
       updateNavActive(pageId);
       initReveal();
+      pageTransitionLock = false;
     }, 280);
   }
 
@@ -1233,6 +1393,7 @@
     if (layananLink) layananLink.classList.toggle('active', layananPages.includes(pageId));
   }
 
+  /* ══════════ HERO SLIDER ══════════ */
   let currentSlide = 0;
   const totalSlides = 3;
   const slideDuration = 5000;
@@ -1257,11 +1418,18 @@
     const step=100/(slideDuration/100);
     progressInterval=setInterval(()=>{progressValue+=step;bar.style.width=Math.min(progressValue,100)+'%';},100);
   }
-  function startAutoSlide(){sliderInterval=setInterval(nextSlide,slideDuration);startProgress();}
+  function startAutoSlide(){
+    clearInterval(sliderInterval);
+    sliderInterval=setInterval(nextSlide,slideDuration);
+    startProgress();
+  }
 
+  /* ══════════ PARTICLES ══════════ */
   function createParticles(id){
     const c=document.getElementById(id);if(!c)return;
-    for(let i=0;i<12;i++){
+    c.innerHTML='';
+    const count = window.innerWidth < 760 ? 7 : 12;
+    for(let i=0;i<count;i++){
       const p=document.createElement('div');p.className='particle';
       p.style.left=Math.random()*100+'%';p.style.bottom='-10px';
       p.style.animationDuration=(3+Math.random()*4)+'s';p.style.animationDelay=(Math.random()*4)+'s';
@@ -1270,32 +1438,38 @@
     }
   }
 
+  /* ══════════ MOBILE MENU ══════════ */
   function toggleMenu(){
     const m=document.getElementById('mobileMenu'),h=document.getElementById('hamburger');
+    if(!m||!h) return;
     m.classList.toggle('open');h.classList.toggle('open');
   }
   function closeMenu(){
-    document.getElementById('mobileMenu').classList.remove('open');
-    document.getElementById('hamburger').classList.remove('open');
+    const m=document.getElementById('mobileMenu'),h=document.getElementById('hamburger');
+    if(!m||!h) return;
+    m.classList.remove('open');
+    h.classList.remove('open');
   }
   function toggleMobileDd(el){
     el.classList.toggle('open-dd');
     const sub=document.getElementById('mobileSub');
-    sub.classList.toggle('open');
+    if(sub) sub.classList.toggle('open');
   }
 
+  /* ══════════ BLOG FILTER ══════════ */
   document.addEventListener('click', e => {
-    if(e.target.classList.contains('filter-btn')){
+    if(e.target.classList && e.target.classList.contains('filter-btn')){
       document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
       e.target.classList.add('active');
     }
   });
 
+  /* ══════════ CONTACT FORM -> WHATSAPP ══════════ */
   function kirimPesan(){
-    const nama = document.getElementById('f-nama')?.value.trim() || '';
-    const hp   = document.getElementById('f-hp')?.value.trim() || '';
+    const nama = (document.getElementById('f-nama')?.value || '').trim();
+    const hp   = (document.getElementById('f-hp')?.value || '').trim();
     const lay  = document.getElementById('f-layanan')?.value || '';
-    const pesan= document.getElementById('f-pesan')?.value.trim() || '';
+    const pesan= (document.getElementById('f-pesan')?.value || '').trim();
     if(!nama && !hp && !lay && !pesan){alert('Silakan isi minimal satu field sebelum mengirim.');return;}
     let msg = `Halo QuickFix Solutions! 👋\n\n`;
     if(nama) msg += `*Nama:* ${nama}\n`;
@@ -1306,19 +1480,44 @@
     window.open('https://wa.me/6281905882031?text='+encodeURIComponent(msg),'_blank');
   }
 
+  /* ══════════ SCROLL REVEAL ══════════ */
+  let revealObserver = null;
   function initReveal(){
     setTimeout(()=>{
-      const els=document.querySelectorAll('#page-'+currentPage+' .reveal');
-      const obs=new IntersectionObserver((entries)=>{
+      const activePage = document.getElementById('page-'+currentPage);
+      if(!activePage) return;
+      const els=activePage.querySelectorAll('.reveal');
+      if(revealObserver) revealObserver.disconnect();
+      revealObserver=new IntersectionObserver((entries)=>{
         entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*70);});
       },{threshold:0.08});
-      els.forEach(el=>{el.classList.remove('visible');obs.observe(el);});
+      els.forEach(el=>{el.classList.remove('visible');revealObserver.observe(el);});
     },100);
   }
 
+  /* ══════════ INIT ══════════ */
   window.addEventListener('DOMContentLoaded',()=>{
     createParticles('particles1');createParticles('particles2');createParticles('particles3');
     startAutoSlide();initReveal();
+  });
+
+  /* Re-create particle count on resize (debounced) to avoid mobile overflow */
+  let resizeTimer = null;
+  window.addEventListener('resize', ()=>{
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(()=>{
+      createParticles('particles1');createParticles('particles2');createParticles('particles3');
+    }, 300);
+  });
+
+  /* Pause auto-slide when tab not visible to save resources on mobile */
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.hidden){
+      clearInterval(sliderInterval);
+      clearInterval(progressInterval);
+    } else {
+      startAutoSlide();
+    }
   });
 </script>
 </body>
