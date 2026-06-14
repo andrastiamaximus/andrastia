@@ -240,14 +240,18 @@ nav{
   box-shadow:var(--shadow-xl);
   aspect-ratio:4/3;
   background:var(--yellow);
-  width:100%;overflow:hidden;
+  width:100%;
+  max-width:100%;
+  overflow:hidden;
 }
 .slider-track{display:flex;width:300%;height:100%;transition:transform 0.7s cubic-bezier(0.77,0,0.175,1);}
 .slide{
   width:33.333%;height:100%;
   position:relative;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
-  flex-direction:column;gap:12px;padding:30px;
+  flex-direction:column;gap:12px;
+  padding:24px 16px;
+  min-width:0;
 }
 .slide:nth-child(1){background:var(--yellow);}
 .slide:nth-child(2){background:var(--blue);}
@@ -256,12 +260,14 @@ nav{
 .slide-title{
   font-family:var(--font-mono);font-size:1.7rem;font-weight:700;
   line-height:1.1;text-align:center;
+  max-width:100%;
 }
 .slide:nth-child(1) .slide-title{color:var(--black);}
 .slide:nth-child(2) .slide-title,.slide:nth-child(3) .slide-title{color:var(--white);}
 .slide-sub{
   font-family:var(--font-mono);font-size:0.72rem;font-weight:400;
   text-align:center;letter-spacing:0.5px;
+  max-width:90%;
 }
 .slide:nth-child(1) .slide-sub{color:rgba(13,13,13,0.7);}
 .slide:nth-child(2) .slide-sub,.slide:nth-child(3) .slide-sub{color:rgba(250,250,248,0.75);}
@@ -270,6 +276,8 @@ nav{
   font-family:var(--font-mono);font-size:0.72rem;font-weight:700;
   padding:6px 14px;letter-spacing:0.5px;text-transform:uppercase;
   border:2px solid;margin-top:8px;
+  max-width:90%;
+  text-align:center;
 }
 .slide:nth-child(1) .slide-badge{background:var(--black);color:var(--yellow);border-color:var(--black);}
 .slide:nth-child(2) .slide-badge{background:var(--yellow);color:var(--black);border-color:var(--yellow);}
@@ -1140,9 +1148,23 @@ footer{
   transition:padding-left 0.2s;
 }
 .mobile-menu ul a:hover{padding-left:8px;}
-.mobile-dd-toggle{display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
-.mobile-sub{display:none;padding:6px 0 6px 16px;}
-.mobile-sub.open{display:block;}
+.mobile-dd-toggle{display:flex;justify-content:space-between;align-items:center;cursor:pointer;gap:8px;}
+.mobile-dd-toggle .mdd-arrow{
+  font-family:var(--font-mono);
+  padding:12px 0 12px 12px;
+  flex-shrink:0;
+  transition:transform 0.2s;
+  display:inline-block;
+}
+.mobile-dd-toggle.open-dd .mdd-arrow{transform:rotate(180deg);}
+.mobile-sub{
+  list-style:none;
+  max-height:0;
+  overflow:hidden;
+  padding:0 0 0 16px;
+  transition:max-height 0.25s ease;
+}
+.mobile-sub.open{max-height:400px;}
 .mobile-sub li{border-bottom:1px solid rgba(13,13,13,0.1);}
 .mobile-sub a{font-size:0.8rem;padding:8px 0;}
 
@@ -1150,9 +1172,9 @@ footer{
 .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.55s ease,transform 0.55s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 
-/* ═══════════ SCROLL TOP & WA FLOAT ═══════════ */
+/* ═══════════ SCROLL TOP & WA / CHATBOT FLOAT ═══════════ */
 .scroll-top{
-  position:fixed;bottom:86px;right:18px;
+  position:fixed;bottom:152px;right:18px;
   width:44px;height:44px;
   background:var(--black);color:var(--yellow);
   border:var(--border);box-shadow:var(--shadow);
@@ -1164,7 +1186,7 @@ footer{
 .scroll-top.visible{opacity:1;pointer-events:all;}
 .scroll-top:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow-lg);}
 .wa-float{
-  position:fixed;bottom:24px;right:18px;
+  position:fixed;bottom:88px;right:18px;
   width:52px;height:52px;
   background:var(--green);
   border:var(--border);box-shadow:var(--shadow);
@@ -1173,6 +1195,163 @@ footer{
   transition:transform 0.2s,box-shadow 0.2s;
 }
 .wa-float:hover{transform:translate(-3px,-3px);box-shadow:var(--shadow-lg);}
+
+/* ═══════════ CHATBOT WIDGET ═══════════ */
+.chatbot-toggle{
+  position:fixed;bottom:24px;right:18px;
+  width:52px;height:52px;
+  background:var(--yellow);
+  border:var(--border);box-shadow:var(--shadow);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;z-index:1100;font-size:24px;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.chatbot-toggle:hover{transform:translate(-3px,-3px);box-shadow:var(--shadow-lg);}
+.chatbot-toggle .cb-icon-open{display:block;}
+.chatbot-toggle .cb-icon-close{display:none;}
+.chatbot-toggle.open .cb-icon-open{display:none;}
+.chatbot-toggle.open .cb-icon-close{display:block;}
+.chatbot-badge{
+  position:absolute;top:-6px;right:-6px;
+  background:var(--red);color:var(--white);
+  font-family:var(--font-mono);font-size:0.62rem;font-weight:700;
+  width:20px;height:20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--black);
+}
+.chatbot-badge.hidden{display:none;}
+
+.chatbot-window{
+  position:fixed;
+  bottom:88px;right:18px;
+  width:340px;
+  max-width:calc(100vw - 28px);
+  height:480px;
+  max-height:calc(100vh - 120px);
+  background:var(--white);
+  border:var(--border);
+  box-shadow:var(--shadow-xl);
+  z-index:1099;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  opacity:0;visibility:hidden;
+  transform:translateY(16px) scale(0.97);
+  transform-origin:bottom right;
+  transition:opacity 0.2s,transform 0.2s,visibility 0.2s;
+}
+.chatbot-window.open{
+  opacity:1;visibility:visible;
+  transform:translateY(0) scale(1);
+}
+.cb-header{
+  background:var(--black);color:var(--yellow);
+  padding:14px 16px;
+  display:flex;align-items:center;gap:10px;
+  border-bottom:var(--border);
+  flex-shrink:0;
+}
+.cb-header .cb-avatar{
+  width:34px;height:34px;flex-shrink:0;
+  background:var(--yellow);color:var(--black);
+  border:2px solid var(--yellow);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;
+}
+.cb-header .cb-title{
+  font-family:var(--font-mono);font-size:0.85rem;font-weight:700;
+  line-height:1.3;flex:1;
+}
+.cb-header .cb-status{
+  font-size:0.65rem;font-weight:400;color:var(--green);
+  display:flex;align-items:center;gap:5px;letter-spacing:0.5px;
+}
+.cb-header .cb-status::before{
+  content:'';width:7px;height:7px;border-radius:50%;
+  background:var(--green);display:inline-block;
+}
+.cb-body{
+  flex:1;overflow-y:auto;
+  padding:16px;
+  display:flex;flex-direction:column;gap:10px;
+  background:var(--cream);
+}
+.cb-msg{
+  max-width:84%;
+  padding:9px 12px;
+  font-size:0.82rem;line-height:1.55;
+  border:2px solid var(--black);
+  font-weight:500;
+}
+.cb-msg.bot{
+  background:var(--white);color:var(--black);
+  align-self:flex-start;
+  box-shadow:2px 2px 0 var(--black);
+  border-bottom-left-radius:0;
+}
+.cb-msg.user{
+  background:var(--yellow);color:var(--black);
+  align-self:flex-end;
+  box-shadow:2px 2px 0 var(--black);
+  border-bottom-right-radius:0;
+}
+.cb-msg ul{margin:6px 0 0 0;padding-left:0;list-style:none;}
+.cb-msg ul li{margin-bottom:4px;}
+.cb-quick{
+  display:flex;flex-wrap:wrap;gap:6px;
+  padding:0 16px 12px;
+  background:var(--cream);
+  flex-shrink:0;
+}
+.cb-quick-btn{
+  background:var(--white);
+  border:2px solid var(--black);
+  font-family:var(--font-mono);font-size:0.7rem;font-weight:700;
+  padding:6px 10px;cursor:pointer;
+  transition:transform 0.15s,box-shadow 0.15s,background 0.15s;
+  white-space:nowrap;
+}
+.cb-quick-btn:hover{background:var(--yellow);transform:translate(-1px,-1px);box-shadow:2px 2px 0 var(--black);}
+.cb-footer{
+  border-top:var(--border);
+  padding:10px;
+  display:flex;gap:8px;align-items:center;
+  flex-shrink:0;background:var(--white);
+}
+.cb-footer input{
+  flex:1;border:var(--border);
+  padding:9px 12px;font-family:var(--font-mono);font-size:0.8rem;
+  outline:none;background:var(--cream);
+  min-width:0;
+}
+.cb-footer input:focus{box-shadow:3px 3px 0 var(--black);background:var(--white);}
+.cb-send{
+  background:var(--black);color:var(--yellow);
+  border:var(--border);width:40px;height:40px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;cursor:pointer;
+  transition:transform 0.15s,box-shadow 0.15s;
+}
+.cb-send:hover{transform:translate(-2px,-2px);box-shadow:2px 2px 0 var(--black);}
+.cb-wa-banner{
+  font-family:var(--font-mono);font-size:0.66rem;
+  text-align:center;padding:6px 10px;
+  background:var(--black);color:rgba(250,250,248,0.55);
+  flex-shrink:0;line-height:1.5;
+}
+.cb-wa-banner a{color:var(--green);font-weight:700;text-decoration:underline;}
+.cb-typing{
+  display:flex;gap:4px;align-self:flex-start;
+  background:var(--white);border:2px solid var(--black);
+  padding:10px 14px;box-shadow:2px 2px 0 var(--black);
+  border-bottom-left-radius:0;
+}
+.cb-typing span{
+  width:6px;height:6px;border-radius:50%;background:var(--black);
+  opacity:0.3;animation:cbTyping 1.2s infinite ease-in-out;
+}
+.cb-typing span:nth-child(2){animation-delay:0.15s;}
+.cb-typing span:nth-child(3){animation-delay:0.3s;}
+@keyframes cbTyping{0%,60%,100%{opacity:0.3;transform:translateY(0);}30%{opacity:1;transform:translateY(-3px);}}
 
 /* ═══════════ RESPONSIVE ═══════════ */
 @media(max-width:1060px){
@@ -1199,6 +1378,39 @@ footer{
   .layanan-grid{grid-template-columns:1fr;}
   .lokasi-wrap{grid-template-columns:1fr;}
   .promo-banner{padding:40px 24px;flex-direction:column;text-align:center;}
+
+  /* Hero slider mobile fix */
+  .hero-section{min-height:auto;padding-top:90px;padding-bottom:20px;}
+  .hero-inner{padding:24px 5% 30px;gap:32px;}
+  .hero-slider{
+    aspect-ratio:1/1;
+    max-width:100%;
+    margin:0;
+  }
+  .slide{padding:18px 14px;gap:8px;}
+  .slide-icon{font-size:46px;}
+  .slide-title{font-size:1.25rem;line-height:1.15;}
+  .slide-sub{font-size:0.64rem;line-height:1.4;}
+  .slide-badge{font-size:0.62rem;padding:5px 10px;}
+  .slider-prev,.slider-next{width:32px;height:32px;font-size:15px;}
+  .slider-prev{left:8px;}
+  .slider-next{right:8px;}
+  .slider-dots{bottom:8px;}
+  .slider-dot{width:8px;height:8px;}
+
+  .hero-title{font-size:clamp(2.2rem,9vw,3rem);}
+
+  /* Chatbot mobile sizing */
+  .chatbot-window{
+    width:calc(100vw - 24px);
+    height:70vh;
+    max-height:70vh;
+    bottom:80px;
+    right:12px;
+  }
+  .chatbot-toggle{bottom:20px;right:14px;}
+  .wa-float{bottom:84px;right:14px;width:48px;height:48px;font-size:20px;}
+  .scroll-top{bottom:144px;right:14px;width:40px;height:40px;font-size:16px;}
 }
 @media(max-width:480px){
   .tim-grid{grid-template-columns:1fr;}
@@ -1206,6 +1418,21 @@ footer{
   .hero-stats{flex-direction:column;gap:0;}
   .stat-box{margin-right:0;margin-bottom:-3px;}
   .sosmed-btns{flex-direction:column;align-items:center;}
+
+  .hero-slider{aspect-ratio:5/6;}
+  .slide-icon{font-size:40px;}
+  .slide-title{font-size:1.05rem;}
+  .slide-sub{font-size:0.6rem;}
+
+  .chatbot-window{
+    width:calc(100vw - 16px);
+    right:8px;
+    bottom:76px;
+    height:72vh;
+  }
+  .chatbot-toggle{right:10px;bottom:16px;}
+  .wa-float{right:10px;}
+  .scroll-top{right:10px;}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:0.01ms!important;transition-duration:0.01ms!important;}
@@ -1253,9 +1480,9 @@ footer{
     <li><a href="#" onclick="showPage('beranda');closeMenu();return false;">🏠 Beranda</a></li>
     <li><a href="#" onclick="showPage('tentang');closeMenu();return false;">ℹ️ Tentang Kami</a></li>
     <li>
-      <div class="mobile-dd-toggle" onclick="toggleMobileDd(this)">
-        <a href="#" onclick="showPage('layanan');closeMenu();return false;" style="flex:1;">🔧 Layanan</a>
-        <span style="font-family:var(--font-mono);padding:12px 0 12px 12px;">▾</span>
+      <div class="mobile-dd-toggle" id="mobileDdToggle" onclick="toggleMobileDd(this)">
+        <a href="#" onclick="event.stopPropagation();showPage('layanan');closeMenu();return false;" style="flex:1;">🔧 Layanan</a>
+        <span class="mdd-arrow">▾</span>
       </div>
       <ul class="mobile-sub" id="mobileSub">
         <li><a href="#" onclick="showPage('layanan');closeMenu();return false;">📱 Service HP</a></li>
@@ -1954,6 +2181,43 @@ footer{
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <a href="https://wa.me/6281905882031" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
 
+<!-- ═══════════════════════ CHATBOT WIDGET ═══════════════════════ -->
+<div class="chatbot-toggle" id="chatbotToggle" onclick="toggleChatbot()" aria-label="Buka Chatbot">
+  <span class="cb-icon-open">🤖</span>
+  <span class="cb-icon-close">✕</span>
+  <span class="chatbot-badge" id="chatbotBadge">1</span>
+</div>
+
+<div class="chatbot-window" id="chatbotWindow">
+  <div class="cb-header">
+    <div class="cb-avatar">🤖</div>
+    <div class="cb-title">
+      QuickFix Assistant
+      <div class="cb-status">Online</div>
+    </div>
+  </div>
+  <div class="cb-body" id="cbBody">
+    <div class="cb-msg bot">
+      Halo! 👋 Selamat datang di <strong>QuickFix Solutions</strong>. Ada gadget yang bermasalah? Pilih topik di bawah atau ketik pertanyaanmu ya!
+    </div>
+  </div>
+  <div class="cb-quick" id="cbQuick">
+    <button class="cb-quick-btn" onclick="cbQuickAsk('layanan')">🔧 Layanan</button>
+    <button class="cb-quick-btn" onclick="cbQuickAsk('harga')">💰 Harga</button>
+    <button class="cb-quick-btn" onclick="cbQuickAsk('jam')">⏰ Jam Buka</button>
+    <button class="cb-quick-btn" onclick="cbQuickAsk('lokasi')">📍 Lokasi</button>
+    <button class="cb-quick-btn" onclick="cbQuickAsk('garansi')">🛡️ Garansi</button>
+    <button class="cb-quick-btn" onclick="cbQuickAsk('wa')">💬 Chat Admin</button>
+  </div>
+  <div class="cb-footer">
+    <input type="text" id="cbInput" placeholder="Tulis pesan..." onkeydown="if(event.key==='Enter')cbSend()"/>
+    <div class="cb-send" onclick="cbSend()">➤</div>
+  </div>
+  <div class="cb-wa-banner">
+    Respons instan? <a href="https://wa.me/6281905882031" target="_blank" rel="noopener">Chat WhatsApp Admin →</a>
+  </div>
+</div>
+
 <script>
 // ══ PAGE SYSTEM ══
 let currentPage='beranda',locked=false;
@@ -2006,10 +2270,16 @@ function startAuto(){clearInterval(si);si=setInterval(nextSlide,dur);startProg()
 function toggleMenu(){
   const m=document.getElementById('mobileMenu'),h=document.getElementById('hamburger');
   m.classList.toggle('open');h.classList.toggle('open');
+  if(!m.classList.contains('open')){
+    document.getElementById('mobileDdToggle')?.classList.remove('open-dd');
+    document.getElementById('mobileSub')?.classList.remove('open');
+  }
 }
 function closeMenu(){
   const m=document.getElementById('mobileMenu'),h=document.getElementById('hamburger');
   m.classList.remove('open');h.classList.remove('open');
+  document.getElementById('mobileDdToggle')?.classList.remove('open-dd');
+  document.getElementById('mobileSub')?.classList.remove('open');
 }
 function toggleMobileDd(el){
   el.classList.toggle('open-dd');
@@ -2063,6 +2333,173 @@ function initReveal(){
 window.addEventListener('scroll',()=>{
   document.getElementById('scrollTop')?.classList.toggle('visible',window.scrollY>300);
 });
+
+// ══════════════════════════════════════════════════
+// ══ CHATBOT (terintegrasi WhatsApp) ══
+// ══════════════════════════════════════════════════
+const WA_NUMBER='6281905882031';
+let chatbotOpen=false;
+
+const cbResponses={
+  layanan:{
+    text:`Kami melayani:<br><ul>
+      <li>📱 Service HP (Android & iPhone)</li>
+      <li>💻 Perbaikan Laptop & Komputer</li>
+      <li>🔲 Ganti LCD, Baterai & Keyboard</li>
+      <li>🪟 Install Ulang Windows & Software</li>
+      <li>⚡ Upgrade RAM & SSD</li>
+      <li>🔓 Flashing & Unlock HP</li>
+    </ul>Mau tanya layanan yang mana secara spesifik?`,
+    page:'layanan'
+  },
+  harga:{
+    text:`Harga tergantung jenis kerusakan dan tipe perangkat, jadi kami nggak pasang harga fix di sini. Tapi tenang — <strong>konsultasi & estimasi biaya GRATIS</strong> kok! 😊<br><br>Ceritakan masalah gadgetmu, biar admin kami kasih estimasi harga via WhatsApp.`,
+    waText:'Halo QuickFix, saya ingin tanya estimasi harga service untuk gadget saya'
+  },
+  jam:{
+    text:`⏰ Jam operasional kami:<br><strong>Senin – Sabtu, 08.00 – 17.00 WIB</strong><br><br>Di luar jam itu, silakan kirim pesan dan kami balas secepatnya keesokan harinya ya!`
+  },
+  lokasi:{
+    text:`📍 Lokasi kami di <strong>SMKN Gudo, Jombang, Jawa Timur</strong>.<br><br>Mudah diakses dengan motor maupun mobil. Mau lihat detail & minta petunjuk arah?`,
+    page:'hubungi'
+  },
+  garansi:{
+    text:`🛡️ Tenang, <strong>semua layanan kami bergaransi resmi 100%</strong>! Jadi kalau ada kendala setelah perbaikan, kamu bisa balik lagi ke kami tanpa biaya tambahan (sesuai ketentuan garansi).`
+  },
+  wa:{
+    text:`Oke, menghubungkan kamu ke admin via WhatsApp... 💬`,
+    waText:'Halo QuickFix Solutions! Saya ingin konsultasi lebih lanjut.',
+    autoWA:true
+  },
+  greeting:{
+    text:`Halo juga! 😊 Ada yang bisa dibantu seputar service HP, laptop, atau gadget lainnya?`
+  },
+  thanks:{
+    text:`Sama-sama! 🙏 Kalau ada pertanyaan lain, jangan ragu untuk tanya ya. Atau kalau mau langsung konsultasi detail, klik tombol "Chat Admin" di bawah.`
+  },
+  fallback:{
+    text:`Hmm, untuk pertanyaan yang lebih spesifik seperti itu, akan lebih cepat kalau langsung chat dengan <strong>Admin QuickFix</strong> via WhatsApp ya. Mereka bisa bantu lebih detail! 👇`,
+    waText:'Halo QuickFix Solutions, saya punya pertanyaan:'
+  }
+};
+
+function toggleChatbot(){
+  chatbotOpen=!chatbotOpen;
+  const win=document.getElementById('chatbotWindow');
+  const tog=document.getElementById('chatbotToggle');
+  const badge=document.getElementById('chatbotBadge');
+  win.classList.toggle('open',chatbotOpen);
+  tog.classList.toggle('open',chatbotOpen);
+  if(chatbotOpen){
+    badge.classList.add('hidden');
+    setTimeout(()=>{document.getElementById('cbInput')?.focus();},250);
+    cbScrollBottom();
+  }
+}
+
+function cbScrollBottom(){
+  const body=document.getElementById('cbBody');
+  if(body)setTimeout(()=>{body.scrollTop=body.scrollHeight;},50);
+}
+
+function cbAddMsg(text,who){
+  const body=document.getElementById('cbBody');
+  const div=document.createElement('div');
+  div.className='cb-msg '+who;
+  div.innerHTML=text;
+  body.appendChild(div);
+  cbScrollBottom();
+}
+
+function cbShowTyping(callback){
+  const body=document.getElementById('cbBody');
+  const typing=document.createElement('div');
+  typing.className='cb-typing';
+  typing.id='cbTyping';
+  typing.innerHTML='<span></span><span></span><span></span>';
+  body.appendChild(typing);
+  cbScrollBottom();
+  setTimeout(()=>{
+    document.getElementById('cbTyping')?.remove();
+    callback();
+  },650);
+}
+
+function cbOpenWA(text){
+  window.open('https://wa.me/'+WA_NUMBER+(text?('?text='+encodeURIComponent(text)):''),'_blank');
+}
+
+function cbHandleResponse(key){
+  const r=cbResponses[key];
+  if(!r)return;
+  cbShowTyping(()=>{
+    cbAddMsg(r.text,'bot');
+    if(r.page){
+      setTimeout(()=>{
+        cbAddMsg(`<button class="cb-quick-btn" style="margin-top:2px;" onclick="cbGoPage('${r.page}')">📄 Buka Halaman ${r.page==='layanan'?'Layanan':r.page==='hubungi'?'Kontak':r.page}</button>`,'bot');
+      },300);
+    }
+    if(r.autoWA){
+      setTimeout(()=>{cbOpenWA(r.waText);},700);
+    }
+    if(r===cbResponses.fallback||key==='harga'){
+      setTimeout(()=>{
+        cbAddMsg(`<button class="cb-quick-btn" onclick="cbOpenWA('${(r.waText||'').replace(/'/g,"\\'")}')">💬 Chat Admin Sekarang</button>`,'bot');
+      },300);
+    }
+  });
+}
+
+function cbGoPage(page){
+  toggleChatbot();
+  showPage(page);
+}
+
+function cbQuickAsk(key){
+  const labels={
+    layanan:'🔧 Layanan apa saja yang tersedia?',
+    harga:'💰 Berapa kisaran harganya?',
+    jam:'⏰ Jam buka berapa?',
+    lokasi:'📍 Di mana lokasinya?',
+    garansi:'🛡️ Apakah ada garansi?',
+    wa:'💬 Saya mau chat dengan admin'
+  };
+  cbAddMsg(labels[key]||key,'user');
+  cbHandleResponse(key);
+}
+
+function cbSend(){
+  const input=document.getElementById('cbInput');
+  const val=input.value.trim();
+  if(!val)return;
+  cbAddMsg(val.replace(/</g,'&lt;'),'user');
+  input.value='';
+
+  const lower=val.toLowerCase();
+  let matched=null;
+
+  if(/halo|hai|hello|hi|pagi|siang|sore|malam/.test(lower)){
+    matched='greeting';
+  }else if(/terima kasih|makasih|thanks|thank you/.test(lower)){
+    matched='thanks';
+  }else if(/layanan|service|servis|perbaikan|jasa|apa saja|apa aja/.test(lower)){
+    matched='layanan';
+  }else if(/harga|biaya|tarif|berapa|ongkos/.test(lower)){
+    matched='harga';
+  }else if(/jam|buka|tutup|operasional|kapan/.test(lower)){
+    matched='jam';
+  }else if(/lokasi|alamat|dimana|di mana|tempat|gudo/.test(lower)){
+    matched='lokasi';
+  }else if(/garansi|warranty|jaminan/.test(lower)){
+    matched='garansi';
+  }else if(/admin|cs|whatsapp|wa\b|hubungi|kontak|chat langsung/.test(lower)){
+    matched='wa';
+  }else{
+    matched='fallback';
+    cbResponses.fallback.waText='Halo QuickFix Solutions, saya punya pertanyaan: "'+val+'"';
+  }
+  cbHandleResponse(matched);
+}
 
 // ══ INIT ══
 window.addEventListener('DOMContentLoaded',()=>{
